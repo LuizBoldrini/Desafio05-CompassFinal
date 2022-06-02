@@ -23,7 +23,6 @@ const CarSchema = new mongoose.Schema({
 	},
 	accessories: [{
 		type: String,
-		required: true
 	}],
 	passengersQtd: {
 		type: Number,
