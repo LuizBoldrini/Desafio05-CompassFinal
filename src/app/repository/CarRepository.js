@@ -1,12 +1,24 @@
 const CarSchema = require("../models/Car");
 
 class CarRepository {
-	static async create(payload) {
+	static async cria(payload) {
 		return CarSchema.create(payload);
 	}
 
-	static async list(payload) {
+	static async lista(payload) {
 		return CarSchema.find(payload);
+	}
+
+	static async listaPorId(payload) {
+		return CarSchema.findById(payload);
+	}
+
+	static async atualiza(payload, reqBody) {
+		return CarSchema.findByIdAndUpdate(payload, reqBody);
+	}
+
+	static async deleta(payload) {
+		return CarSchema.findByIdAndDelete(payload);
 	}
 }
 
