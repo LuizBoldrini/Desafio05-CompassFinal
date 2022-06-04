@@ -13,6 +13,15 @@ const personPost = joi.object({
 	canDrive: joi.string().valid("yes", "no").error(new EnumErro("yes or no"))
 });
 
+const personPut = joi.object({
+	name: joi.string().min(4).error(new NameErro),
+	cpf: joi.string(),
+	birthDay: joi.string().error(new InvalidField("birthDay")),
+	email: joi.string().email().error(new InvalidField("email")),
+	password: joi.string().min(6).error(new InvalidField("passowrd")),
+	canDrive: joi.string().valid("yes", "no").error(new EnumErro("yes or no"))
+});
+
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
 	const birthDay = moment(reqBody.birthDay, "DD/MM/YYYY").format("YYYY/MM/DD");
@@ -27,6 +36,12 @@ module.exports =async (req, res, next) => {
 
 		if(req.method == "POST") {
 			await personPost.validateAsync({...reqBody, birthDay});
+			next();
+		}
+
+		
+		if(req.method == "PUT") {
+			await personPut.validateAsync({...reqBody, birthDay});
 			next();
 		}
 	} catch(error) {
