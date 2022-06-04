@@ -1,4 +1,5 @@
 const PersonRepository = require("../repository/PersonRepository");
+const formataCpf = require("../utils/FormataCpf");
 
 class PersonService {
 	static async cria(payload) {
@@ -8,11 +9,13 @@ class PersonService {
 
 	static async lista(payload) {
 		const resultado = await PersonRepository.lista(payload);
+		formataCpf(resultado);
 		return resultado;
 	}
 
 	static async listaPorId(payload) {
 		const resultado = await PersonRepository.listaPorId(payload);
+		formataCpf(resultado);
 		return resultado;
 	}
 

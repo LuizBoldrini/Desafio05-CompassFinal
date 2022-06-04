@@ -1,8 +1,8 @@
 const joi = require("joi");
 const moment = require("moment");
-const NameErro = require("../erros/NameErro");
-const EnumErro = require("../erros/EnumErro");
-const InvalidField = require("../erros/InvalidField");
+const NameErro = require("../utils/NameErro");
+const EnumErro = require("../utils/EnumErro");
+const InvalidField = require("../utils/InvalidField");
 
 const personPost = joi.object({
 	name: joi.string().min(4).required().error(new NameErro),
