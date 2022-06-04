@@ -8,11 +8,11 @@ const carPost = joi.object({
 	brand: joi.string().required(),
 	color: joi.string().required(),
 	year:joi.date().required(),
-	accessories: joi.array().items(joi.object(
+	accessories: joi.array().unique().min(1).items(joi.object(
 		{
-			description: joi.string().required(1)
-		})),
-	passengersQtd: joi.number().min(1).required(),
+			description: joi.string().required()
+		})).error(new InvalidField("accessories")),
+	passengersQtd: joi.number().min(1).required().error(new InvalidField("passengersQtd")),
 
 });
 
