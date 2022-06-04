@@ -1,9 +1,9 @@
 const CarRouter = require("./CarRoutes");
-const PeopleRoutes = require("./PeopleRoutes");
+const PersonRoutes = require("./PersonRoutes");
 
 const routes = (app) => {
 	app.use(CarRouter);
-	app.use(PeopleRoutes);
+	app.use(PersonRoutes);
 };
 
 module.exports = routes;
