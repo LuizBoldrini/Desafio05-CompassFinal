@@ -4,6 +4,7 @@ const formataCpf = require("../utils/FormataCpf");
 class PersonService {
 	static async cria(payload) {
 		const resultado = await PersonRepository.cria(payload);
+		formataCpf(resultado);
 		return resultado;
 	}
 
@@ -21,6 +22,7 @@ class PersonService {
 
 	static async atualiza(payload, reqBody) {
 		const resultado = await PersonRepository.atualiza(payload, reqBody);
+		formataCpf(resultado);
 		return resultado;
 	}
 
