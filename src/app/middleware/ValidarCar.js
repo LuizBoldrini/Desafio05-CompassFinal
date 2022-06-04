@@ -41,7 +41,7 @@ module.exports =async (req, res, next) => {
 			throw new InvalidField("accerrories");
 		}
 
-		if(!validaData(reqBody.accessories)) {
+		if(!validaData(reqBody.year)) {
 			throw new InvalidField("year");
 		}
 
