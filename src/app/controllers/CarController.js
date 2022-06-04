@@ -1,12 +1,10 @@
 const CarService = require("../services/CarService");
-const moment = require("moment");
 
 class CarController {
 	static async criaCarro(req, res) {
 		try{
 			const reqBody = req.body;
-			const year = moment(reqBody.year, "DD/MM/YYYY").format("YYYY/MM/DD");
-			const carroCriado = await CarService.cria({...reqBody, year});
+			const carroCriado = await CarService.cria({...reqBody});
 			res.status(200).json(carroCriado);
 
 		} catch(error) {
