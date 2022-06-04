@@ -1,13 +1,11 @@
 const PersonService = require("../services/PersonService");
-const moment = require("moment");
 
 class PersonController {
 	static async criaPerson(req, res) {
 		try{
 			const reqBody = req.body;
-			const birthDay = moment(reqBody.birthDay, "DD/MM/YYYY").format("YYYY/MM/DD");
-			const PersonCriado = await PersonService.cria({...reqBody, birthDay});
-			res.status(200).json(PersonCriado);
+			const PersonCriado = await PersonService.cria({...reqBody});
+			res.status(201).json(PersonCriado);
 
 		} catch(error) {
 			res.status(400).json(error);
