@@ -6,7 +6,7 @@ class InvalidField extends Error {
 		this.message = [
 			{
 				message: this.name, 
-				details: [{	message: `O campo: ${campo} precisa ser valido para fazer alteração de cadrasto`}]}];
+				details: [{	message: `The field: ${campo} must comply with the defined validations`}]}];
 	}
 }
 
