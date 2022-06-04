@@ -26,10 +26,23 @@ module.exports =async (req, res, next) => {
 			return false;
 		} else return true; 
 	}
+
+	function validaData() {
+		const year = moment(req.body.year, "YYYY").format("YYYY") ;
+		const dataMaiorQue = moment(year).isBefore("1950");
+		const dataMenorQue = moment(year).isAfter("2022");
+		if(dataMaiorQue || dataMenorQue) {
+			return false;
+		} else return true; 	
+	}
     
 	try {
 		if(!validaAccessories(reqBody.accessories)) {
 			throw new InvalidField("accerrories");
+		}
+
+		if(!validaData(reqBody.accessories)) {
+			throw new InvalidField("year");
 		}
 
 		if(req.method == "POST") {
@@ -41,10 +54,3 @@ module.exports =async (req, res, next) => {
 		res.status(400).json(error.message);
 	}
 };
-
-// function validaAccessories() {
-// 	const accessories = req.body.accessories;
-// 	if(accessories = []) {
-// 		return false;
-// 	} else return true; 
-// }
