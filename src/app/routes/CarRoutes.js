@@ -8,7 +8,7 @@ router
 	.post("/api/v1/car",ValidarCar ,CarController.criaCarro)
 	.get("/api/v1/car", CarController.listaCarros)
 	.get("/api/v1/car/:id", CarController.listaCarroPorId)
-	.put("/api/v1/car/:id", CarController.atualizaCarro)
+	.put("/api/v1/car/:id",ValidarCar ,CarController.atualizaCarro)
 	.delete("/api/v1/car/:id", CarController.deletaCarro);
 
 

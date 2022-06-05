@@ -7,7 +7,7 @@ const carPost = joi.object({
 	type: joi.string().required(),
 	brand: joi.string().required(),
 	color: joi.string().required(),
-	year:joi.date().required(),
+	year: joi.date().required(),
 	accessories: joi.array().unique().min(1).items(joi.object(
 		{
 			description: joi.string().required()
@@ -16,13 +16,27 @@ const carPost = joi.object({
 
 });
 
+const carPut = joi.object({
+	model: joi.string(),
+	type: joi.string(),
+	brand: joi.string(),
+	color: joi.string(),
+	year: joi.string(),
+	accessories: joi.array().unique().min(1).items(joi.object(
+		{
+			description: joi.string()
+		})).error(new InvalidField("accessories")),
+	passengersQtd: joi.number().min(1).error(new InvalidField("passengersQtd")),
+
+});
+
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
-	const year = moment(reqBody.year, "YYYY").format("YYYY");
+	const year = moment(reqBody.year, "DD/MM/YYYY").format("YYYY/MM/DD");
 
 	function validaAccessories() {
 		const accessoriesNow = req.body.accessories;
-		if(accessoriesNow.length == [0]) {
+		if(accessoriesNow?.length == [0]) {
 			return false;
 		} else return true; 
 	}
@@ -47,6 +61,11 @@ module.exports =async (req, res, next) => {
 
 		if(req.method == "POST") {
 			await carPost.validateAsync({...reqBody, year});
+			next();
+		}
+
+		if(req.method == "PUT") {
+			await carPut.validateAsync({...reqBody, year});
 			next();
 		}
 
