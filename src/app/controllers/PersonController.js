@@ -8,7 +8,7 @@ class PersonController {
 			res.status(201).json(PersonCriado);
 
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status || 400).json(error);
 		}
 	}
 
@@ -28,7 +28,7 @@ class PersonController {
 			const PersonlistadoPorId = await PersonService.listaPorId(id);
 			res.status(200).json(PersonlistadoPorId);
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status || 400).json(error);
 		}	
 	}
 
@@ -37,9 +37,9 @@ class PersonController {
 			const id = req.params.id;
 			const reqBody = req.body;
 			const novaPerson = await PersonService.atualiza(id, {$set: reqBody});
-			res.status(200).json(novaPerson);
+			res.status(204).json(novaPerson);
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status || 400).json(error);
 		}
 	}
 
@@ -48,7 +48,7 @@ class PersonController {
 			const PersonParaDeletar = await PersonService.deleta(req.params.id);
 			return res.status(204).json(PersonParaDeletar);
 		} catch (error) {
-			return res.status(400).json(error);
+			return res.status(error.status || 400).json(error);
 		}
 	}
 }
