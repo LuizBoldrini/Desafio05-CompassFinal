@@ -5,10 +5,10 @@ class CarController {
 		try{
 			const reqBody = req.body;
 			const carroCriado = await CarService.cria({...reqBody});
-			res.status(200).json(carroCriado);
+			res.status(201).json(carroCriado);
 
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status || 400).json(error);
 		}
 	}
 
@@ -28,7 +28,7 @@ class CarController {
 			const carrolistadoPorId = await CarService.listaPorId(id);
 			res.status(200).json(carrolistadoPorId);
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status|| 400).json(error);
 		}	
 	}
 
@@ -37,9 +37,9 @@ class CarController {
 			const id = req.params.id;
 			const reqBody = req.body;
 			const novoCarro = await CarService.atualiza(id, {$set: reqBody});
-			res.status(200).json(novoCarro);
+			res.status(204).json(novoCarro);
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(error.status || 400).json(error);
 		}
 	}
 
@@ -48,7 +48,7 @@ class CarController {
 			const carroParaDeletar = await CarService.deleta(req.params.id);
 			return res.status(204).json(carroParaDeletar);
 		} catch (error) {
-			return res.status(400).json(error);
+			return res.status(error.status || 400).json(error);
 		}
 	}
 }

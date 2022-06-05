@@ -1,4 +1,5 @@
 const CarRepository = require("../repository/CarRepository");
+const NotFound = require("../utils/NotFound");
 
 class CarService {
 	static async cria(payload) {
@@ -13,16 +14,26 @@ class CarService {
 
 	static async listaPorId(payload) {
 		const resultado = await CarRepository.listaPorId(payload);
-		return resultado;
+		if(resultado == null) {
+			return new NotFound("id");
+		}
+		return resultado;		
 	}
 
 	static async atualiza(payload, reqBody) {
-		const resultado = CarRepository.atualiza(payload, reqBody);
+		const resultado = await CarRepository.atualiza(payload, reqBody);
+		if(!resultado) {
+			throw new NotFound("id");
+		}
 		return resultado;
+		
 	}
 
 	static async deleta(payload) {
 		const resultado = await CarRepository.deleta(payload);
+		if(!resultado) {
+			throw new NotFound("id");
+		}
 		return resultado;
 	}
 }
