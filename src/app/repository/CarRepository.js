@@ -6,7 +6,7 @@ class CarRepository {
 	}
 
 	static async lista(payload) {
-		return CarSchema.find(payload);
+		return CarSchema.paginate({}, { payload, limit: 5});
 	}
 
 	static async listaPorId(payload) {
