@@ -1,4 +1,6 @@
 const CarService = require("../services/CarService");
+const IdNonStandard = require("../utils/IdNonStandard");
+const NotFound = require("../utils/NotFound");
 
 class CarController {
 	static async criaCarro(req, res) {
@@ -27,8 +29,14 @@ class CarController {
 		const id = req.params.id;
 		try {
 			const carrolistadoPorId = await CarService.listaPorId(id);
+			if(carrolistadoPorId == null) {
+				return res.status(404).json(new NotFound("id"));
+			}
 			res.status(200).json(carrolistadoPorId);
 		} catch(error) {
+			if(error.name === "CastError") {
+				return res.status(400).json(new IdNonStandard());
+			}
 			res.status(error.status|| 400).json(error);
 		}	
 	}
@@ -38,8 +46,14 @@ class CarController {
 			const id = req.params.id;
 			const reqBody = req.body;
 			const novoCarro = await CarService.atualiza(id, {$set: reqBody});
+			if(novoCarro == null) {
+				return res.status(404).json(new NotFound("id"));
+			}
 			res.status(204).json(novoCarro);
 		} catch(error) {
+			if(error.name === "CastError") {
+				return res.status(400).json(new IdNonStandard());
+			}
 			res.status(error.status || 400).json(error);
 		}
 	}
@@ -47,8 +61,14 @@ class CarController {
 	static async deletaCarro(req, res) {
 		try {
 			const carroParaDeletar = await CarService.deleta(req.params.id);
+			if(carroParaDeletar == null) {
+				return res.status(404).json(new NotFound("id"));
+			}
 			return res.status(204).json(carroParaDeletar);
 		} catch (error) {
+			if(error.name === "CastError") {
+				return res.status(400).json(new IdNonStandard());
+			}
 			return res.status(error.status || 400).json(error);
 		}
 	}
