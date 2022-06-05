@@ -33,7 +33,7 @@ const PersonSchema = new mongoose.Schema({
 		}
 	}
 },
-{ timestamps: false}
+{ timestamps: false, versionKey: false}
 );
 
 PersonSchema.pre("save", async function (next) {

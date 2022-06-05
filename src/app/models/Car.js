@@ -32,7 +32,9 @@ const CarSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	}
-});
+},
+{ timestamps: false, versionKey: false}
+);
 
 CarSchema.plugin(mongoosePaginate);
 
