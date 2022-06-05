@@ -1,6 +1,9 @@
 const AuthenticateRepository = require("../repository/AuthenticateRepository");
 const NotFound = require("../utils/NotFound");
+const formataCpf = require("../utils/FormataCpf");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authConfig = require("../config/authConfig.json");
 
 class AuthenticateService {
 	static async acessa(email, password, res) {
@@ -14,12 +17,18 @@ class AuthenticateService {
 				new NotFound(campos[1]);
 			}
 			user.password = undefined;
-			return {user};
+
+			const token = jwt.sign({ id: user.id}, authConfig.secret, {
+				expiresIn: 86400
+			});
+			formataCpf(user);
+			return {user, token};
 		} catch(error) {
 			res.status(error.status || 400).json(error.message);
 		}
 		
 	}
 }
+
 
 module.exports = AuthenticateService;
