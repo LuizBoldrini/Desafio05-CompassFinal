@@ -13,8 +13,9 @@ class CarController {
 	}
 
 	static async listaCarros(req, res) {
+		const reqQuery = req.query;
 		try{
-			const carrolistado = await CarService.lista();
+			const carrolistado = await CarService.lista(reqQuery);
 			res.status(200).json(carrolistado);
 
 		} catch(error) {

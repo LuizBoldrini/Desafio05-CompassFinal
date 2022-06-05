@@ -32,7 +32,7 @@ const carPut = joi.object({
 
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
-	const year = moment(reqBody.year, "DD/MM/YYYY").format("YYYY/MM/DD");
+	const year = moment(reqBody.year, "YYYY").format("YYYY");
 
 	function validaAccessories() {
 		const accessoriesNow = req.body.accessories;

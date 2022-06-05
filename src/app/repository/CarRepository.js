@@ -6,7 +6,14 @@ class CarRepository {
 	}
 
 	static async lista(payload) {
-		return CarSchema.paginate({}, { payload, limit: 5});
+		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		};
+		const options = {
+			limit: 10,
+			offset: 1,
+			customLabels: costumizarPaginate
+		};
+		return CarSchema.paginate(payload, options, {});
 	}
 
 	static async listaPorId(payload) {
