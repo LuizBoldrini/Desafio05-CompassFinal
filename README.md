@@ -283,3 +283,4 @@ Atenção:
 yes ou no
 - O token é retornado no header da requisição e a requisição retorna 204.
 - OBSERVAÇÕES: Este campo ilustrativo "recebe" foi colocado com status 201 para ilustrar oque vai receber, depois do teste, retornado para 204.
+- 
