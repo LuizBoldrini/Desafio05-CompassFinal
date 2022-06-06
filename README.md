@@ -101,6 +101,7 @@ Atenção:
 - O ano do carro não pode ser menor que 1950 e maior que 2022;
 - Não pode haver acessórios repetidos;
 - A quantidade de passageiros não pode ser menor que 1;
+- OBSERVAÇÃO: Campo `year` deve receber APENAS o ano.
 
 ### Listar todos os carros cadastrados
 GET: `/api/v1/car`
