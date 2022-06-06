@@ -1,6 +1,6 @@
 const express = require("express");
-const CarController = require("../controllers/CarController");
-const ValidarCar = require("../middleware/ValidarCar");
+const CarController = require("../app/controllers/CarController");
+const ValidarCar = require("../app/middleware/ValidarCar");
 
 const router = express.Router();
 

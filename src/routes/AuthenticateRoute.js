@@ -1,6 +1,6 @@
 const express = require("express");
-const AuthenticateController = require("../controllers/AuthenticateController");
-const ValidarAut = require("../middleware/ValidarAut");
+const AuthenticateController = require("../app/controllers/AuthenticateController");
+const ValidarAut = require("../app/middleware/ValidarAut");
 
 const router = express.Router();
 
