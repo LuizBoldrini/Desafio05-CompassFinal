@@ -23,6 +23,8 @@ eslint: ^8.16.0         nodemon: ^2.0.16
 
 [API-Person](#Api-Person)
 
+[API-Authenticate](#API-Authenticate)
+
 ## Descrição
 Como solicitado, esta é uma API RestFull para uma locadora de carros, chamada Renpass.uol. Usada para cadrastrar os carros da empresa e também para cadrasto de clientes.
 
@@ -248,3 +250,36 @@ DELETE: `/api/v1/car/:id`
 Atenção:
 - Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
 - Caso o ID não seja encontrado retornar 404.
+
+
+## API-Authenticate
+
+### Autenticação com o usuário 
+POST: `/api/v1/authenticate`
+
+Envia:
+```bash
+{
+    "email": "joazinho@email.com",
+    "password": "123456"
+}
+```
+Recebe: 
+```bash
+{
+    "user": {
+        "_id": "629d4c314c60b4dc3509b07f",
+        "name": "Joãozinho Moura",
+        "cpf": "041.262.712-44",
+        "birthDay": "2002-10-10T03:00:00.000Z",
+        "email": "joazinho@emai.com",
+        "canDrive": "yes"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWQ0YzMxNGM2MGI0ZGMzNTA5YjA3ZiIsImlhdCI6MTY1NDQ3NTg3NSwiZXhwIjoxNjU0NTYyMjc1fQ.ETr0vBSQQ4thkU9rfDFzWuynlb8TqbGKE7CoKp_D8Jg"
+}
+```
+Atenção:
+- Receber um token de autenticação através de um JWT o seu email e se é canDrive é
+yes ou no
+- O token é retornado no header da requisição e a requisição retorna 204.
+- OBSERVAÇÕES: Este campo ilustrativo "recebe" foi colocado com status 201 para ilustrar oque vai receber, depois do teste, retornado para 204.
