@@ -2,14 +2,13 @@ const AuthenticateService = require("../services/AuthenticateService");
 
 class AuthController {
 	static async criaAut(req, res) {
-		const { email, password } = req.body;
 		try {
-			const result = await AuthenticateService.acessa(email, password);
-			return res.status(204).json(result);
+			const { email, password } = await req.body;
+			const resultado = await AuthenticateService.acessa(email, password);
+
+			return res.status(201).json(resultado);
 		} catch (error) {
-			return res.status(400).json({
-				error: error.message
-			});
+			return res.status(400).json({ error: error.message });
 		}
 	}
 }
