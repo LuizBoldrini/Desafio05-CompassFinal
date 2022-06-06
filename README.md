@@ -10,6 +10,7 @@ mongoose: ^6.3.5        mongoose-paginate-v2: ^1.6.3
 
 devDependencies:
 eslint: ^8.16.0         nodemon: ^2.0.16
+jest: ^28.1.0
 ```
 
 ## Indice
