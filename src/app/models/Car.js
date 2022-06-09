@@ -19,14 +19,13 @@ const CarSchema = new mongoose.Schema({
 		required: true
 	},
 	year: {
-		type: Date,
+		type: Number,
 		required: true
 	},
 	accessories:[ {
 		description: {
 			type: String,
-			required: true,
-			_id: false
+			required: true
 		}}],
 	passengersQtd: {
 		type: Number,
