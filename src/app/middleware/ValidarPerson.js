@@ -1,26 +1,24 @@
 const joi = require("joi");
 const moment = require("moment");
-const NameErro = require("../utils/NameErro");
-const EnumErro = require("../utils/EnumErro");
 const InvalidField = require("../utils/InvalidField");
 const validaCpf = require("../utils/ValidaCpf");
 
 const personPost = joi.object({
-	name: joi.string().min(4).required().error(new NameErro),
+	name: joi.string().min(4).required(),
 	cpf: joi.string().required(),
-	birthDay: joi.date().required().error(new InvalidField("birthDay")),
-	email: joi.string().email().required().error(new InvalidField("email")),
-	password: joi.string().min(6).required().error(new InvalidField("passowrd")),
-	canDrive: joi.string().valid("yes", "no").error(new EnumErro("yes or no"))
+	birthDay: joi.date().required(),
+	email: joi.string().email().required(),
+	password: joi.string().min(6).required(),
+	canDrive: joi.string().valid("yes", "no").required()
 });
 
 const personPut = joi.object({
-	name: joi.string().min(4).error(new NameErro),
+	name: joi.string().min(4),
 	cpf: joi.string(),
-	birthDay: joi.string().error(new InvalidField("birthDay")),
-	email: joi.string().email().error(new InvalidField("email")),
-	password: joi.string().min(6).error(new InvalidField("passowrd")),
-	canDrive: joi.string().valid("yes", "no").error(new EnumErro("yes or no"))
+	birthDay: joi.string(),
+	email: joi.string().email(),
+	password: joi.string().min(6),
+	canDrive: joi.string().valid("yes", "no")
 });
 
 module.exports =async (req, res, next) => {
@@ -45,9 +43,15 @@ module.exports =async (req, res, next) => {
 			await personPut.validateAsync({...reqBody, birthDay});
 			next();
 		}
-	} catch(error) {
-		res.status(400).json(error.message);
-	}
+	} catch (error) {
+		if(error.details === undefined) {
+			return res.status(400).json(error.message);
+		}
+		return res.status(400).json(
+			error.details.map((detail) => ({
+				name: detail.path.join(),
+				description: detail.message
+			})));}
 };
 
 function validaData(formatedDate) {
