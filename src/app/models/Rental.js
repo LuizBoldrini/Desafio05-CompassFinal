@@ -23,7 +23,6 @@ const RentalSchema = new mongoose.Schema({
 		},
 		street: {
 			type: String,
-			required: true
 		},
 		complement: {
 			type: String
@@ -33,7 +32,7 @@ const RentalSchema = new mongoose.Schema({
 			
 		},
 		number: {
-			type: String,
+			type: Number,
 			
 		},
 		city: {
