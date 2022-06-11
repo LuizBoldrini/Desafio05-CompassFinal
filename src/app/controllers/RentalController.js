@@ -13,7 +13,8 @@ class RentalController {
 
 	static async listaRental(req, res) {
 		try{
-			const RentalListado = await RentalService.lista();
+			const reqQuery = req.query;
+			const RentalListado = await RentalService.lista(reqQuery);
 			res.status(200).json(RentalListado);
 
 		} catch(error) {
