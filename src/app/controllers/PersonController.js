@@ -8,7 +8,7 @@ class PersonController {
 			res.status(201).json(PersonCriado);
 
 		} catch(error) {
-			res.status(error.status || 400).json(error);
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
@@ -18,7 +18,7 @@ class PersonController {
 			res.status(200).json(Personlistado);
 
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(400).json({ description: error.description, name: error.message });
 		}
 	}
 
@@ -28,7 +28,7 @@ class PersonController {
 			const PersonlistadoPorId = await PersonService.listaPorId(id);
 			res.status(200).json(PersonlistadoPorId);
 		} catch(error) {
-			res.status(error.status || 400).json(error);
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}	
 	}
 
@@ -39,7 +39,7 @@ class PersonController {
 			const novaPerson = await PersonService.atualiza(id, {$set: reqBody});
 			res.status(204).json(novaPerson);
 		} catch(error) {
-			res.status(error.status || 400).json(error);
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
@@ -48,7 +48,7 @@ class PersonController {
 			const PersonParaDeletar = await PersonService.deleta(req.params.id);
 			return res.status(204).json(PersonParaDeletar);
 		} catch (error) {
-			return res.status(error.status || 400).json(error);
+			return res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 }

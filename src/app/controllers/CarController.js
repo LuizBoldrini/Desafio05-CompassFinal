@@ -10,7 +10,7 @@ class CarController {
 			res.status(201).json(carroCriado);
 
 		} catch(error) {
-			res.status(error.status || 400).json(error);
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
@@ -21,7 +21,7 @@ class CarController {
 			res.status(200).json(carrolistado);
 
 		} catch(error) {
-			res.status(400).json(error);
+			res.status(400).json({ description: error.description, name: error.message });
 		}
 	}
 
@@ -37,7 +37,7 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			res.status(error.status|| 400).json(error);
+			res.status(error.status|| 400).json({ description: error.description, name: error.message });
 		}	
 	}
 
@@ -54,13 +54,14 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			res.status(error.status || 400).json(error);
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
 	static async deletaCarro(req, res) {
+		const id = req.params.id;
 		try {
-			const carroParaDeletar = await CarService.deleta(req.params.id);
+			const carroParaDeletar = await CarService.deleta(id);
 			if(carroParaDeletar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
@@ -69,7 +70,18 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			return res.status(error.status || 400).json(error);
+			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+		}
+	}
+
+	static async atualizaDesc(req, res) {
+		const {id, idAcess} = req.params;
+		const reqBody = req.body;
+		try {
+			const result = await CarService.atualizaDesc(id, idAcess, reqBody);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 }
