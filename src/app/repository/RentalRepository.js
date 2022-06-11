@@ -14,7 +14,14 @@ class RentalRepository {
 	}
 
 	static async lista(payload) {
-		return RentalSchema.find(payload);
+		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		};
+		const options = {
+			limit: 10,
+			offset: 0,
+			customLabels: costumizarPaginate
+		};
+		return RentalSchema.paginate(payload, options, {});
 	}
 
 	static async listaPorId(payload) {
