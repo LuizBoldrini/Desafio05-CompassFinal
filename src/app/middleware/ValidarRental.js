@@ -2,11 +2,11 @@ const joi = require("joi");
 
 const rentalPost = joi.object({
 	name: joi.string().min(2).required(),
-	cnpj: joi.string().min(18).required(),
+	cnpj: joi.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/).required(),
 	activities: joi.string().min(5).required(),
 	address: joi.array().min(1).items(
 		{
-			zipCode: joi.string().min(8).max(8).required(),
+			zipCode: joi.string().regex(/^\d{5}-\d{3}$/).required(),
 			street: joi.string().min(2),
 			complement: joi.string(),
 			number: joi.number().min(1).required(),
@@ -19,7 +19,7 @@ const rentalPost = joi.object({
 
 const rentalPut = joi.object({
 	name: joi.string().min(2),
-	cnpj: joi.string().min(18),
+	cnpj: joi.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/),
 	activities: joi.string().min(5),
 	address: joi.array().min(1).items(
 		{
