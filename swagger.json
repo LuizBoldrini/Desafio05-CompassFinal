@@ -1,0 +1,281 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "API locadora de carros",
+        "description": "Uma API que tem como objetivo criar e manipular carros, pessoas e faz autenticação delas",
+        "termsOfService": "http://localhost:3000/terms",
+        "contact": {
+            "email": "luizboldriniej@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api/v1",
+            "description": "API local"
+        }
+    ],
+    "paths": {
+        "/car": {
+            "post": {
+                "summary": "Cadrasto de carros",
+                "description": "Esta rota será responsável pelo cadrasto de carros",
+                "tags": ["Car"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Car"
+                            },
+                            "examples": {
+                                "car": {
+                                    "value": {
+                                        "model": "Hilux",
+                                        "type": "SuV",
+                                        "brand": "GM",
+                                        "color": "Amarelo",
+                                        "year": 2001,
+                                        "accessories": [
+                                            {
+                                                "description": "Diesel"
+                                            },
+                                            {
+                                                "description": "Teto solar"
+                                            },
+                                            {
+                                                "description": "Automático"
+                                            }
+                                        ],
+                                        "passengersQtd": 4
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de carros",
+                "description": "Está rota irá listar todos os carros por parâmetro",
+                "tags": ["Car"],
+                "parameters": [{
+                    "name": "model",
+                    "in": "qurey",
+                    "description": "Model do carro para busca"
+                },
+                {
+                    "name": "type",
+                    "in": "qurey",
+                    "description": "Type do carro para busca"
+                },
+                {
+                    "name": "brand",
+                    "in": "qurey",
+                    "description": "Brand do carro para busca"
+                },
+                {
+                    "name": "color",
+                    "in": "qurey",
+                    "description": "Color do carro para busca"
+                },
+                {
+                    "name": "year",
+                    "in": "qurey",
+                    "description": "Year do carro para busca"
+                },
+                {
+                    "name": "passengersQtd",
+                    "in": "qurey",
+                    "description": "Quantidade de passageiros do carro para busca"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Car"
+                                    }
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                } 
+            }
+            }
+        },
+        "/car/{id}": {
+            "get": {
+                "summary": "Listagem de carros pelo ID",
+                "description": "Está rota irá listar o carro pelo ID indicado",
+                "tags": ["Car"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca um carro pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            },
+            "put": {
+                "summary": "Atualiza um carro pelo ID",
+                "description": "Está rota irá atualizar dados do carro pelo ID indicado",
+                "tags": ["Car"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca um carro pelo ID",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Car"
+                        },
+                        "examples": {
+                            "car": {
+                                "value": {
+                                    "model": "S10 2.8",
+                                    "type": "SuV",
+                                    "brand": "GM",
+                                    "color": "Amarelo",
+                                    "year": 2001,
+                                    "accessories": [
+                                        {
+                                            "description": "Diesel"
+                                        },
+                                        {
+                                            "description": "Teto solar"
+                                        },
+                                        {
+                                            "description": "Automático"
+                                        }
+                                    ],
+                                    "passengersQtd": 4
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            } 
+            },
+            "delete": {
+                "summary": "Apaga um carro pelo ID",
+                "description": "Está rota irá apagar o carro pelo ID indicado",
+                "tags": ["Car"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca um carro pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Car": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "brand": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "accessories": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "description": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "passengersQtd": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
