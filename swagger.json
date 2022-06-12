@@ -235,6 +235,199 @@
                 }
             }
             }
+        },
+        "/person": {
+            "post": {
+                "summary": "Cadrasto de pessoas",
+                "description": "Esta rota será responsável pelo cadrasto das pessoas",
+                "tags": ["Person"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Person"
+                            },
+                            "examples": {
+                                "car": {
+                                    "value": {
+                                        "name": "Joãozinho Silva",
+                                        "cpf": "04126271244",
+                                        "birthDay": "10-02-2000",
+                                        "email": "joazinho@emai.com",
+                                        "password": "123456",
+                                        "canDrive": "yes"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Person"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de pessoas",
+                "description": "Está rota irá listar todas as pessoas por parâmetro",
+                "tags": ["Person"],
+                "parameters": [{
+                    "name": "name",
+                    "in": "qurey",
+                    "description": "Name do carro para busca"
+                },
+                {
+                    "name": "cpf",
+                    "in": "qurey",
+                    "description": "cpf do carro para busca"
+                },
+                {
+                    "name": "birthDay",
+                    "in": "qurey",
+                    "description": "birthDay do carro para busca"
+                },
+                {
+                    "name": "email",
+                    "in": "qurey",
+                    "description": "email do carro para busca"
+                },
+                {
+                    "name": "canDrive",
+                    "in": "qurey",
+                    "description": "canDrive do carro para busca"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Person"
+                                    }
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                } 
+            }
+        }
+        },
+        "/person/{id}": {
+            "get": {
+                "summary": "Listagem de pessoas pelo ID",
+                "description": "Está rota irá listar uma pessoa pelo ID indicado",
+                "tags": ["Person"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma pessoa pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Person"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            },
+            "put": {
+                "summary": "Atualiza uma pessoa pelo ID",
+                "description": "Está rota irá atualizar dados de uma pessoa pelo ID indicado",
+                "tags": ["Person"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma pessoa pelo ID",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Person"
+                        },
+                        "examples": {
+                            "car": {
+                                "value": {
+                                    "name": "Joãozinho Silva",
+                                    "cpf": "04126271244",
+                                    "birthDay": "10-02-2000",
+                                    "email": "joazinho@emai.com",
+                                    "password": "123456",
+                                    "canDrive": "yes"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            } 
+            },
+            "delete": {
+                "summary": "Apaga uma pessoa pelo ID",
+                "description": "Está rota irá apagar uma pessoa pelo ID indicado",
+                "tags": ["Person"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma pessoa pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
         }
     },
     "components": {
@@ -273,6 +466,29 @@
                     },
                     "passengersQtd": {
                         "type": "number"
+                    }
+                }
+            },
+            "Person": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },"cpf": {
+                        "type": "string"
+                    },"birthDay": {
+                        "type": "date"
+                    },"email": {
+                        "type": "string",
+                        "unique": true
+                    },"password": {
+                        "type": "string",
+                        "select": false
+                    },"canDrive": {
+                        "type": "string",
+                        "enum": {
+                            "values": ["yes", "no"]
+                        }
                     }
                 }
             }
