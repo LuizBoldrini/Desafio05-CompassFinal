@@ -428,6 +428,205 @@
                 }
             }
             }
+        },
+        "/rental": {
+            "post": {
+                "summary": "Cadrasto de uma locadora",
+                "description": "Esta rota será responsável pelo cadrasto de locadoras",
+                "tags": ["Rental"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rental"
+                            },
+                            "examples": {
+                                "car": {
+                                    "value": {
+                                        "name": "Localiza Rent a Car",
+                                        "cnpj": "16.670.085/0001-17",
+                                        "activities": "Aluguel de Carros E Gestão de Frotas",
+                                        "address": [
+                                            {
+                                                "zipCode": "96200-200",
+                                                "number":"1234",
+                                                "isFilial": true
+                                            },
+                                            {
+                                                "zipCode": "76937-000",
+                                                "number":"1234",
+                                                "isFilial": false
+                                            }]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Rental"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de locadoras",
+                "description": "Está rota irá listar todas as Locadoras por parâmetro",
+                "tags": ["Rental"],
+                "parameters": [{
+                    "name": "name",
+                    "in": "qurey",
+                    "description": "Name da locadora para busca"
+                },
+                {
+                    "name": "cnpj",
+                    "in": "qurey",
+                    "description": "Cnpj da locadora para busca"
+                },
+                {
+                    "name": "activities",
+                    "in": "qurey",
+                    "description": "Activities da locadora para busca"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Person"
+                                    }
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                } 
+            }
+            }  
+        },
+        "/rental/{id}": {
+            "get": {
+                "summary": "Listagem de locadoras pelo ID",
+                "description": "Está rota irá listar uma locadora pelo ID indicado",
+                "tags": ["Rental"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Rental"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            },
+            "put": {
+                "summary": "Atualiza uma locadora pelo ID",
+                "description": "Está rota irá atualizar dados de uma locadora pelo ID indicado",
+                "tags": ["Rental"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Rental"
+                        },
+                        "examples": {
+                            "car": {
+                                "value": {
+                                    "name": "Localiza Rent a Car LtdA.",
+                                        "cnpj": "16.670.085/0001-17",
+                                        "activities": "Aluguel de Carros E Gestão de Frotas",
+                                        "address": [
+                                            {
+                                                "zipCode": "96200-200",
+                                                "number":"1234",
+                                                "isFilial": true
+                                            },
+                                            {
+                                                "zipCode": "76937-000",
+                                                "number":"1234",
+                                                "isFilial": false
+                                            }]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            } 
+            },
+            "delete": {
+                "summary": "Apaga uma locadora pelo ID",
+                "description": "Está rota irá apagar uma locadora pelo ID indicado",
+                "tags": ["Rental"],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
         }
     },
     "components": {
@@ -488,6 +687,56 @@
                         "type": "string",
                         "enum": {
                             "values": ["yes", "no"]
+                        }
+                    }
+                }
+            },
+            "Rental": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "cnpj": {
+                        "type": "string",
+                        "unique": true
+                    },
+                    "activities": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "zipCode": {
+                                    "type": "string"
+                                },
+                                "street": {
+                                    "type": "string"
+                                },
+                                "complement": {
+                                    "type": "string"
+                                },
+                                "district": {
+                                    "type": "string"
+                                },
+                                "number": {
+                                    "type": "number"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "state": {
+                                    "type": "string"
+                                },
+                                "isFilial": {
+                                    "type": "boolean"
+                                }
+                            }
                         }
                     }
                 }
