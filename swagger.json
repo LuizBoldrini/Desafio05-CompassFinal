@@ -16,6 +16,55 @@
         }
     ],
     "paths": {
+        "/authenticate": {
+            "post": {
+                "summary": "Faz a autenticação dos usuários",
+                "description": "Esta rota será responsável pela autenticação de usuários cadastrados",
+                "tags": ["Authenticate"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "joazinho@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                 "responses": {
+                    "201": {
+                        "description": "Authenticate",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                          },
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/car": {
             "post": {
                 "summary": "Cadrasto de carros",
@@ -253,7 +302,7 @@
                                         "name": "Joãozinho Silva",
                                         "cpf": "04126271244",
                                         "birthDay": "10-02-2000",
-                                        "email": "joazinho@emai.com",
+                                        "email": "joazinho@email.com",
                                         "password": "123456",
                                         "canDrive": "yes"
                                     }
