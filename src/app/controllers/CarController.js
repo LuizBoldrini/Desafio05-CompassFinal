@@ -3,10 +3,10 @@ const IdNonStandard = require("../utils/IdNonStandard");
 const NotFound = require("../utils/NotFound");
 
 class CarController {
-	static async criaCarro(req, res) {
+	static async createCar(req, res) {
 		try{
 			const reqBody = req.body;
-			const carroCriado = await CarService.cria({...reqBody});
+			const carroCriado = await CarService.create({...reqBody});
 			res.status(201).json(carroCriado);
 
 		} catch(error) {
@@ -14,10 +14,10 @@ class CarController {
 		}
 	}
 
-	static async listaCarros(req, res) {
+	static async listCar(req, res) {
 		try{
 			const reqQuery = req.query;
-			const carrolistado = await CarService.lista(reqQuery);
+			const carrolistado = await CarService.list(reqQuery);
 			res.status(200).json(carrolistado);
 
 		} catch(error) {
@@ -25,10 +25,10 @@ class CarController {
 		}
 	}
 
-	static async listaCarroPorId(req, res) {
+	static async listById(req, res) {
 		const id = req.params.id;
 		try {
-			const carrolistadoPorId = await CarService.listaPorId(id);
+			const carrolistadoPorId = await CarService.listById(id);
 			if(carrolistadoPorId == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
@@ -41,11 +41,11 @@ class CarController {
 		}	
 	}
 
-	static async atualizaCarro(req, res) {
+	static async updateCar(req, res) {
 		try{
 			const id = req.params.id;
 			const reqBody = req.body;
-			const novoCarro = await CarService.atualiza(id, {$set: reqBody});
+			const novoCarro = await CarService.update(id, {$set: reqBody});
 			if(novoCarro == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
@@ -58,10 +58,10 @@ class CarController {
 		}
 	}
 
-	static async deletaCarro(req, res) {
+	static async deleteCar(req, res) {
 		const id = req.params.id;
 		try {
-			const carroParaDeletar = await CarService.deleta(id);
+			const carroParaDeletar = await CarService.delete(id);
 			if(carroParaDeletar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
@@ -74,12 +74,14 @@ class CarController {
 		}
 	}
 
-	static async atualizaDesc(req, res) {
-		const { idAcess} = req.params;
-		const reqBody = req.body;
+	static async updateDesc(req, res) {
 		try {
-			const result = await CarService.atualizaDesc( idAcess, reqBody);
+			const { idAcess} = req.params;
+			const reqBody = req.body;
+
+			const result = await CarService.updateDesc( idAcess, reqBody);
 			return res.status(200).json(result);
+			
 		} catch (error) {
 			return res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
