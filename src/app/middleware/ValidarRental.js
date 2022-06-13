@@ -23,7 +23,7 @@ const rentalPut = joi.object({
 	activities: joi.string().min(5),
 	address: joi.array().min(1).items(
 		{
-			zipCode: joi.string().min(8).max(8),
+			zipCode: joi.string().regex(/^\d{5}-\d{3}$/),
 			street: joi.string().min(2),
 			complement: joi.string(),
 			number: joi.number().min(1),
