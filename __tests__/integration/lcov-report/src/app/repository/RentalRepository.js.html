@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/42</span>
+                <span class='fraction'>40/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/42</span>
+                <span class='fraction'>40/42</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,38 +110,38 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -151,39 +151,39 @@
 const axios = require("axios").default;
 &nbsp;
 class RentalRepository {
-	static async cria<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		for (let dado = 0; dado &lt; payload.address.length; dado++) {</span>
-<span class="cstat-no" title="statement not covered" >			const { logradouro, bairro, localidade, uf } = (await axios.get(`https://viacep.com.br/ws/${payload.address[dado].zipCode}/json`)).data;</span>
-<span class="cstat-no" title="statement not covered" >			payload.address[dado].street = logradouro;</span>
-<span class="cstat-no" title="statement not covered" >			payload.address[dado].district = bairro;</span>
-<span class="cstat-no" title="statement not covered" >			payload.address[dado].city = localidade;</span>
-<span class="cstat-no" title="statement not covered" >			payload.address[dado].state = uf;</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >		return RentalSchema.create(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async cria(payload) {
+		for (let dado = 0; dado &lt; payload.address.length; dado++) {
+			const { logradouro, bairro, localidade, uf } = (await axios.get(`https://viacep.com.br/ws/${payload.address[dado].zipCode}/json`)).data;
+			payload.address[dado].street = logradouro;
+			payload.address[dado].district = bairro;
+			payload.address[dado].city = localidade;
+			payload.address[dado].state = uf;
+		}
+		return RentalSchema.create(payload);
+	}
 &nbsp;
-	static async lista<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false</span>
-<span class="cstat-no" title="statement not covered" >		};</span>
-<span class="cstat-no" title="statement not covered" >		const options = {</span>
-<span class="cstat-no" title="statement not covered" >			limit: 10,</span>
-<span class="cstat-no" title="statement not covered" >			offset: 0,</span>
-<span class="cstat-no" title="statement not covered" >			customLabels: costumizarPaginate</span>
-<span class="cstat-no" title="statement not covered" >		};</span>
-<span class="cstat-no" title="statement not covered" >		return RentalSchema.paginate(payload, options, {});</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async lista(payload) {
+		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		};
+		const options = {
+			limit: 10,
+			offset: 0,
+			customLabels: costumizarPaginate
+		};
+		return RentalSchema.paginate(payload, options, {});
+	}
 &nbsp;
-	static async listaPorId<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		return RentalSchema.findById(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async listaPorId(payload) {
+		return RentalSchema.findById(payload);
+	}
 &nbsp;
 	static async atualiza<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
 <span class="cstat-no" title="statement not covered" >		return RentalSchema.findByIdAndUpdate(payload, reqBody);</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async deleta<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		return RentalSchema.findByIdAndDelete(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async deleta(payload) {
+		return RentalSchema.findByIdAndDelete(payload);
+	}
 &nbsp;
 }
 &nbsp;
@@ -196,7 +196,7 @@ module.exports = RentalRepository;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Jun 12 2022 22:17:54 GMT-0300 (Horário Padrão de Brasília)
+                at Sun Jun 12 2022 22:43:20 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

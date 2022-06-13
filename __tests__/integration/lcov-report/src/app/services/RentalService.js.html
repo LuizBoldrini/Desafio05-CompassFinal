@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.69% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/26</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.69% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/26</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,50 +92,50 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const RentalRepository = require("../repository/RentalRepository");
 &nbsp;
 class RentalService {
-	static async cria<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await RentalRepository.cria(payload);</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async cria(payload) {
+		const resultado = await RentalRepository.cria(payload);
+		return resultado;
+	}
 &nbsp;
-	static async lista<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		return RentalRepository.lista(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async lista(payload) {
+		return RentalRepository.lista(payload);
+	}
 &nbsp;
-	static async listaPorId<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		return RentalRepository.listaPorId(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async listaPorId(payload) {
+		return RentalRepository.listaPorId(payload);
+	}
 &nbsp;
 	static async atualiza<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
 <span class="cstat-no" title="statement not covered" >		return RentalRepository.atualiza(payload, reqBody);</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async deleta<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		return RentalRepository.deleta(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+	static async deleta(payload) {
+		return RentalRepository.deleta(payload);
+	}
 }
 &nbsp;
 module.exports = RentalService;</pre></td></tr></table></pre>
@@ -145,7 +145,7 @@ module.exports = RentalService;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Jun 12 2022 22:17:54 GMT-0300 (Horário Padrão de Brasília)
+                at Sun Jun 12 2022 22:43:20 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
