@@ -5,7 +5,7 @@ const ValidarAut = require("../app/middleware/ValidarAut");
 const router = express.Router();
 
 router
-	.post("/api/v1/authenticate",ValidarAut ,AuthenticateController.criaAut );
+	.post("/api/v1/authenticate",ValidarAut ,AuthenticateController.criateAut );
 
 
 module.exports = router;

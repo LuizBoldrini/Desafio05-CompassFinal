@@ -6,8 +6,8 @@ class CarController {
 	static async createCar(req, res) {
 		try{
 			const reqBody = req.body;
-			const carroCriado = await CarService.create({...reqBody});
-			res.status(201).json(carroCriado);
+			const createCar = await CarService.create({...reqBody});
+			res.status(201).json(createCar);
 
 		} catch(error) {
 			res.status(error.status || 400).json({ description: error.description, name: error.message });
@@ -17,8 +17,8 @@ class CarController {
 	static async listCar(req, res) {
 		try{
 			const reqQuery = req.query;
-			const carrolistado = await CarService.list(reqQuery);
-			res.status(200).json(carrolistado);
+			const listCar = await CarService.list(reqQuery);
+			res.status(200).json(listCar);
 
 		} catch(error) {
 			res.status(400).json({ description: error.description, name: error.message });
@@ -26,13 +26,13 @@ class CarController {
 	}
 
 	static async listById(req, res) {
-		const id = req.params.id;
 		try {
-			const carrolistadoPorId = await CarService.listById(id);
-			if(carrolistadoPorId == null) {
+			const id = req.params.id;
+			const listCarById = await CarService.listById(id);
+			if(listCarById == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			res.status(200).json(carrolistadoPorId);
+			res.status(200).json(listCarById);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
@@ -45,11 +45,11 @@ class CarController {
 		try{
 			const id = req.params.id;
 			const reqBody = req.body;
-			const novoCarro = await CarService.update(id, {$set: reqBody});
-			if(novoCarro == null) {
+			const newCar = await CarService.update(id, {$set: reqBody});
+			if(newCar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			res.status(204).json(novoCarro);
+			res.status(204).json(newCar);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
@@ -61,11 +61,11 @@ class CarController {
 	static async deleteCar(req, res) {
 		const id = req.params.id;
 		try {
-			const carroParaDeletar = await CarService.delete(id);
-			if(carroParaDeletar == null) {
+			const deleteCar = await CarService.delete(id);
+			if(deleteCar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			return res.status(204).json(carroParaDeletar);
+			return res.status(204).json(deleteCar);
 		} catch (error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());

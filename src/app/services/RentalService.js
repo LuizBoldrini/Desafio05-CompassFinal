@@ -1,25 +1,25 @@
 const RentalRepository = require("../repository/RentalRepository");
 
 class RentalService {
-	static async cria(payload) {
-		const resultado = await RentalRepository.cria(payload);
-		return resultado;
+	static async create(payload) {
+		const result = await RentalRepository.create(payload);
+		return result;
 	}
 
-	static async lista(payload) {
-		return RentalRepository.lista(payload);
+	static async list(payload) {
+		return RentalRepository.list(payload);
 	}
 
-	static async listaPorId(payload) {
-		return RentalRepository.listaPorId(payload);
+	static async listById(payload) {
+		return RentalRepository.listById(payload);
 	}
 
-	static async atualiza(payload, reqBody) {
-		return RentalRepository.atualiza(payload, reqBody);
+	static async update(payload, reqBody) {
+		return RentalRepository.update(payload, reqBody);
 	}
 
-	static async deleta(payload) {
-		return RentalRepository.deleta(payload);
+	static async delete(payload) {
+		return RentalRepository.delete(payload);
 	}
 }
 

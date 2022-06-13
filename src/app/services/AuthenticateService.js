@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const authConfig = require("../config/authConfig.json");
 
 class AuthenticateService {
-	static async acessa(email, password) {
+	static async acess(email, password) {
 		const user = await AuthenticateRepository.findPeopleByEmail(email);
 		
 		if(!user) {
