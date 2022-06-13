@@ -1,5 +1,6 @@
 const AuthenticateRepository = require("../repository/AuthenticateRepository");
 const NotFound = require("../utils/NotFound");
+const PassIncorrect = require("../utils/PassIncorrect");
 const formataCpf = require("../utils/FormataCpf");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -15,7 +16,7 @@ class AuthenticateService {
 		const { canDrive } = user;
 
 		if(!(await bcrypt.compare(password, user.password))) {
-			new NotFound("password");
+			new PassIncorrect("password");
 		}
 			
 		user.password = undefined;
