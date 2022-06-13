@@ -2,11 +2,9 @@ const request = require("supertest");
 const app = require("../../src/app");
 const Car = require("../../src/app/models/Car");
 
-
 beforeAll(async () => {
 	await Car.deleteMany();
 });
-
 beforeEach(async () => {
 	await Car.deleteMany();
 });
@@ -77,12 +75,9 @@ describe("Get car by id", () => {
 			passengersQtd: 6
 		};
 		const { text } = await request(app).post("/api/v1/car/").send(car);
-
 		const { _id } = JSON.parse(text);
-
 		const response = await request(app).get(`/api/v1/car/${_id.toString()}`);
-		const { status } = response;
-		expect(status).toBe(200);
+		expect(response.statusCode).toBe(200);
 	});
 });
 
@@ -105,11 +100,8 @@ describe("Delete car by id", () => {
 			passengersQtd: 6
 		};
 		const { text } = await request(app).post("/api/v1/car/").send(car);
-
 		const { _id } = JSON.parse(text);
-
 		const response = await request(app).delete(`/api/v1/car/${_id.toString()}`);
-		const { status } = response;
-		expect(status).toBe(204);
+		expect(response.statusCode).toBe(204);
 	});
 });
