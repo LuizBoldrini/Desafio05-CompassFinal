@@ -1,4 +1,5 @@
 const CarSchema = require("../models/Car");
+// const NotFound = require("../utils/NotFound");
 
 class CarRepository {
 	static async cria(payload) {
@@ -10,7 +11,7 @@ class CarRepository {
 		};
 		const options = {
 			limit: 10,
-			offset: 1,
+			offset: 0,
 			customLabels: costumizarPaginate
 		};
 		return CarSchema.paginate(payload, options, {});
@@ -27,6 +28,20 @@ class CarRepository {
 	static async deleta(payload) {
 		return CarSchema.findByIdAndDelete(payload);
 	}
+
+	static  async atualizaDesc(idAcess, payload, atualizaDesc) {
+		const resultado = await CarSchema.findOneAndUpdate(
+			{ "accessories._id": idAcess },
+			{
+				$set: {
+					"description.$.accessories": atualizaDesc.description
+				}
+			},
+			{upsert: true, new: true }
+		);
+		return resultado;
+	}
 }
+// 
 
 module.exports = CarRepository;

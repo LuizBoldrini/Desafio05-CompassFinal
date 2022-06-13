@@ -9,7 +9,8 @@ router
 	.get("/api/v1/car", CarController.listaCarros)
 	.get("/api/v1/car/:id", CarController.listaCarroPorId)
 	.put("/api/v1/car/:id",ValidarCar ,CarController.atualizaCarro)
-	.delete("/api/v1/car/:id", CarController.deletaCarro);
+	.delete("/api/v1/car/:id", CarController.deletaCarro)
+	.patch("/api/v1/car/:id/acessorios/:idAcessory", CarController.atualizaDesc);
 
 
 module.exports = router;
