@@ -75,10 +75,10 @@ class CarController {
 	}
 
 	static async atualizaDesc(req, res) {
-		const {id, idAcess} = req.params;
+		const { idAcess} = req.params;
 		const reqBody = req.body;
 		try {
-			const result = await CarService.atualizaDesc(id, idAcess, reqBody);
+			const result = await CarService.atualizaDesc( idAcess, reqBody);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(error.status || 400).json({ description: error.description, name: error.message });

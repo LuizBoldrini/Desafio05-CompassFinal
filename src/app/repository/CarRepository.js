@@ -9,12 +9,13 @@ class CarRepository {
 	static async lista(payload) {
 		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
+		const {limit = 100, offset = 0, ...query} = payload;  
 		const options = {
-			limit: 10,
-			offset: 0,
+			limit: Number(limit),
+			offset: Number(offset),
 			customLabels: costumizarPaginate
 		};
-		return CarSchema.paginate(payload, options, {});
+		return CarSchema.paginate(query, options);
 	}
 
 	static async listaPorId(payload) {
@@ -29,19 +30,20 @@ class CarRepository {
 		return CarSchema.findByIdAndDelete(payload);
 	}
 
-	static  async atualizaDesc(idAcess, payload, atualizaDesc) {
+	static  async atualizaDesc(idAcess, atualizaDesc) {
+		console.log(idAcess);
 		const resultado = await CarSchema.findOneAndUpdate(
 			{ "accessories._id": idAcess },
 			{
 				$set: {
-					"description.$.accessories": atualizaDesc.description
+					"accessories.$.description": atualizaDesc.description
 				}
 			},
-			{upsert: true, new: true }
+			{ returnOriginal: false }
 		);
 		return resultado;
+		
 	}
 }
-// 
 
 module.exports = CarRepository;
