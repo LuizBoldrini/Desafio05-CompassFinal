@@ -3,20 +3,20 @@ const formataCpf = require("../utils/FormataCpf");
 const NotFound = require("../utils/NotFound");
 
 class PersonService {
-	static async cria(payload) {
-		const resultado = await PersonRepository.cria(payload);
+	static async create(payload) {
+		const resultado = await PersonRepository.create(payload);
 		formataCpf(resultado);
 		return resultado;
 	}
 
-	static async lista(payload) {
-		const resultado = await PersonRepository.lista(payload);
+	static async list(payload) {
+		const resultado = await PersonRepository.list(payload);
 		formataCpf(resultado);
 		return resultado;
 	}
 
-	static async listaPorId(payload) {
-		const resultado = await PersonRepository.listaPorId(payload);
+	static async listById(payload) {
+		const resultado = await PersonRepository.listById(payload);
 		if(!resultado) {
 			throw new NotFound("id");
 		}
@@ -24,8 +24,8 @@ class PersonService {
 		return resultado;
 	}
 
-	static async atualiza(payload, reqBody) {
-		const resultado = await PersonRepository.atualiza(payload, reqBody);
+	static async update(payload, reqBody) {
+		const resultado = await PersonRepository.update(payload, reqBody);
 		if(!resultado) {
 			throw new NotFound("id");
 		}
@@ -33,8 +33,8 @@ class PersonService {
 		return resultado;
 	}
 
-	static async deleta(payload) {
-		const resultado = await PersonRepository.deleta(payload);
+	static async delete(payload) {
+		const resultado = await PersonRepository.delete(payload);
 		if(!resultado) {
 			throw new NotFound("id");
 		}

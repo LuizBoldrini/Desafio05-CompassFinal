@@ -5,11 +5,11 @@ const ValidarPerson = require("../app/middleware/ValidarPerson");
 const router = express.Router();
 
 router
-	.post("/api/v1/person", ValidarPerson,PersonController.criaPerson)
-	.get("/api/v1/person", PersonController.listaPerson)
-	.get("/api/v1/person/:id", PersonController.listaPersonPorId)
-	.put("/api/v1/person/:id", ValidarPerson, PersonController.atualizaPerson)
-	.delete("/api/v1/person/:id", PersonController.deletaPerson);
+	.post("/api/v1/person", ValidarPerson,PersonController.createPerso)
+	.get("/api/v1/person", PersonController.listPerson)
+	.get("/api/v1/person/:id", PersonController.listById)
+	.put("/api/v1/person/:id", ValidarPerson, PersonController.updatePerson)
+	.delete("/api/v1/person/:id", PersonController.deletePerson);
 
 
 module.exports = router;

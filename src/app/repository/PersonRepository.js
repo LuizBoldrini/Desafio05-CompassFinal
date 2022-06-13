@@ -1,23 +1,23 @@
 const PersonSchema = require("../models/Person");
 
 class PersonRepository {
-	static async cria(payload) {
+	static async create(payload) {
 		return PersonSchema.create(payload);
 	}
 
-	static async lista(payload) {
+	static async list(payload) {
 		return PersonSchema.find(payload);
 	}
 
-	static async listaPorId(payload) {
+	static async listById(payload) {
 		return PersonSchema.findById(payload);
 	}
 
-	static async atualiza(payload, reqBody) {
+	static async update(payload, reqBody) {
 		return PersonSchema.findByIdAndUpdate(payload, reqBody);
 	}
 
-	static async deleta(payload) {
+	static async delete(payload) {
 		return PersonSchema.findByIdAndDelete(payload);
 	}
 }
