@@ -11,19 +11,21 @@ class AuthenticateService {
 		const user = await AuthenticateRepository.findPeopleByEmail(email);
 		
 		if(!user) {
-			throw new NotFound("email");
+			throw new NotFound("User");
 		}
 		const { canDrive } = user;
+		if (user.canDrive !== "yes") {
+			throw new Error("Cagada");}
 
 		if(!(await bcrypt.compare(password, user.password))) {
 			new PassIncorrect("password");
-		}
-			
+		}	
 		user.password = undefined;
 
 		const token = jwt.sign({ id: user.id}, authConfig.secret, {
 			expiresIn: 86400
 		});
+		
 		formataCpf(user);
 		return {user, canDrive, token};
 	}

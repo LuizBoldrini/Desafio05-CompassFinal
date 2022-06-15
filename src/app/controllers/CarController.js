@@ -21,7 +21,7 @@ class CarController {
 			res.status(200).json(listCar);
 
 		} catch(error) {
-			res.status(400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
