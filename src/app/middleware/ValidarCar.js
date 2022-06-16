@@ -26,6 +26,23 @@ const carPut = joi.object({
 	passengersQtd: joi.number().min(1)
 });
 
+const carGet = joi.object({
+	model: joi.string().min(4),
+	type: joi.string().min(1),
+	brand: joi.string().min(1),
+	color: joi.string().min(1),
+	year: joi.date().min(1950).max(2022),
+	accessories: joi.array().min(1).unique().items(
+		{ 
+			description: joi.string().min(1).trim() 
+		}),
+	passengersQtd: joi.number().min(1)
+});
+
+const carPatch = joi.object({
+	description: joi.string().min(3)
+});
+
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
     
@@ -37,6 +54,16 @@ module.exports =async (req, res, next) => {
 
 		if(req.method == "PUT") {
 			await carPut.validateAsync({...reqBody });
+			next();
+		}
+
+		if(req.method == "GET") {
+			await carGet.validateAsync({...reqBody });
+			next();
+		}
+
+		if(req.method == "PATCH") {
+			await carPatch.validateAsync({...reqBody });
 			next();
 		}
 
