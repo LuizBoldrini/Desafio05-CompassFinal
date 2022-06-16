@@ -70,6 +70,7 @@
                 "summary": "Cadrasto de carros",
                 "description": "Esta rota será responsável pelo cadrasto de carros",
                 "tags": ["Car"],
+                "security": [{"bearerAuth": []}] ,
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -123,6 +124,7 @@
                 "summary": "Listagem de carros",
                 "description": "Está rota irá listar todos os carros por parâmetro",
                 "tags": ["Car"],
+                "security": [{"bearerAuth": []}] ,
                 "parameters": [{
                     "name": "model",
                     "in": "qurey",
@@ -179,6 +181,7 @@
                 "summary": "Listagem de carros pelo ID",
                 "description": "Está rota irá listar o carro pelo ID indicado",
                 "tags": ["Car"],
+                "security": [{"bearerAuth": []}] ,
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -210,6 +213,7 @@
                 "summary": "Atualiza um carro pelo ID",
                 "description": "Está rota irá atualizar dados do carro pelo ID indicado",
                 "tags": ["Car"],
+                "security": [{"bearerAuth": []}] ,
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -265,6 +269,7 @@
                 "summary": "Apaga um carro pelo ID",
                 "description": "Está rota irá apagar o carro pelo ID indicado",
                 "tags": ["Car"],
+                "security": [{"bearerAuth": []}] ,
                 "parameters": [{
                     "name": "id",
                     "in": "path",
@@ -789,6 +794,13 @@
                         }
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }
