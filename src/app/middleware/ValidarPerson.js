@@ -21,6 +21,15 @@ const personPut = joi.object({
 	canDrive: joi.string().valid("yes", "no")
 });
 
+const personGet = joi.object({
+	name: joi.string().min(4),
+	cpf: joi.string(),
+	birthDay: joi.string(),
+	email: joi.string().email(),
+	password: joi.string().min(6),
+	canDrive: joi.string().valid("yes", "no")
+});
+
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
 	const birthDay = moment(reqBody.birthDay, "DD/MM/YYYY").format("YYYY/MM/DD");
@@ -38,11 +47,16 @@ module.exports =async (req, res, next) => {
 			next();
 		}
 
-		
 		if(req.method == "PUT") {
 			await personPut.validateAsync({...reqBody, birthDay});
 			next();
 		}
+
+		if(req.method == "GET") {
+			await personGet.validateAsync({...reqBody, birthDay});
+			next();
+		}
+
 	} catch (error) {
 		if(error.details === undefined) {
 			return res.status(400).json(error.message);
