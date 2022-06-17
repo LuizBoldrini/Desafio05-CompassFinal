@@ -20,6 +20,14 @@ class PersonRepository {
 	static async delete(payload) {
 		return PersonSchema.findByIdAndDelete(payload);
 	}
+
+	static async acess(payload) {
+		return PersonSchema.findOne({ payload }).select("+password");
+	}
+	
+	static async findPeopleByEmail(email) {
+		return PersonRepository.acess({ email });
+	}
 }
 
 module.exports = PersonRepository;

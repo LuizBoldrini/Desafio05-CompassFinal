@@ -1,4 +1,4 @@
-const AuthenticateRepository = require("../repository/AuthenticateRepository");
+const PersonRepository = require("../repository/PersonRepository");
 const NotFound = require("../erros/NotFound");
 const PassIncorrect = require("../erros/PassIncorrect");
 const formataCpf = require("../utils/FormataCpf");
@@ -8,7 +8,7 @@ const authConfig = require("../config/authConfig.json");
 
 class AuthenticateService {
 	static async acess(email, password) {
-		const user = await AuthenticateRepository.findPeopleByEmail(email);
+		const user = await PersonRepository.findPeopleByEmail(email);
 		
 		if(!user) {
 			throw new NotFound("User");
@@ -27,7 +27,7 @@ class AuthenticateService {
 		});
 		
 		formataCpf(user);
-		return {user, canDrive, token};
+		return {canDrive, token};
 	}
 }
 
