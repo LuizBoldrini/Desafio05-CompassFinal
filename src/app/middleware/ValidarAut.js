@@ -1,5 +1,5 @@
 const joi = require("joi");
-const InvalidField = require("../utils/InvalidField");
+const InvalidField = require("../erros/InvalidField");
 
 const autPost = joi.object({
 	email: joi.string().email().required().error(new InvalidField("email")),

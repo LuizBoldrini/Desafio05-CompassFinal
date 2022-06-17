@@ -1,5 +1,5 @@
 const FleetRepository = require("../repository/FleetRepository");
-const NotFound = require("../utils/NotFound");
+const NotFound = require("../erros/NotFound");
 
 class FleetService {
 	static async create(payload) {

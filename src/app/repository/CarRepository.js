@@ -1,5 +1,4 @@
 const CarSchema = require("../models/Car");
-// const NotFound = require("../utils/NotFound");
 
 class CarRepository {
 	static async create(payload) {

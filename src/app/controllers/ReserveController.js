@@ -5,8 +5,8 @@ class ReserveController {
 		try{
 			const {id_rental} = req.params;
 			const reqBody = req.body;
-			const personCreate = await ReserveService.create({...reqBody, id_rental: String(id_rental)});
-			res.status(201).json(personCreate);
+			const reserveCreate = await ReserveService.create({...reqBody, id_rental: String(id_rental)});
+			res.status(201).json(reserveCreate);
 
 		} catch(error) {
 			res.status(error.status || 400).json({ description: error.description, name: error.message });

@@ -1,6 +1,6 @@
 const joi = require("joi");
 const moment = require("moment");
-const InvalidField = require("../utils/InvalidField");
+const InvalidField = require("../erros/InvalidField");
 const validaCpf = require("../utils/ValidaCpf");
 
 const personPost = joi.object({

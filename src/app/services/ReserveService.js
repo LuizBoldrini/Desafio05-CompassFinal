@@ -1,5 +1,5 @@
 const ReserveRepository = require("../repository/ReserveRepository");
-const NotFound = require("../utils/NotFound");
+const NotFound = require("../erros/NotFound");
 
 class ReserveService {
 	static async create(payload) {

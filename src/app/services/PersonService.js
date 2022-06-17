@@ -1,6 +1,6 @@
 const PersonRepository = require("../repository/PersonRepository");
 const formataCpf = require("../utils/FormataCpf");
-const NotFound = require("../utils/NotFound");
+const NotFound = require("../erros/NotFound");
 
 class PersonService {
 	static async create(payload) {

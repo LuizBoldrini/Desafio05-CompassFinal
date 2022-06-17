@@ -1,5 +1,5 @@
 const CarRepository = require("../repository/CarRepository");
-const NotFound = require("../utils/NotFound");
+const NotFound = require("../erros/NotFound");
 
 class CarService {
 	static async create(payload) {

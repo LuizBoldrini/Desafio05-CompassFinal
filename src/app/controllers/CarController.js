@@ -1,6 +1,6 @@
 const CarService = require("../services/CarService");
-const IdNonStandard = require("../utils/IdNonStandard");
-const NotFound = require("../utils/NotFound");
+const IdNonStandard = require("../erros/IdNonStandard");
+const NotFound = require("../erros/NotFound");
 
 class CarController {
 	static async createCar(req, res) {
