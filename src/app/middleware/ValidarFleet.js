@@ -2,10 +2,26 @@ const joi = require("joi");
 
 const fleetPost = joi.object({
 	id_car: joi.string().required(),
-	id_rental: joi.string().required(),
+	id_rental: joi.string(),
 	status: joi.string().valid("available", "unavailable", "rented").required(),
-	daily_value: joi.number.min(1).required(),
-	plate: joi.date().required()
+	daily_value: joi.number().min(1).required(),
+	plate: joi.string().required()
+});
+
+const fleetPut = joi.object({
+	id_car: joi.string(),
+	id_rental: joi.string(),
+	status: joi.string().valid("available", "unavailable", "rented"),
+	daily_value: joi.number().min(1),
+	plate: joi.string()
+});
+
+const fleetGet = joi.object({
+	id_car: joi.string(),
+	id_rental: joi.string(),
+	status: joi.string().valid("available", "unavailable", "rented"),
+	daily_value: joi.number().min(1),
+	plate: joi.string()
 });
 
 
@@ -14,17 +30,17 @@ module.exports =async (req, res, next) => {
     
 	try {
 		if(req.method == "POST") {
-			await carPost.validateAsync({...reqBody });
+			await fleetPost.validateAsync({...reqBody });
 			next();
 		}
 
 		if(req.method == "PUT") {
-			await carPut.validateAsync({...reqBody });
+			await fleetPut.validateAsync({...reqBody });
 			next();
 		}
 
 		if(req.method == "GET") {
-			await carGet.validateAsync({...reqBody });
+			await fleetGet.validateAsync({...reqBody });
 			next();
 		}
 
