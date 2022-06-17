@@ -21,11 +21,11 @@
     "moment": "^2.29.3",
     "mongoose": "^6.3.5",
     "mongoose-paginate-v2": "^1.6.3",
-    "supertest": "^6.2.3",
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
     "eslint": "^8.16.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
   }
 }
