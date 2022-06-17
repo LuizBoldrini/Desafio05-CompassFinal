@@ -1,10 +1,11 @@
-const PersonService = require("../services/PersonService");
+const FleetService = require("../services/FleetService");
 
-class PersonController {
-	static async createPerso(req, res) {
+class FleetController {
+	static async createReserve(req, res) {
 		try{
+			const {id_rental} = req.params;
 			const reqBody = req.body;
-			const personCreate = await PersonService.create({...reqBody});
+			const personCreate = await FleetService.create({...reqBody, id_rental: String(id_rental)});
 			res.status(201).json(personCreate);
 
 		} catch(error) {
@@ -12,11 +13,11 @@ class PersonController {
 		}
 	}
 
-	static async listPerson(req, res) {
+	static async listReserve(req, res) {
 		try{
 			const reqQuery = req.query;
-			const personList = await PersonService.list(reqQuery);
-			res.status(200).json(personList);
+			const reserveList = await FleetService.list(reqQuery);
+			res.status(200).json(reserveList);
 
 		} catch(error) {
 			res.status(400).json({ description: error.description, name: error.message });
@@ -26,32 +27,32 @@ class PersonController {
 	static async listById(req, res) {
 		const id = req.params.id;
 		try {
-			const listPersonById = await PersonService.listById(id);
-			res.status(200).json(listPersonById);
+			const listReserveById = await FleetService.listById(id);
+			res.status(200).json(listReserveById);
 		} catch(error) {
 			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}	
 	}
 
-	static async updatePerson(req, res) {
+	static async updateReserve(req, res) {
 		try{
 			const id = req.params.id;
 			const reqBody = req.body;
-			const newPerson = await PersonService.update(id, {$set: reqBody});
-			res.status(204).json(newPerson);
+			const newReserve = await FleetService.update(id, {$set: reqBody});
+			res.status(204).json(newReserve);
 		} catch(error) {
 			res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 
-	static async deletePerson(req, res) {
+	static async deleteReserve(req, res) {
 		try {
-			const DeletePerson = await PersonService.delete(req.params.id);
-			return res.status(204).json(DeletePerson);
+			const DeleteReserve = await FleetService.delete(req.params.id);
+			return res.status(204).json(DeleteReserve);
 		} catch (error) {
 			return res.status(error.status || 400).json({ description: error.description, name: error.message });
 		}
 	}
 }
 
-module.exports = PersonController;
+module.exports = FleetController;
