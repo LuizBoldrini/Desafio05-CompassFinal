@@ -2,6 +2,7 @@ const joi = require("joi");
 const moment = require("moment");
 const InvalidField = require("../erros/InvalidField");
 const validaCpf = require("../utils/ValidaCpf");
+const CpfError = require("../erros/CpfError");
 
 const personPost = joi.object({
 	name: joi.string().min(4).required(),
@@ -35,7 +36,7 @@ module.exports =async (req, res, next) => {
 	const birthDay = moment(reqBody.birthDay, "DD/MM/YYYY").format("YYYY/MM/DD");
 	try{
 		if(!validaCpf(reqBody.cpf)) {
-			throw new InvalidField("cpf");
+			throw new CpfError("cpf");
 		}
 
 		if (!validaData(birthDay)) {
@@ -59,7 +60,7 @@ module.exports =async (req, res, next) => {
 
 	} catch (error) {
 		if(error.details === undefined) {
-			return res.status(400).json(error.message);
+			return res.status(400).json({name: error.name, description: error.description});
 		}
 		return res.status(400).json(
 			error.details.map((detail) => ({
