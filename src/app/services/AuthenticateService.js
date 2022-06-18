@@ -14,8 +14,6 @@ class AuthenticateService {
 			throw new NotFound("User");
 		}
 		const { canDrive } = user;
-		if (user.canDrive !== "yes") {
-			throw new Error("Cagada");}
 
 		if(!(await bcrypt.compare(password, user.password))) {
 			new PassIncorrect("password");
