@@ -8,7 +8,7 @@ class PersonController {
 			res.status(201).json(personCreate);
 
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -19,7 +19,7 @@ class PersonController {
 			res.status(200).json(personList);
 
 		} catch(error) {
-			res.status(400).json({ description: error.description, name: error.message });
+			res.status(400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -29,7 +29,7 @@ class PersonController {
 			const listPersonById = await PersonService.listById(id);
 			res.status(200).json(listPersonById);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
@@ -40,7 +40,7 @@ class PersonController {
 			const newPerson = await PersonService.update(id, {$set: reqBody});
 			res.status(204).json(newPerson);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -49,7 +49,7 @@ class PersonController {
 			const DeletePerson = await PersonService.delete(req.params.id);
 			return res.status(204).json(DeletePerson);
 		} catch (error) {
-			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 }

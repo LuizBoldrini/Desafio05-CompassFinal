@@ -9,7 +9,7 @@ class FleetController {
 			res.status(201).json(fleetCreate);
 
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -20,7 +20,7 @@ class FleetController {
 			res.status(200).json(fleetList);
 
 		} catch(error) {
-			res.status(400).json({ description: error.description, name: error.message });
+			res.status(400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -30,7 +30,7 @@ class FleetController {
 			const listFleetById = await FleetService.listById(id);
 			res.status(200).json(listFleetById);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
@@ -41,7 +41,7 @@ class FleetController {
 			const newFleet = await FleetService.update(id, {$set: reqBody});
 			res.status(204).json(newFleet);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -50,7 +50,7 @@ class FleetController {
 			const deleteFleet = await FleetService.delete(req.params.id);
 			return res.status(204).json(deleteFleet);
 		} catch (error) {
-			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 }

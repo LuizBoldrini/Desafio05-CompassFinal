@@ -10,7 +10,7 @@ class CarController {
 			res.status(201).json(createCar);
 
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -21,7 +21,7 @@ class CarController {
 			res.status(200).json(listCar);
 
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -37,7 +37,7 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			res.status(error.status|| 400).json({ description: error.description, name: error.message });
+			res.status(error.status|| 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
@@ -54,7 +54,7 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -70,7 +70,7 @@ class CarController {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard());
 			}
-			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -83,7 +83,7 @@ class CarController {
 			return res.status(200).json(result);
 			
 		} catch (error) {
-			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 }
