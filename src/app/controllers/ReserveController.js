@@ -9,7 +9,7 @@ class ReserveController {
 			res.status(201).json(reserveCreate);
 
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -20,7 +20,7 @@ class ReserveController {
 			res.status(200).json(reserveList);
 
 		} catch(error) {
-			res.status(400).json({ description: error.description, name: error.message });
+			res.status(400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -30,7 +30,7 @@ class ReserveController {
 			const listReserveById = await ReserveService.listById(id);
 			res.status(200).json(listReserveById);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
@@ -41,7 +41,7 @@ class ReserveController {
 			const newReserve = await ReserveService.update(id, {$set: reqBody});
 			res.status(204).json(newReserve);
 		} catch(error) {
-			res.status(error.status || 400).json({ description: error.description, name: error.message });
+			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
@@ -50,7 +50,7 @@ class ReserveController {
 			const DeleteReserve = await ReserveService.delete(req.params.id);
 			return res.status(204).json(DeleteReserve);
 		} catch (error) {
-			return res.status(error.status || 400).json({ description: error.description, name: error.message });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 }
