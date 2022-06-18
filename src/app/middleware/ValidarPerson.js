@@ -1,13 +1,12 @@
-const joi = require("joi");
-const moment = require("moment");
-const InvalidField = require("../erros/InvalidField");
+const joi = require("joi").extend(require("@joi/date"));
+const validaData = require("../utils/ValidaData");
 const validaCpf = require("../utils/ValidaCpf");
 const CpfError = require("../erros/CpfError");
 
 const personPost = joi.object({
 	name: joi.string().min(4).required(),
 	cpf: joi.string().required(),
-	birthDay: joi.date().required(),
+	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()).required(),
 	email: joi.string().email().required(),
 	password: joi.string().min(6).required(),
 	canDrive: joi.string().valid("yes", "no").required()
@@ -15,8 +14,8 @@ const personPost = joi.object({
 
 const personPut = joi.object({
 	name: joi.string().min(4),
-	cpf: joi.string(),
-	birthDay: joi.string(),
+	cpf: joi.string().required(),
+	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
 	canDrive: joi.string().valid("yes", "no")
@@ -24,8 +23,8 @@ const personPut = joi.object({
 
 const personGet = joi.object({
 	name: joi.string().min(4),
-	cpf: joi.string(),
-	birthDay: joi.string(),
+	cpf: joi.string().required(),
+	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
 	canDrive: joi.string().valid("yes", "no")
@@ -33,28 +32,23 @@ const personGet = joi.object({
 
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
-	const birthDay = moment(reqBody.birthDay, "DD/MM/YYYY").format("YYYY/MM/DD");
 	try{
 		if(!validaCpf(reqBody.cpf)) {
 			throw new CpfError("cpf");
 		}
 
-		if (!validaData(birthDay)) {
-			throw new InvalidField("birthDay");
-		}
-
 		if(req.method == "POST") {
-			await personPost.validateAsync({...reqBody, birthDay});
+			await personPost.validateAsync({...reqBody});
 			next();
 		}
 
 		if(req.method == "PUT") {
-			await personPut.validateAsync({...reqBody, birthDay});
+			await personPut.validateAsync({...reqBody});
 			next();
 		}
 
 		if(req.method == "GET") {
-			await personGet.validateAsync({...reqBody, birthDay});
+			await personGet.validateAsync({...reqBody});
 			next();
 		}
 
@@ -69,11 +63,3 @@ module.exports =async (req, res, next) => {
 			})));}
 };
 
-function validaData(formatedDate) {
-	const dateNow = new Date().toLocaleDateString();
-	const formatedDateNow = moment(dateNow, "DD/MM/YYYY").format("YYYY/MM/DD");
-	const age = moment(formatedDateNow).diff(formatedDate, "years", true);
-	if( Math.trunc(age) < 18) {
-		return false;
-	} else return true; 	
-}
