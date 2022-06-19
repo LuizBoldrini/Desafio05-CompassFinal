@@ -1,3 +1,5 @@
+const IdNonStandard = require("../erros/IdNonStandard");
+const NotFound = require("../erros/NotFound");
 const ReserveService = require("../services/ReserveService");
 
 class ReserveController {
@@ -9,6 +11,12 @@ class ReserveController {
 			res.status(201).json(reserveCreate);
 
 		} catch(error) {
+			if(error.name === "TypeError") {
+				return res.status(400).json(new NotFound("id_user, id_car or id_rental"));
+			}
+			if(error.name === "CastError") {
+				return res.status(400).json(new IdNonStandard("id_user, id_car or id_rental"));
+			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
