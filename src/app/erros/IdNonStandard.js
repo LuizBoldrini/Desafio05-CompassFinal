@@ -1,8 +1,8 @@
 class IdNonStandard extends Error {
-	constructor() {
+	constructor(campos) {
 		super();
 		this.name = "IdNonStandard";
-		this.description = "This Id does not follow the pattern used by the database";
+		this.description = `"${campos}" does not follow the pattern used by the database`;
 	}
 }
 
