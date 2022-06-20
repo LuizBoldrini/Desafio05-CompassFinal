@@ -14,8 +14,8 @@ const personPost = joi.object({
 
 const personPut = joi.object({
 	name: joi.string().min(4),
-	cpf: joi.string().required(),
-	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()),
+	cpf: joi.string(),
+	birthDay: joi.date().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
 	canDrive: joi.string().valid("yes", "no")
@@ -23,8 +23,8 @@ const personPut = joi.object({
 
 const personGet = joi.object({
 	name: joi.string().min(4),
-	cpf: joi.string().required(),
-	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()),
+	cpf: joi.string(),
+	birthDay: joi.date().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
 	canDrive: joi.string().valid("yes", "no")
