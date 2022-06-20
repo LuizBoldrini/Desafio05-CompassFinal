@@ -5,6 +5,7 @@ const formataCpf = require("../utils/FormataCpf");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../config/authConfig.json");
+require("dotenv").config();
 
 class AuthenticateService {
 	static async acess(email, password) {
@@ -20,7 +21,7 @@ class AuthenticateService {
 		}	
 		user.password = undefined;
 
-		const token = jwt.sign({ id: user.id}, authConfig.secret, {
+		const token = jwt.sign({ id: user.id}, authConfig.secret || process.env.JWT_SECRET, {
 			expiresIn: 86400
 		});
 		
