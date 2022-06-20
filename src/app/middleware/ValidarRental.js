@@ -1,4 +1,5 @@
 const joi = require("joi");
+const isFilial = require("../utils/IsFilial");
 
 const rentalPost = joi.object({
 	name: joi.string().min(2).required(),
@@ -38,6 +39,8 @@ module.exports =async (req, res, next) => {
 	const reqBody = req.body;
 
 	try {
+		isFilial(reqBody);
+
 		if(req.method == "POST") {
 			await rentalPost.validateAsync({...reqBody });
 			next();
@@ -48,11 +51,8 @@ module.exports =async (req, res, next) => {
 			next();
 		}
 	} catch (error) {
-		return res.status(400).json(
-			error.details.map((detail) => ({
-				name: detail.path.join(),
-				description: detail.message
-			})));}
-
-
+		return res.status(400).json({
+			name: error.name,
+			description: error.description || error.message
+		});}
 };

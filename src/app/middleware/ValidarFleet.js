@@ -45,9 +45,8 @@ module.exports =async (req, res, next) => {
 		}
 
 	} catch (error) {
-		return res.status(400).json(
-			error.details.map((detail) => ({
-				name: detail.path.join(),
-				description: detail.message
-			})));}
+		return res.status(400).json({
+			name: error.name,
+			description: error.description || error.message
+		});}
 };
