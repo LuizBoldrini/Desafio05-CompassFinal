@@ -17,18 +17,16 @@ class ReserveService {
 		if (!fleet){
 			throw new NotFound("Fleet");
 		} 
+
 		const { data_start, data_end } = payload;
 		const { daily_value } = fleet;
-		
 		payload.final_value = CalcFinalValue(data_start, data_end, daily_value);
 
-		
 		return ReserveRepository.create(payload);
 	}
 
 	static async list(payload) {
-		const resultado = await ReserveRepository.list(payload);
-		return resultado;
+		return await ReserveRepository.list(payload);
 	}
 
 	static async listById(payload) {
@@ -43,7 +41,7 @@ class ReserveService {
 		const resultado = await ReserveRepository.update(payload, reqBody);
 		if(!resultado) {
 			throw new NotFound("id");
-		}
+		}	
 		return resultado;
 	}
 
