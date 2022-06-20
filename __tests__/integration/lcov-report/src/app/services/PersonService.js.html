@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.08% </span>
+                <span class="strong">39.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/46</span>
+                <span class='fraction'>18/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.08% </span>
+                <span class="strong">39.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/46</span>
+                <span class='fraction'>18/46</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,25 +114,16 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -144,43 +135,43 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const PersonRepository = require("../repository/PersonRepository");
 const formataCpf = require("../utils/FormataCpf");
-const NotFound = require("../utils/NotFound");
+const NotFound = require("../erros/NotFound");
 &nbsp;
 class PersonService {
-	static async cria(payload) {
-		const resultado = await PersonRepository.cria(payload);
-		formataCpf(resultado);
-		return resultado;
-	}
+	static async create<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.create(payload);</span>
+<span class="cstat-no" title="statement not covered" >		formataCpf(resultado);</span>
+<span class="cstat-no" title="statement not covered" >		return resultado;</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async lista(payload) {
-		const resultado = await PersonRepository.lista(payload);
-		formataCpf(resultado);
-		return resultado;
-	}
+	static async list<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.list(payload);</span>
+<span class="cstat-no" title="statement not covered" >		formataCpf(resultado);</span>
+<span class="cstat-no" title="statement not covered" >		return resultado;</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async listaPorId(payload) {
-		const resultado = await PersonRepository.listaPorId(payload);
-		if(!resultado) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-		formataCpf(resultado);
-		return resultado;
-	}
-&nbsp;
-	static async atualiza<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.atualiza(payload, reqBody);</span>
+	static async listById<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.listById(payload);</span>
 <span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
 <span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
@@ -188,13 +179,22 @@ class PersonService {
 <span class="cstat-no" title="statement not covered" >		return resultado;</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async deleta(payload) {
-		const resultado = await PersonRepository.deleta(payload);
-		if(!resultado) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+	static async update<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
+<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.update(payload, reqBody);</span>
+<span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
 <span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
-		return resultado;
-	}
+<span class="cstat-no" title="statement not covered" >		formataCpf(resultado);</span>
+<span class="cstat-no" title="statement not covered" >		return resultado;</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
+&nbsp;
+	static async delete<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		const resultado = await PersonRepository.delete(payload);</span>
+<span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
+<span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
+<span class="cstat-no" title="statement not covered" >		}</span>
+<span class="cstat-no" title="statement not covered" >		return resultado;</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
 }
 &nbsp;
@@ -205,7 +205,7 @@ module.exports = PersonService;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Jun 12 2022 22:58:44 GMT-0300 (Horário Padrão de Brasília)
+                at Mon Jun 20 2022 13:49:05 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

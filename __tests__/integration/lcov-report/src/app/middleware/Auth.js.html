@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/app/middleware/ValidarAut.js</title>
+    <title>Code coverage report for src/app/middleware/Auth.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/app/middleware</a> ValidarAut.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/app/middleware</a> Auth.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>25/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>25/27</span>
             </div>
         
             
@@ -83,47 +83,65 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const joi = require("joi");
-const InvalidField = require("../erros/InvalidField");
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">const jwt = require("jsonwebtoken");
+const authConfig = require("../config/authConfig.json");
 &nbsp;
-const autPost = joi.object({
-	email: joi.string().email().required().error(new InvalidField("email")),
-	password: joi.string().min(6).required().error(new InvalidField("passowrd")),
-});
+module.exports = (req, res, next) =&gt; {
+	const authHeader = req.headers.authorization;
 &nbsp;
-module.exports =async (req, res, next) =&gt; {
-	const reqBody = req.body;
-	try{
-		if(req.method == "POST") {
-			await autPost.validateAsync({...reqBody});
-			next();
-		}
+	if (!authHeader)
+		return res.status(401).send({ name: "tokenError", description: "Token not provided" });
 &nbsp;
-	} <span class="branch-0 cbranch-no" title="branch not covered" >catch(error) {</span>
-<span class="cstat-no" title="statement not covered" >		res.status(400).json(error.message);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
-};
-&nbsp;</pre></td></tr></table></pre>
+	const parts = authHeader.split(" ");
+&nbsp;
+	if (!parts.length === 2)
+<span class="branch-0 cbranch-no" title="branch not covered" >		return r</span>es.status(401).send({  name: "tokenError", description: "Token error" });
+&nbsp;
+	const [scheme, token] = parts;
+&nbsp;
+	if (!/^Bearer$/i.test(scheme))
+<span class="branch-0 cbranch-no" title="branch not covered" >		return r</span>es.status(401).send({
+			name: "tokenError", description: "Token is not in a valid format, please try \"Bearer (token)\""
+		});
+&nbsp;
+	jwt.verify(token, authConfig.secret, (err, decoded) =&gt; {
+		if (err) <span class="branch-0 cbranch-no" title="branch not covered" >return res.status(401).send({ name: "tokenError", description: "Invalid Token" });</span>
+<span class="cstat-no" title="statement not covered" >		req.userId = decoded.id;</span>
+<span class="cstat-no" title="statement not covered" >	});</span>
+	return next();
+};</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/app/controllers/PersonController.js</title>
+    <title>Code coverage report for src/app/controllers/ReserveController.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/app/controllers</a> PersonController.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/app/controllers</a> ReserveController.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.31% </span>
+                <span class="strong">25.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/57</span>
+                <span class='fraction'>17/66</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.31% </span>
+                <span class="strong">25.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/57</span>
+                <span class='fraction'>17/66</span>
             </div>
         
             
@@ -119,19 +119,19 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -142,9 +142,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -173,27 +170,57 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const PersonService = require("../services/PersonService");
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const IdNonStandard = require("../erros/IdNonStandard");
+const NotFound = require("../erros/NotFound");
+const ReserveService = require("../services/ReserveService");
 &nbsp;
-class PersonController {
-	static async createPerso<span class="fstat-no" title="function not covered" >(req, res) {</span>
+class ReserveController {
+	static async createReserve<span class="fstat-no" title="function not covered" >(req, res) {</span>
 <span class="cstat-no" title="statement not covered" >		try{</span>
+<span class="cstat-no" title="statement not covered" >			const {id_rental} = req.params;</span>
 <span class="cstat-no" title="statement not covered" >			const reqBody = req.body;</span>
-<span class="cstat-no" title="statement not covered" >			const personCreate = await PersonService.create({...reqBody});</span>
-<span class="cstat-no" title="statement not covered" >			res.status(201).json(personCreate);</span>
+<span class="cstat-no" title="statement not covered" >			const reserveCreate = await ReserveService.create({...reqBody, id_rental: String(id_rental)});</span>
+<span class="cstat-no" title="statement not covered" >			res.status(201).json(reserveCreate);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >		} catch(error) {</span>
+<span class="cstat-no" title="statement not covered" >			if(error.name === "TypeError") {</span>
+<span class="cstat-no" title="statement not covered" >				return res.status(400).json(new NotFound("id_user, id_car or id_rental"));</span>
+<span class="cstat-no" title="statement not covered" >			}</span>
+<span class="cstat-no" title="statement not covered" >			if(error.name === "CastError") {</span>
+<span class="cstat-no" title="statement not covered" >				return res.status(400).json(new IdNonStandard("id_user, id_car or id_rental"));</span>
+<span class="cstat-no" title="statement not covered" >			}</span>
 <span class="cstat-no" title="statement not covered" >			res.status(error.status || 400).json({ name: error.name, description: error.description });</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async listPerson<span class="fstat-no" title="function not covered" >(req, res) {</span>
+	static async listReserve<span class="fstat-no" title="function not covered" >(req, res) {</span>
 <span class="cstat-no" title="statement not covered" >		try{</span>
 <span class="cstat-no" title="statement not covered" >			const reqQuery = req.query;</span>
-<span class="cstat-no" title="statement not covered" >			const personList = await PersonService.list(reqQuery);</span>
-<span class="cstat-no" title="statement not covered" >			res.status(200).json(personList);</span>
+<span class="cstat-no" title="statement not covered" >			const reserveList = await ReserveService.list(reqQuery);</span>
+<span class="cstat-no" title="statement not covered" >			res.status(200).json(reserveList);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >		} catch(error) {</span>
 <span class="cstat-no" title="statement not covered" >			res.status(400).json({ name: error.name, description: error.description });</span>
@@ -203,35 +230,35 @@ class PersonController {
 	static async listById<span class="fstat-no" title="function not covered" >(req, res) {</span>
 <span class="cstat-no" title="statement not covered" >		const id = req.params.id;</span>
 <span class="cstat-no" title="statement not covered" >		try {</span>
-<span class="cstat-no" title="statement not covered" >			const listPersonById = await PersonService.listById(id);</span>
-<span class="cstat-no" title="statement not covered" >			res.status(200).json(listPersonById);</span>
+<span class="cstat-no" title="statement not covered" >			const listReserveById = await ReserveService.listById(id);</span>
+<span class="cstat-no" title="statement not covered" >			res.status(200).json(listReserveById);</span>
 <span class="cstat-no" title="statement not covered" >		} catch(error) {</span>
 <span class="cstat-no" title="statement not covered" >			res.status(error.status || 400).json({ name: error.name, description: error.description });</span>
 <span class="cstat-no" title="statement not covered" >		}	</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async updatePerson<span class="fstat-no" title="function not covered" >(req, res) {</span>
+	static async updateReserve<span class="fstat-no" title="function not covered" >(req, res) {</span>
 <span class="cstat-no" title="statement not covered" >		try{</span>
 <span class="cstat-no" title="statement not covered" >			const id = req.params.id;</span>
 <span class="cstat-no" title="statement not covered" >			const reqBody = req.body;</span>
-<span class="cstat-no" title="statement not covered" >			const newPerson = await PersonService.update(id, {$set: reqBody});</span>
-<span class="cstat-no" title="statement not covered" >			res.status(204).json(newPerson);</span>
+<span class="cstat-no" title="statement not covered" >			const newReserve = await ReserveService.update(id, {$set: reqBody});</span>
+<span class="cstat-no" title="statement not covered" >			res.status(204).json(newReserve);</span>
 <span class="cstat-no" title="statement not covered" >		} catch(error) {</span>
 <span class="cstat-no" title="statement not covered" >			res.status(error.status || 400).json({ name: error.name, description: error.description });</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async deletePerson<span class="fstat-no" title="function not covered" >(req, res) {</span>
+	static async deleteReserve<span class="fstat-no" title="function not covered" >(req, res) {</span>
 <span class="cstat-no" title="statement not covered" >		try {</span>
-<span class="cstat-no" title="statement not covered" >			const DeletePerson = await PersonService.delete(req.params.id);</span>
-<span class="cstat-no" title="statement not covered" >			return res.status(204).json(DeletePerson);</span>
+<span class="cstat-no" title="statement not covered" >			const DeleteReserve = await ReserveService.delete(req.params.id);</span>
+<span class="cstat-no" title="statement not covered" >			return res.status(204).json(DeleteReserve);</span>
 <span class="cstat-no" title="statement not covered" >		} catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >			return res.status(error.status || 400).json({ name: error.name, description: error.description });</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 }
 &nbsp;
-module.exports = PersonController;</pre></td></tr></table></pre>
+module.exports = ReserveController;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

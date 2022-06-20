@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.34% </span>
+                <span class="strong">40.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/47</span>
+                <span class='fraction'>19/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.34% </span>
+                <span class="strong">40.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/47</span>
+                <span class='fraction'>19/47</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,32 +113,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -151,55 +127,79 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const CarSchema = require("../models/Car");
-// const NotFound = require("../utils/NotFound");
 &nbsp;
 class CarRepository {
-	static async cria(payload) {
+	static async create(payload) {
 		return CarSchema.create(payload);
 	}
 &nbsp;
-	static async lista(payload) {
-		const costumizarPaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
-		};
-		const options = {
-			limit: 10,
-			offset: 0,
-			customLabels: costumizarPaginate
-		};
-		return CarSchema.paginate(payload, options, {});
-	}
+	static async list<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		const costumizePaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false</span>
+<span class="cstat-no" title="statement not covered" >		};</span>
+<span class="cstat-no" title="statement not covered" >		const {limit = 100, offset = 0, ...query} = payload;  </span>
+<span class="cstat-no" title="statement not covered" >		const options = {</span>
+<span class="cstat-no" title="statement not covered" >			limit: Number(limit),</span>
+<span class="cstat-no" title="statement not covered" >			offset: Number(offset),</span>
+<span class="cstat-no" title="statement not covered" >			customLabels: costumizePaginate</span>
+<span class="cstat-no" title="statement not covered" >		};</span>
+<span class="cstat-no" title="statement not covered" >		return CarSchema.paginate(query, options);</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async listaPorId(payload) {
-		return CarSchema.findById(payload);
-	}
+	static async listById<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		return CarSchema.findById(payload);</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async atualiza<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
+	static async update<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
 <span class="cstat-no" title="statement not covered" >		return CarSchema.findByIdAndUpdate(payload, reqBody);</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static async deleta(payload) {
-		return CarSchema.findByIdAndDelete(payload);
-	}
+	static async delete<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >		return CarSchema.findByIdAndDelete(payload);</span>
+<span class="cstat-no" title="statement not covered" >	}</span>
 &nbsp;
-	static  async atualizaDesc<span class="fstat-no" title="function not covered" >(idAcess, payload, atualizaDesc) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await CarSchema.findOneAndUpdate(</span>
+	static  async updateDesc<span class="fstat-no" title="function not covered" >(idAcess, attDesc) {</span>
+<span class="cstat-no" title="statement not covered" >		const result = await CarSchema.findOneAndUpdate(</span>
 <span class="cstat-no" title="statement not covered" >			{ "accessories._id": idAcess },</span>
 <span class="cstat-no" title="statement not covered" >			{</span>
 <span class="cstat-no" title="statement not covered" >				$set: {</span>
-<span class="cstat-no" title="statement not covered" >					"description.$.accessories": atualizaDesc.description</span>
+<span class="cstat-no" title="statement not covered" >					"accessories.$.description": attDesc.description</span>
 <span class="cstat-no" title="statement not covered" >				}</span>
 <span class="cstat-no" title="statement not covered" >			},</span>
-<span class="cstat-no" title="statement not covered" >			{upsert: true, new: true }</span>
+<span class="cstat-no" title="statement not covered" >			{ returnOriginal: false }</span>
 <span class="cstat-no" title="statement not covered" >		);</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
+<span class="cstat-no" title="statement not covered" >		return result;</span>
+<span class="cstat-no" title="statement not covered" >		</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 }
-// 
 &nbsp;
 module.exports = CarRepository;</pre></td></tr></table></pre>
 
@@ -208,7 +208,7 @@ module.exports = CarRepository;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Jun 12 2022 22:58:44 GMT-0300 (Horário Padrão de Brasília)
+                at Mon Jun 20 2022 13:49:05 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
