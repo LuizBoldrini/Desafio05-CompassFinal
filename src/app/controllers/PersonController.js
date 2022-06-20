@@ -1,3 +1,4 @@
+const UniqueError = require("../erros/UniqueError");
 const PersonService = require("../services/PersonService");
 
 class PersonController {
@@ -8,6 +9,9 @@ class PersonController {
 			res.status(201).json(personCreate);
 
 		} catch(error) {
+			if(error.name === "MongoServerError") {
+				return res.status(400).json(new UniqueError("cpf or email"));
+			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
