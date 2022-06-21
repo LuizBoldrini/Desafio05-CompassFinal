@@ -15,7 +15,9 @@ class ReserveController {
 				return res.status(400).json(new NotFound("id_user, id_car or id_rental"));
 			}
 			if(error.name === "CastError") {
-				return res.status(400).json(new IdNonStandard("id_user, id_car or id_rental"));
+				return res.status(400).json(new IdNonStandard("id_user or id_car"));
+			}if(error.name === "ValidationError") {
+				return res.status(400).json(new IdNonStandard("id_rental"));
 			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}

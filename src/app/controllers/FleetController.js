@@ -1,5 +1,6 @@
 const NotFound = require("../erros/NotFound");
 const FleetService = require("../services/FleetService");
+const IdNonStandard = require("../erros/IdNonStandard");
 
 class FleetController {
 	static async createReserve(req, res) {
@@ -10,8 +11,8 @@ class FleetController {
 			res.status(201).json(fleetCreate);
 
 		} catch(error) {
-			if(error.name === "ValidationError") {
-				return res.status(400).json(new NotFound("id_car or id_rental"));
+			if(error.name === "CastError") {
+				return res.status(400).json(new IdNonStandard("id_rental or id_car"));
 			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
@@ -43,7 +44,7 @@ class FleetController {
 			const id = req.params.id;
 			const reqBody = req.body;
 			const newFleet = await FleetService.update(id, {$set: reqBody});
-			res.status(204).json(newFleet);
+			res.status(201).json(newFleet);
 		} catch(error) {
 			if(error.name === "ValidationError") {
 				return res.status(400).json(new NotFound("id_car or id_rental"));
