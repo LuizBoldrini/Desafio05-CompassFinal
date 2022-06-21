@@ -1,10 +1,13 @@
+/* eslint-disable camelcase */
 const FleetRepository = require("../repository/FleetRepository");
 const NotFound = require("../erros/NotFound");
 const RentalRepository = require("../repository/RentalRepository");
 const CarRepository = require("../repository/CarRepository");
+
 class FleetService {
 	static async create(payload) {
-		const {id_rental} = payload;
+		// eslint-disable-next-line camelcase
+		const { id_rental } = payload;
 		const rental = await RentalRepository.listById(id_rental);
 		if (!rental) throw new NotFound("Rental");
 
