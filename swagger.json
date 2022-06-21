@@ -681,6 +681,400 @@
                 }
             }
             }
+        },
+        "/rental/{id_rental}/fleet": {
+            "post": {
+                "summary": "Cadrasto de frota de carros",
+                "description": "Esta rota será responsável pelo cadrasto de frotas",
+                "tags": ["Fleet"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fleet"
+                            },
+                            "examples": {
+                                "fleet": {
+                                    "value": {
+                                        "id_car": "62b0e95531bf6ad0fe8e113e",
+                                        "status": "available",
+                                        "daily_value": 100.00,
+                                        "plate": "ABC1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Fleet"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de frotas",
+                "description": "Está rota irá listar todas as frotas existentes",
+                "tags": ["Fleet"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Fleet"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
+        },
+        "/rental/{id_rental}/fleet/{id}": {
+            "get": {
+                "summary": "Listagem de frotas pelo ID",
+                "description": "Está rota irá listar uma frota pelo ID indicado",
+                "tags": ["Fleet"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma frota pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Fleet"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            },
+            "put": {
+                "summary": "Atualiza uma frota pelo ID",
+                "description": "Está rota irá atualizar dados de uma frota pelo ID indicado",
+                "tags": ["Fleet"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma frota pelo ID",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Fleet"
+                        },
+                        "examples": {
+                            "fleet": {
+                                "value": {
+                                    "id_car": "62b0e95531bf6ad0fe8e113e",
+                                    "status": "available",
+                                    "daily_value": 150.00,
+                                    "plate": "ABC1234"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            } 
+            },
+            "delete": {
+                "summary": "Apaga uma frota pelo ID",
+                "description": "Está rota irá apagar uma frota pelo ID indicado",
+                "tags": ["Fleet"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma frota pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
+        },
+        "/rental/{id_rental}/reserve": {
+            "post": {
+                "summary": "Cadrasto de reservas de carros",
+                "description": "Esta rota será responsável pelo cadrasto de reservar",
+                "tags": ["Reserve"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Reserve"
+                            },
+                            "examples": {
+                                "fleet": {
+                                    "value": {
+                                        "id_user": "62b0d2196320342b42707d83",
+                                        "data_start": "20/11/2021",
+                                        "data_end": "30/11/2021",
+                                        "id_car": "62accd642ba00b36243fb050",
+                                        "final_value": 100.00
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Fleet"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listagem de reservas",
+                "description": "Está rota irá listar todas as reservas existentes",
+                "tags": ["Reserve"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Reserve"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
+        },
+        "/rental/{id_rental}/reserve/{id}": {
+            "get": {
+                "summary": "Listagem de reservas pelo ID",
+                "description": "Está rota irá listar uma reserva pelo ID indicado",
+                "tags": ["Reserve"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma reserva pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Good Request",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Reserve"
+                                }
+                            }
+                        }
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            },
+            "put": {
+                "summary": "Atualiza uma reserva pelo ID",
+                "description": "Está rota irá atualizar dados de uma reserva pelo ID indicado",
+                "tags": ["Reserve"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma Reserve pelo ID",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Reserve"
+                        },
+                        "examples": {
+                            "fleet": {
+                                "value": {
+                                    "id_user": "62b0d2196320342b42707d83",
+                                    "data_start": "28/11/2021",
+                                    "data_end": "30/11/2021",
+                                    "id_car": "62accd642ba00b36243fb050",
+                                    "final_value": 100.00
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            } 
+            },
+            "delete": {
+                "summary": "Apaga uma reserva pelo ID",
+                "description": "Está rota irá apagar uma reserva pelo ID indicado",
+                "tags": ["Reserve"],
+                "parameters": [{
+                    "name": "id_rental",
+                    "in": "path",
+                    "description": "Busca uma locadora pelo ID",
+                    "required": true
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Busca uma reserva pelo ID",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Good Request"
+                },
+                "400": {
+                    "description": "Bad Request"
+                },
+                "404": {
+                    "description": "Not found"
+                }
+            }
+            }
         }
     },
     "components": {
@@ -793,6 +1187,60 @@
                             }
                         }
                     }
+                }
+            },
+            "Fleet": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "id_car": {
+                        "type": "string"
+                    },
+                    "id_rental": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": {
+                            "values": ["available", "unavailable", "rented"]
+                        }
+                    },
+                    "daily_value": {
+                        "type": "number"
+                    },
+                    "plate": {
+                        "type": "string"
+                    }
+                    
+                }
+            },
+            "Reserve": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "id_user": {
+                        "type": "string"
+                    },
+                    "data_start": {
+                        "type": "string"
+                    },
+                    "data_end": {
+                        "type": "string"
+                    },
+                    "id_car": {
+                        "type": "string"
+                    },
+                    "id_rental": {
+                        "type": "string"
+                    },
+                    "final_value": {
+                        "type": "number"
+                    }
+                    
                 }
             }
         },
