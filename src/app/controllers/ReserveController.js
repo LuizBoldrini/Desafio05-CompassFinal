@@ -25,8 +25,9 @@ class ReserveController {
 
 	static async listReserve(req, res) {
 		try{
+			const {id_rental} = req.params;
 			const reqQuery = req.query;
-			const reserveList = await ReserveService.list(reqQuery);
+			const reserveList = await ReserveService.list({...reqQuery, id_rental: String(id_rental) });
 			res.status(200).json(reserveList);
 
 		} catch(error) {
@@ -35,8 +36,8 @@ class ReserveController {
 	}
 
 	static async listById(req, res) {
-		const id = req.params.id;
 		try {
+			const id = req.params.id;
 			const listReserveById = await ReserveService.listById(id);
 			res.status(200).json(listReserveById);
 		} catch(error) {

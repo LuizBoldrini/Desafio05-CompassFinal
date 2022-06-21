@@ -33,6 +33,10 @@ class ReserveService {
 	}
 
 	static async list(payload) {
+		const { id_rental } = payload;
+		const rental = await RentalRepository.listById(id_rental);
+		if (!rental) throw new NotFound("Rental");
+
 		return ReserveRepository.list(payload);
 	}
 
