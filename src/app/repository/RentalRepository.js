@@ -1,5 +1,7 @@
-const RentalSchema = require("../models/Rental");
+/* eslint-disable node/no-unsupported-features/es-syntax */
 const axios = require("axios").default;
+const RentalSchema = require("../models/Rental");
+
 
 class RentalRepository {
 	static async create(payload) {
@@ -14,7 +16,7 @@ class RentalRepository {
 	}
 
 	static async list(payload) {
-		const costumizePaginate = {totalDocs: "total", docs: "rentals", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		const costumizePaginate = {totalDocs: "total", docs: "rental", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
 		const {limit = 100, offset = 0, ...query} = payload;  
 		const options = {

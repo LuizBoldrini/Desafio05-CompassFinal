@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 const CarSchema = require("../models/Car");
 
 class CarRepository {
@@ -6,7 +7,7 @@ class CarRepository {
 	}
 
 	static async list(payload) {
-		const costumizePaginate = {totalDocs: "total", docs: "CarSchema", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		const costumizePaginate = {totalDocs: "total", docs: "car", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
 		const {limit = 100, offset = 0, ...query} = payload;  
 		const options = {

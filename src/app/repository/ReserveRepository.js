@@ -6,8 +6,9 @@ class ReserveRepository {
 	}
 
 	static async list(payload) {
-		const costumizePaginate = {totalDocs: "total", docs: "reserves", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		const costumizePaginate = {totalDocs: "total", docs: "reserve", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
+		// eslint-disable-next-line node/no-unsupported-features/es-syntax
 		const {limit = 100, offset = 0, ...query} = payload;  
 		const options = {
 			limit: Number(limit),
