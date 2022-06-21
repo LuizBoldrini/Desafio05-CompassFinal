@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const ReserveRepository = require("../repository/ReserveRepository");
 const NotFound = require("../erros/NotFound");
 const CalcFinalValue = require("../utils/CalcFinalValue");
@@ -20,13 +21,14 @@ class ReserveService {
 
 		const { data_start, data_end } = payload;
 		const { daily_value } = fleet;
+		// eslint-disable-next-line no-param-reassign
 		payload.final_value = CalcFinalValue(data_start, data_end, daily_value);
 
 		return ReserveRepository.create(payload);
 	}
 
 	static async list(payload) {
-		return await ReserveRepository.list(payload);
+		return ReserveRepository.list(payload);
 	}
 
 	static async listById(payload) {
