@@ -1,19 +1,29 @@
 
 # <p align="center">Desafio Sprint 05 | Compass</p>
 
-## Libs e suas versões
+## Libs e suas versões 📚
 ```
-bcryptjs: ^2.4.3        body-parser: ^1.20.0
-express: ^4.18.1        joi: ^17.6.0
-jsonwebtoken: ^8.5.1    moment: ^2.29.3
-mongoose: ^6.3.5        mongoose-paginate-v2: ^1.6.3
+bcryptjs: ^2.4.3            body-parser: ^1.20.0
+express: ^4.18.1            joi: ^17.6.0
+jsonwebtoken: ^8.5.1        moment: ^2.29.3
+mongoose: ^6.3.5            mongoose-paginate-v2: ^1.6.3
+@joi/date: ^2.1.0           axios: ^0.27.2
+dotenv: ^16.0.1             swagger-ui-express: ^4.4.0
 
 devDependencies:
-eslint: ^8.16.0         nodemon: ^2.0.16
-jest: ^28.1.0
+eslint: ^8.16.0             nodemon: ^2.0.16
+jest: ^28.1.0               eslint-config-airbnb-base: ^15.0.0
+prettier: ^2.7.1            eslint-config-node: ^4.1.0
+supertest: ^6.2.3           eslint-config-plugin: ^1.0.11
+eslint-plugin-node: ^11.1.0 eslint-plugin-prettier: ^4.0.0
 ```
 
-## Indice
+---
+## Swagger 📃
+`http://localhost:3000/api/v1/api-docs/`
+
+---
+## Indice 🗂️
 [Descrição](#Descrição)
 
 [Funcionalidades](#Funcionalidades)
@@ -26,10 +36,12 @@ jest: ^28.1.0
 
 [API-Authenticate](#API-Authenticate)
 
-## Descrição
-Como solicitado, esta é uma API RestFull para uma locadora de carros, chamada Renpass.uol. Usada para cadrastrar os carros da empresa e também para cadrasto de clientes.
+---
 
-## Funcionalidades
+## Descrição 🆘
+Esta é uma API RestFull para uma locadora de carros, chamada Renpass.uol. Usada para cadrastrar os carros da empresa e também para cadrasto de clientes.
+
+## Funcionalidades ⚙️🔧
 **Funcionalidade 1:** Realizar cadastro dos carros:
 ```
 -Deve ter pelo menos um acessório e não se pode repetí-los.
@@ -54,8 +66,8 @@ Como solicitado, esta é uma API RestFull para uma locadora de carros, chamada R
 ```
 -Recebe um token de autenticação caso o email e senha estejam corretos.
 ```
-
-## Instalação
+---
+## Instalação 📥
 
 No terminal, clone o projeto:
 
@@ -65,14 +77,15 @@ Instale as dependências:
 
 `npm install` 
 
+---
 ## Iniciar servidor:
 
 Caso tenha instalado o nodemon: `npm start`.
 
 Caso não tenha instalado: `node .\src\index.js`
 
-## API-Car
-
+---
+## API-Car 🚗
 
 ### Cadastrar Carro
 POST: ``/api/v1/car``
@@ -183,7 +196,8 @@ Atenção:
 - Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
 - Caso o ID não seja encontrado retornar 404.
 
-## API-Person
+---
+## API-Person 👥
 
 ### Criar um endpoint para cadastrar uma pessoa
 POST: `/api/v1/person`
@@ -232,7 +246,7 @@ GET: `/api/v1/person`
 ### Atualizar alguma pessoa cadastrada
 PUT: `/api/v1/person/:id`
 
-### Buscar carro X cadastrado 
+### Buscar pessoa X cadastrado 
 GET `/api/v1/person/:id`
 ```bash
 {
@@ -245,15 +259,15 @@ GET `/api/v1/person/:id`
 }
 ```
 
-### Deletar um carro
+### Deletar uma pessoa
 DELETE: `/api/v1/car/:id`
 
 Atenção:
 - Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
 - Caso o ID não seja encontrado retornar 404.
 
-
-## API-Authenticate
+---
+## API-Authenticate 🔐
 
 ### Autenticação com o usuário 
 POST: `/api/v1/authenticate`
@@ -268,15 +282,8 @@ Envia:
 Recebe: 
 ```bash
 {
-    "user": {
-        "_id": "629d4c314c60b4dc3509b07f",
-        "name": "Joãozinho Moura",
-        "cpf": "041.262.712-44",
-        "birthDay": "2002-10-10T03:00:00.000Z",
-        "email": "joazinho@emai.com",
-        "canDrive": "yes"
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWQ0YzMxNGM2MGI0ZGMzNTA5YjA3ZiIsImlhdCI6MTY1NDQ3NTg3NSwiZXhwIjoxNjU0NTYyMjc1fQ.ETr0vBSQQ4thkU9rfDFzWuynlb8TqbGKE7CoKp_D8Jg"
+    "canDrive": "no",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjBjYjdiNTg2NzcxYTdiNjk0OGY5MyIsImlhdCI6MTY1NTg0ODYxNCwiZXhwIjoxNjU1OTM1MDE0fQ.bpFid4uCgfLO5iTNcuh_tV1kX-4owTSLLrhjxL8ChuI"
 }
 ```
 Atenção:
@@ -284,4 +291,273 @@ Atenção:
 yes ou no
 - O token é retornado no header da requisição e a requisição retorna 204.
 - OBSERVAÇÕES: Este campo ilustrativo "recebe" foi colocado com status 201 para ilustrar oque vai receber, depois do teste, retornado para 204.
-- 
+
+---
+## API-Rental 🏗️
+
+### Criar um endpoint para cadastrar uma locadora
+POST: `/api/v1/rental`
+
+```bash
+{
+    "name": "LocaleFácil LtdA",
+    "cnpj": "16.670.085/0001-12",
+    "activities": "Aluguel de Carros E Gestão de Frotas",
+    "address": [
+    {
+        "zipCode": "96200-200",
+        "number":"1234",
+        "isFilial": false
+    },
+    {
+        "zipCode": "76937-000",
+        "number":"1234",
+        "isFilial": true
+    }]
+}
+```
+Atenção:
+- Todos os campos são required, EXCETO o campo complemento.
+- Não é possível haver CNPJs duplicados.
+- Deve haver APENAS um isFilial: false ou seja apenas uma Matriz, as demais caso
+houver são filiais.
+- Atentem-se que no payload de cadastro da locadora, é enviado apenas o CEP. Para
+buscar o endereço completo, iremos realizar uma requisição a uma API externa
+chamada VIA CEP.
+
+
+## Listar todas locadoras cadastradas
+GET: `/api/v1/rental`
+
+```bash
+{
+    "rental": [
+        {
+            "_id": "62b0a8b3d716bd3dd8fa0095",
+            "name": "LocaleFácil LtdA",
+            "cnpj": "16.670.085/0001-11",
+            "activities": "Aluguel de Carros E Gestão de Frotas",
+            "address": [
+                {
+                    "zipCode": "96200-200",
+                    "street": "Rua General Canabarro",
+                    "district": "Centro",
+                    "number": 1234,
+                    "city": "Rio Grande",
+                    "state": "RS",
+                    "isFilial": false
+                },
+                {
+                    "zipCode": "76937-000",
+                    "street": "",
+                    "district": "",
+                    "number": 1234,
+                    "city": "Costa Marques",
+                    "state": "RO",
+                    "isFilial": true
+                }
+            ]
+        }
+    ]
+    "total": 2,
+    "offset": 1,
+    "limit": 100,
+    "offsets": 1
+}
+```
+
+### Atualizar alguma locadora cadastrada
+PUT: `/api/v1/rental/:id`
+
+### Buscar locadora X cadastrado 
+GET `/api/v1/rental/:id`
+```bash
+{
+    "_id": "62b0aaf97e69187b5e125c02",
+    "name": "LocaleFácil LtdA",
+    "cnpj": "16.670.085/0001-12",
+    "activities": "Aluguel de Carros E Gestão de Frotas",
+    "address": [
+        {
+            "zipCode": "96200-200",
+            "street": "Rua General Canabarro",
+            "district": "Centro",
+            "number": 1234,
+            "city": "Rio Grande",
+            "state": "RS",
+            "isFilial": false
+        },
+        {
+            "zipCode": "76937-000",
+            "street": "",
+            "district": "",
+            "number": 1234,
+            "city": "Costa Marques",
+            "state": "RO",
+            "isFilial": true
+        }
+    ]
+}
+```
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+  
+### Deletar uma locadora
+DELETE: `/api/v1/rental/:id`
+
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+---
+
+## API-Fleet 🚗
+
+### Criar um endpoint para cadastrar uma frota
+POST: `/api/v1/rental/:id_rental/fleet`
+
+```bash
+{
+    "id_car": "62b0e95531bf6ad0fe8e113e",
+    "status": "available",
+    "daily_value": 100,
+    "plate": "ABC1234"
+} 
+```
+Atenção:
+- Todos os campos são required.
+- status pode ser available, unavailable, rented.
+- Não pode haver um mais de um carro com a mesma placa.
+- id_car = Id correspondente ao carro.
+- id_rental = Id da locadora dona do carro. (Será fornecido na url da requisição).
+-  id_rental poderá ser de uma locadora filial.
+
+
+## Listar todas frotas cadastradas
+GET: `/api/v1/rental/:id_rental/fleet`
+
+```bash
+{
+    "fleet": [
+        {
+            "_id": "62b215c589814ad8252b27a8",
+            "id_car": "62b0e95531bf6ad0fe8e113e",
+            "id_rental": "62b0aaf97e69187b5e125c02",
+            "status": "rented",
+            "daily_value": 100,
+            "plate": "ABC1234"
+        }
+    ],
+    "total": 1,
+    "offset": 1,
+    "limit": 100,
+    "offsets": 1
+}
+```
+
+### Atualizar alguma frota cadastrada
+PUT: `/api/v1/rental/:id_rental/fleet/:id`
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+
+### Buscar locadora X cadastrado 
+GET `/api/v1/rental/:id_rental/fleet/:id`
+```bash
+{
+    "_id": "62b215c589814ad8252b27a8",
+    "id_car": "62b0e95531bf6ad0fe8e113e",
+    "id_rental": "62b0aaf97e69187b5e125c02",
+    "status": "rented",
+    "daily_value": 100,
+    "plate": "ABC1234"
+}
+```
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+  
+### Deletar uma locadora
+DELETE: `/api/v1/rental/:id_rental/fleet/:id`
+
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+---
+
+
+## API-Reserve ☑️ 
+
+### Criar um endpoint para cadastrar uma reserva
+POST: `/api/v1/rental/:id_rental/reserve`
+
+```bash
+{
+    "id_user": "62b0d2196320342b42707d83",
+    "data_start": "20/11/2021",
+    "data_end": "30/11/2021",
+    "id_car": "62accd642ba00b36243fb050"
+}
+```
+Atenção:
+- Todos os campos são required.
+- Calcular o final_value baseado no valor da diária.
+- O usuário que for locar o carro precisa obrigatoriamente possuir habilitação.
+- id_car = Id correspondente ao carro.
+- id_rental = Id da locadora dona do carro. (Será fornecido na url da requisição).
+-  id_rental poderá ser de uma locadora filial.
+
+
+## Listar todas reservas cadastradas
+GET: `/api/v1/rental/:id_rental/reserve`
+
+```bash
+{
+    "reserve": [
+        {
+            "_id": "62b2347dab93fde5a9d464c0",
+            "id_user": "62b0d2196320342b42707d83",
+            "data_start": "20/11/2021",
+            "data_end": "30/11/2021",
+            "id_car": "62accd642ba00b36243fb050",
+            "id_rental": "62b0a8b3d716bd3dd8fa0095",
+            "final_value": 1500
+        }
+    ],
+    "total": 7,
+    "offset": 1,
+    "limit": 100,
+    "offsets": 1
+}
+```
+
+### Atualizar alguma reserva cadastrada
+PUT: `/api/v1/rental/:id_rental/reserve/:id`
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+
+### Buscar reserva X cadastrada
+GET `/api/v1/rental/:id_rental/reserve/:id`
+```bash
+{
+    "_id": "62b20a5cd15cd7fe52fa5df1",
+    "id_user": "62b0d2196320342b42707d83",
+    "data_start": "20/11/2021",
+    "data_end": "30/11/2021",
+    "id_car": "62accd642ba00b36243fb050",
+    "id_rental": "62b0a8b3d716bd3dd8fa0095",
+    "final_value": 1500
+}
+```
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+  
+### Deletar uma locadora
+DELETE: `/api/v1/rental/:id_rental/reserve/:id`
+
+Atenção:
+- Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
+- Caso o ID não seja encontrado retornar 404.
+---
