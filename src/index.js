@@ -4,4 +4,4 @@ require("dotenv").config();
 
 const port = 3000;
 
-app.listen(process.env.port || port , () => { console.log(`Servidor na porta: ${port}`);});
+app.listen(process.env.APP_URL || port , () => { console.log(`Servidor na porta: ${port}`);});
