@@ -5,9 +5,14 @@ const CalcFinalValue = require("../utils/CalcFinalValue");
 const FleetRepository = require("../repository/FleetRepository");
 const PersonRepository = require("../repository/PersonRepository");
 const CanDrive = require("../erros/CanDrive");
+const RentalRepository = require("../repository/RentalRepository");
 
 class ReserveService {
 	static async create(payload) {
+		const { id_rental } = payload;
+		const rental = await RentalRepository.listById(id_rental);
+		if (!rental) throw new NotFound("Rental");
+
 		const { id_user } = payload;
 		const user = await PersonRepository.listById(id_user);
 		if (user.canDrive !== "yes") {
