@@ -26,8 +26,7 @@ const ReserveSchema = new mongoose.Schema({
 		required: true
 	},
 	final_value: {
-		type: Number,
-		required: true
+		type: Number
 	}
 },
 { timestamps: false, versionKey: false}

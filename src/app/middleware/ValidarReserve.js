@@ -6,7 +6,7 @@ const reservePost = joi.object({
 	data_end: joi.string().required(),
 	id_car: joi.string().required(),
 	id_rental: joi.string(),
-	final_value: joi.number().min(1).required()
+	final_value: joi.number().min(1)
 });
 
 const reservePut = joi.object({
