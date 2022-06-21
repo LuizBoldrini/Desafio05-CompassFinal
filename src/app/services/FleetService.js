@@ -6,7 +6,6 @@ const CarRepository = require("../repository/CarRepository");
 
 class FleetService {
 	static async create(payload) {
-		// eslint-disable-next-line camelcase
 		const { id_rental } = payload;
 		const rental = await RentalRepository.listById(id_rental);
 		if (!rental) throw new NotFound("Rental");
@@ -20,6 +19,10 @@ class FleetService {
 
 	static async list(payload) {
 		const resultado = await FleetRepository.list(payload);
+		const { id_rental } = payload;
+		const rental = await RentalRepository.listById(id_rental);
+		if (!rental) throw new NotFound("Rental");
+
 		return resultado;
 	}
 

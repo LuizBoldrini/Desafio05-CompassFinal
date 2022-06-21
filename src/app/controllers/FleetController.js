@@ -20,8 +20,9 @@ class FleetController {
 
 	static async listReserve(req, res) {
 		try{
+			const {id_rental} = req.params;
 			const reqQuery = req.query;
-			const fleetList = await FleetService.list(reqQuery);
+			const fleetList = await FleetService.list({ ...reqQuery, id_rental: String(id_rental) });
 			res.status(200).json(fleetList);
 
 		} catch(error) {
