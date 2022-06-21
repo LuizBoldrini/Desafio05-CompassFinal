@@ -6,7 +6,7 @@ class FleetRepository {
 	}
 
 	static async list(payload) {
-		const costumizePaginate = {totalDocs: "total", docs: "reserves", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
+		const costumizePaginate = {totalDocs: "total", docs: "fleet", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
 		const {limit = 100, offset = 0, ...query} = payload;  
 		const options = {

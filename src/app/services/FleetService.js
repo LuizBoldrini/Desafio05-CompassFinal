@@ -1,10 +1,18 @@
 const FleetRepository = require("../repository/FleetRepository");
 const NotFound = require("../erros/NotFound");
-
+const RentalRepository = require("../repository/RentalRepository");
+const CarRepository = require("../repository/CarRepository");
 class FleetService {
 	static async create(payload) {
-		const resultado = await FleetRepository.create(payload);
-		return resultado;
+		const {id_rental} = payload;
+		const rental = await RentalRepository.listById(id_rental);
+		if (!rental) throw new NotFound("Rental");
+
+		const { id_car} = payload;
+		const car = await CarRepository.listById(id_car);
+		if (!car) throw new NotFound("Car");
+
+		return FleetRepository.create(payload);
 	}
 
 	static async list(payload) {
