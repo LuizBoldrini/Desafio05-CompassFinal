@@ -1,3 +1,4 @@
+const NotFound = require("../erros/NotFound");
 const FleetService = require("../services/FleetService");
 
 class FleetController {
@@ -9,6 +10,9 @@ class FleetController {
 			res.status(201).json(fleetCreate);
 
 		} catch(error) {
+			if(error.name === "ValidationError") {
+				return res.status(400).json(new NotFound("id_car or id_rental"));
+			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
@@ -41,6 +45,9 @@ class FleetController {
 			const newFleet = await FleetService.update(id, {$set: reqBody});
 			res.status(204).json(newFleet);
 		} catch(error) {
+			if(error.name === "ValidationError") {
+				return res.status(400).json(new NotFound("id_car or id_rental"));
+			}
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
