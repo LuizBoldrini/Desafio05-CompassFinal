@@ -24,7 +24,7 @@ eslint-plugin-node: ^11.1.0 eslint-plugin-prettier: ^4.0.0
 
 ---
 
-## hEROKU
+## Heroku
 `https://sprint5compass.herokuapp.com/`
 
 ---
