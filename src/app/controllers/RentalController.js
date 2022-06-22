@@ -1,3 +1,4 @@
+const NotFound = require("../erros/NotFound");
 const RentalService = require("../services/RentalService");
 
 class RentalController {
@@ -26,6 +27,9 @@ class RentalController {
 		try {
 			const id = req.params.id;
 			const rentalListById = await RentalService.listById(id);
+			if(rentalListById == null) {
+				return res.status(404).json(new NotFound("id"));
+			}
 			res.status(200).json(rentalListById);
 		} catch(error) {
 			res.status(error.status || 400).json({ name: error.name, description: error.description });
