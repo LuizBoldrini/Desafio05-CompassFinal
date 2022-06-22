@@ -19,11 +19,11 @@ eslint-plugin-node: ^11.1.0 eslint-plugin-prettier: ^4.0.0
 ```
 
 ---
-## Swagger 📃
+## Swagger
 `http://localhost:3000/api/v1/api-docs/`
 
 ---
-## Indice 🗂️
+## Indice
 [Descrição](#Descrição)
 
 [Funcionalidades](#Funcionalidades)
@@ -45,10 +45,10 @@ eslint-plugin-node: ^11.1.0 eslint-plugin-prettier: ^4.0.0
 
 ---
 
-## Descrição 🆘
+## Descrição
 Esta é uma API RestFull para uma locadora de carros, chamada Renpass.uol. Usada para cadrastrar os carros da empresa e também para cadrasto de clientes.
 
-## Funcionalidades ⚙️🔧
+## Funcionalidades
 **Funcionalidade 1:** Realizar cadastro dos carros:
 ```
 -Deve ter pelo menos um acessório e não se pode repetí-los.
@@ -74,7 +74,7 @@ Esta é uma API RestFull para uma locadora de carros, chamada Renpass.uol. Usada
 -Recebe um token de autenticação caso o email e senha estejam corretos.
 ```
 ---
-## Instalação 📥
+## Instalação
 
 No terminal, clone o projeto:
 
