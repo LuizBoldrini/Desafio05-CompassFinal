@@ -36,6 +36,13 @@ eslint-plugin-node: ^11.1.0 eslint-plugin-prettier: ^4.0.0
 
 [API-Authenticate](#API-Authenticate)
 
+[API-Rental](#Api-Rental)
+
+[API-Fleet](#Api-Fleet)
+
+[API-Reserve](#Api-Reserve)
+
+
 ---
 
 ## Descrição 🆘
@@ -196,6 +203,14 @@ Atenção:
 - Caso o ID seja diferente do padrão deve retornar 400, informando o erro;
 - Caso o ID não seja encontrado retornar 404.
 
+
+### Atualizar um acessório de um carro
+PATCH: `/api/v1/car/:id/acessorios/:idAcess`
+```bash
+{
+    "description": "Ar-condicionado"
+}
+```
 ---
 ## API-Person 👥
 
@@ -205,12 +220,11 @@ POST: `/api/v1/person`
 ```bash
 {
     "name": "Joãozinho Silva",
-    "cpf": "041.262.712-44",
-    "birthDay": "2002-10-10T03:00:00.000Z",
+    "cpf": "04126271244",
+    "birthDay": "10/10/2001",
     "email": "joazinho@emai.com",
-    "password": "$2a$10$PtfVp7/cTfsdD7mOkULFke2c2saUBVYhJ9hICegHVrjUspfHC8btu",
-    "canDrive": "yes",
-    "_id": "629d3d55b886502fccfd8fb4"
+    "password": "123456",
+    "canDrive": "yes"
 }
 ```
 Atenção:
@@ -233,10 +247,10 @@ GET: `/api/v1/person`
 ```bash
 [
     {
-        "_id": "629d3d55b886502fccfd8fb4",
+        "_id": "62b25f97e2f0ef696a7ba375",
         "name": "Joãozinho Silva",
         "cpf": "041.262.712-44",
-        "birthDay": "2002-10-10T03:00:00.000Z",
+        "birthDay": "10/01/2002",
         "email": "joazinho@emai.com",
         "canDrive": "yes"
     }
@@ -250,10 +264,10 @@ PUT: `/api/v1/person/:id`
 GET `/api/v1/person/:id`
 ```bash
 {
-    "_id": "629d3d55b886502fccfd8fb4",
-    "name": "Joãozinho Moura",
+    "_id": "62b25f97e2f0ef696a7ba375",
+    "name": "Joãozinho Silva",
     "cpf": "041.262.712-44",
-    "birthDay": "2002-10-10T03:00:00.000Z",
+    "birthDay": "10/01/2002",
     "email": "joazinho@emai.com",
     "canDrive": "yes"
 }
@@ -282,7 +296,7 @@ Envia:
 Recebe: 
 ```bash
 {
-    "canDrive": "no",
+    "canDrive": "yes",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjBjYjdiNTg2NzcxYTdiNjk0OGY5MyIsImlhdCI6MTY1NTg0ODYxNCwiZXhwIjoxNjU1OTM1MDE0fQ.bpFid4uCgfLO5iTNcuh_tV1kX-4owTSLLrhjxL8ChuI"
 }
 ```
@@ -506,6 +520,7 @@ Atenção:
 - id_car = Id correspondente ao carro.
 - id_rental = Id da locadora dona do carro. (Será fornecido na url da requisição).
 -  id_rental poderá ser de uma locadora filial.
+-  OBSERVAÇÃO: id_car é preenchido com id_fleet em que o carro esteja.
 
 
 ## Listar todas reservas cadastradas
