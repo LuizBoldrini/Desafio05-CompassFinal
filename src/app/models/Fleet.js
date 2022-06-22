@@ -25,7 +25,8 @@ const FleetSchema = new mongoose.Schema({
 	},
 	plate: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	}
 },
 { timestamps: false, versionKey: false}
