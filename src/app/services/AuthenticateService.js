@@ -26,7 +26,7 @@ class AuthenticateService {
 		});
 		
 		formataCpf(user);
-		return {canDrive, token};
+		return {canDrive, email, token};
 	}
 }
 
