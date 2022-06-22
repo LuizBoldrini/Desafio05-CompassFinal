@@ -87,12 +87,12 @@ Instale as dependências:
 ---
 ## Iniciar servidor:
 
-Caso tenha instalado o nodemon: `npm start`.
+Caso tenha instalado o nodemon: `npm run dev`.
 
-Caso não tenha instalado: `node .\src\index.js`
+Caso não tenha instalado: `npm start`
 
 ---
-## API-Car 🚗
+## API-Car 
 
 ### Cadastrar Carro
 POST: ``/api/v1/car``
@@ -140,7 +140,7 @@ GET: `/api/vi/car?query=value`
             "type": "sedan",
             "brand": "GM",
             "color": "preto",
-            "year": "2000-01-01T00:00:00.000Z",
+            "year": "2001",
             "accessories": [
                 {
                     "description": "Diesel",
@@ -177,7 +177,7 @@ GET `/api/v1/car/:id`
     "type": "sedan",
     "brand": "GM",
     "color": "branco",
-    "year": "2022-01-01T00:00:00.000Z",
+    "year": "2021",
     "accessories": [
         {
             "description": "Diesel",
@@ -189,7 +189,6 @@ GET `/api/v1/car/:id`
         }
     ],
     "passengersQtd": 1,
-    "__v": 0
 }
 ```
 Atenção:
@@ -212,7 +211,7 @@ PATCH: `/api/v1/car/:id/acessorios/:idAcess`
 }
 ```
 ---
-## API-Person 👥
+## API-Person
 
 ### Criar um endpoint para cadastrar uma pessoa
 POST: `/api/v1/person`
@@ -281,7 +280,7 @@ Atenção:
 - Caso o ID não seja encontrado retornar 404.
 
 ---
-## API-Authenticate 🔐
+## API-Authenticate
 
 ### Autenticação com o usuário 
 POST: `/api/v1/authenticate`
@@ -307,7 +306,7 @@ yes ou no
 - OBSERVAÇÕES: Este campo ilustrativo "recebe" foi colocado com status 201 para ilustrar oque vai receber, depois do teste, retornado para 204.
 
 ---
-## API-Rental 🏗️
+## API-Rental
 
 ### Criar um endpoint para cadastrar uma locadora
 POST: `/api/v1/rental`
@@ -425,7 +424,7 @@ Atenção:
 - Caso o ID não seja encontrado retornar 404.
 ---
 
-## API-Fleet 🚗
+## API-Fleet
 
 ### Criar um endpoint para cadastrar uma frota
 POST: `/api/v1/rental/:id_rental/fleet`
@@ -500,7 +499,7 @@ Atenção:
 ---
 
 
-## API-Reserve ☑️ 
+## API-Reserve 
 
 ### Criar um endpoint para cadastrar uma reserva
 POST: `/api/v1/rental/:id_rental/reserve`
