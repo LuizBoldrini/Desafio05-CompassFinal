@@ -1,5 +1,6 @@
 const enuns = {
-	canDrive: ("yes or no")
+	canDrive: ("yes", "no"),
+	status: ("available", "unavailable", "rented")
 };
 
 module.exports = enuns;
