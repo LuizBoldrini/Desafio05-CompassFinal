@@ -15,6 +15,7 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "camelcase": "off",
         "indent": [
             "error",
             "tab"
