@@ -1,46 +1,46 @@
 const PersonRepository = require("../repository/PersonRepository");
-const formataCpf = require("../utils/FormataCpf");
+const CpfFormat = require("../utils/CpfFormat");
 const NotFound = require("../erros/NotFound");
 
 class PersonService {
-	static async create(payload) {
-		const resultado = await PersonRepository.create(payload);
-		formataCpf(resultado);
-		return resultado;
+	async create(payload) {
+		const result = await PersonRepository.create(payload);
+		CpfFormat(result);
+		return result;
 	}
 
-	static async list(payload) {
-		const resultado = await PersonRepository.list(payload);
-		formataCpf(resultado);
-		return resultado;
+	async list(payload) {
+		const result = await PersonRepository.list(payload);
+		CpfFormat(result);
+		return result;
 	}
 
-	static async listById(payload) {
-		const resultado = await PersonRepository.listById(payload);
-		if(!resultado) {
+	async listById(payload) {
+		const result = await PersonRepository.listById(payload);
+		if(!result) {
 			throw new NotFound("id");
 		}
-		formataCpf(resultado);
-		return resultado;
+		CpfFormat(result);
+		return result;
 	}
 
-	static async update(payload, reqBody) {
-		const resultado = await PersonRepository.update(payload, reqBody);
-		if(!resultado) {
+	async update(payload, reqBody) {
+		const result = await PersonRepository.update(payload, reqBody);
+		if(!result) {
 			throw new NotFound("id");
 		}
-		formataCpf(resultado);
-		return resultado;
+		CpfFormat(result);
+		return result;
 	}
 
-	static async delete(payload) {
-		const resultado = await PersonRepository.delete(payload);
-		if(!resultado) {
+	async delete(payload) {
+		const result = await PersonRepository.delete(payload);
+		if(!result) {
 			throw new NotFound("id");
 		}
-		return resultado;
+		return result;
 	}
 
 }
 
-module.exports = PersonService;
+module.exports = new PersonService;

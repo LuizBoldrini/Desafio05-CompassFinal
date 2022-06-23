@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken");
 const PersonRepository = require("../repository/PersonRepository");
 const NotFound = require("../erros/NotFound");
 const PassIncorrect = require("../erros/PassIncorrect");
-const formataCpf = require("../utils/FormataCpf");
+const CpfFormat = require("../utils/CpfFormat");
 const authConfig = require("../config/authConfig.json");
 require("dotenv").config();
 
 class AuthenticateService {
-	static async acess(email, password) {
+	async acess(email, password) {
 		const user = await PersonRepository.findPeopleByEmail(email);
 		
 		if(!user) {
@@ -25,9 +25,9 @@ class AuthenticateService {
 			expiresIn: 86400
 		});
 		
-		formataCpf(user);
+		CpfFormat(user);
 		return {canDrive, email, token};
 	}
 }
 
-module.exports = AuthenticateService;
+module.exports = new AuthenticateService;

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 const ReserveRepository = require("../repository/ReserveRepository");
 const NotFound = require("../erros/NotFound");
 const CalcFinalValue = require("../utils/CalcFinalValue");
@@ -8,7 +7,7 @@ const CanDrive = require("../erros/CanDrive");
 const RentalRepository = require("../repository/RentalRepository");
 
 class ReserveService {
-	static async create(payload) {
+	async create(payload) {
 		const { id_rental } = payload;
 		const rental = await RentalRepository.listById(id_rental);
 		if (!rental) throw new NotFound("Rental");
@@ -26,13 +25,12 @@ class ReserveService {
 
 		const { data_start, data_end } = payload;
 		const { daily_value } = fleet;
-		// eslint-disable-next-line no-param-reassign
 		payload.final_value = CalcFinalValue(data_start, data_end, daily_value);
 
 		return ReserveRepository.create(payload);
 	}
 
-	static async list(payload) {
+	async list(payload) {
 		const { id_rental } = payload;
 		const rental = await RentalRepository.listById(id_rental);
 		if (!rental) throw new NotFound("Rental");
@@ -40,30 +38,30 @@ class ReserveService {
 		return ReserveRepository.list(payload);
 	}
 
-	static async listById(payload) {
-		const resultado = await ReserveRepository.listById(payload);
-		if(!resultado) {
+	async listById(payload) {
+		const result = await ReserveRepository.listById(payload);
+		if(!result) {
 			throw new NotFound("id");
 		}
-		return resultado;
+		return result;
 	}
 
-	static async update(payload, reqBody) {
-		const resultado = await ReserveRepository.update(payload, reqBody);
-		if(!resultado) {
+	async update(payload, reqBody) {
+		const result = await ReserveRepository.update(payload, reqBody);
+		if(!result) {
 			throw new NotFound("id");
 		}	
-		return resultado;
+		return result;
 	}
 
-	static async delete(payload) {
-		const resultado = await ReserveRepository.delete(payload);
-		if(!resultado) {
+	async delete(payload) {
+		const result = await ReserveRepository.delete(payload);
+		if(!result) {
 			throw new NotFound("id");
 		}
-		return resultado;
+		return result;
 	}
 
 }
 
-module.exports = ReserveService;
+module.exports = new ReserveService;
