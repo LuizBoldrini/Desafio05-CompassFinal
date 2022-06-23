@@ -47,28 +47,28 @@ module.exports =async (req, res, next) => {
 	const reqBody = req.body;
     
 	try {
-		if(req.method == "POST") {
-			await carPost.validateAsync({...reqBody });
+		if(req.method === "POST") {
+			await carPost.validateAsync(reqBody);
 			next();
 		}
 
-		if(req.method == "PUT") {
-			await carPut.validateAsync({...reqBody });
+		if(req.method === "PUT") {
+			await carPut.validateAsync(reqBody);
 			next();
 		}
 
-		if(req.method == "GET") {
-			await carGet.validateAsync({...reqBody });
+		if(req.method === "GET") {
+			await carGet.validateAsync(reqBody);
 			next();
 		}
 
-		if(req.method == "PATCH") {
-			await carPatch.validateAsync({...reqBody });
+		if(req.method === "PATCH") {
+			await carPatch.validateAsync(reqBody);
 			next();
 		}
 
 	} catch (error) {
-		return res.status(400).json({
+		return res.status(error.status || 400).json({
 			name: error.name,
 			description: error.description || error.message
 		});}

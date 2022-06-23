@@ -32,23 +32,23 @@ module.exports =async (req, res, next) => {
 	const reqBody = req.body;
 	try {
 
-		if(req.method == "POST") {
-			await reservePost.validateAsync({...reqBody });
+		if(req.method === "POST") {
+			await reservePost.validateAsync(reqBody);
 			next();
 		}
 
-		if(req.method == "PUT") {
-			await reservePut.validateAsync({...reqBody });
+		if(req.method === "PUT") {
+			await reservePut.validateAsync(reqBody);
 			next();
 		}
 
-		if(req.method == "GET") {
-			await reserveGet.validateAsync({...reqBody });
+		if(req.method === "GET") {
+			await reserveGet.validateAsync(reqBody);
 			next();
 		}
 
 	} catch (error) {
-		return res.status(400).json({
+		return res.status(error.status || 400).json({
 			name: error.name,
 			description: error.description || error.message
 		});}

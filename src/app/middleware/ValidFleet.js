@@ -29,22 +29,22 @@ module.exports =async (req, res, next) => {
 	try {
 		const reqBody = req.body;
 		if(req.method === "POST") {
-			await fleetPost.validateAsync({...reqBody });
+			await fleetPost.validateAsync(reqBody);
 			next();
 		}
 
 		if(req.method === "PUT") {
-			await fleetPut.validateAsync({...reqBody });
+			await fleetPut.validateAsync(reqBody);
 			next();
 		}
 
 		if(req.method === "GET") {
-			await fleetGet.validateAsync({...reqBody });
+			await fleetGet.validateAsync(reqBody);
 			next();
 		}
 
 	} catch (error) {
-		return res.status(400).json({
+		return res.status(error.status || 400).json({
 			name: error.name,
 			description: error.description || error.message
 		});}

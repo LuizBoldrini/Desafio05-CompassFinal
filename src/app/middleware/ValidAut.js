@@ -9,13 +9,13 @@ const autPost = joi.object({
 module.exports =async (req, res, next) => {
 	const reqBody = req.body;
 	try{
-		if(req.method == "POST") {
-			await autPost.validateAsync({...reqBody});
+		if(req.method === "POST") {
+			await autPost.validateAsync(reqBody);
 			next();
 		}
 
 	} catch (error) {
-		return res.status(400).json({
+		return res.status(error.status || 400).json({
 			name: error.name,
 			description: error.description || error.message
 		});}
