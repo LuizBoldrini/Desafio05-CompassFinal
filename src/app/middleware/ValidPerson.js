@@ -2,7 +2,6 @@ const joi = require("joi").extend(require("@joi/date"));
 const validaData = require("../utils/ValidaData");
 const validaCpf = require("../utils/ValidaCpf");
 const CpfError = require("../erros/CpfError");
-const enuns = require("../utils/Enuns");
 
 const personPost = joi.object({
 	name: joi.string().min(4).required(),
@@ -10,7 +9,7 @@ const personPost = joi.object({
 	birthDay: joi.date().required().format("DD/MM/YYYY").max(validaData()).required(),
 	email: joi.string().email().required(),
 	password: joi.string().min(6).required(),
-	canDrive: joi.string().valid(enuns.canDrive).required()
+	canDrive: joi.string().valid("yes", "no").required()
 });
 
 const personPut = joi.object({
@@ -19,7 +18,7 @@ const personPut = joi.object({
 	birthDay: joi.date().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
-	canDrive: joi.string().valid(enuns.canDrive)
+	canDrive: joi.string().valid("yes", "no")
 });
 
 const personGet = joi.object({
@@ -28,7 +27,7 @@ const personGet = joi.object({
 	birthDay: joi.date().format("DD/MM/YYYY").max(validaData()),
 	email: joi.string().email(),
 	password: joi.string().min(6),
-	canDrive: joi.string().valid(enuns.canDrive)
+	canDrive: joi.string().valid("yes", "no")
 });
 
 module.exports =async (req, res, next) => {
@@ -38,17 +37,17 @@ module.exports =async (req, res, next) => {
 			throw new CpfError("cpf");
 		}
 
-		if(req.method == "POST") {
+		if(req.method === "POST") {
 			await personPost.validateAsync({...reqBody});
 			next();
 		}
 
-		if(req.method == "PUT") {
+		if(req.method === "PUT") {
 			await personPut.validateAsync({...reqBody});
 			next();
 		}
 
-		if(req.method == "GET") {
+		if(req.method ==="GET") {
 			await personGet.validateAsync({...reqBody});
 			next();
 		}
