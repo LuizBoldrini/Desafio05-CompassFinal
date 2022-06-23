@@ -16,6 +16,9 @@
     },
     "rules": {
         "camelcase": "off",
+        "class-methods-use-this": "off",
+        "no-param-reassign": "off",
+        "consistent-return": "off",
         "indent": [
             "error",
             "tab"
