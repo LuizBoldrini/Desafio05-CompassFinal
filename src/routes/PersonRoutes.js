@@ -1,14 +1,14 @@
 const express = require("express");
 const PersonController = require("../app/controllers/PersonController");
-const ValidarPerson = require("../app/middleware/ValidarPerson");
+const ValidPerson = require("../app/middleware/ValidPerson");
 
 const router = express.Router();
 
 router
-	.post("/api/v1/person", ValidarPerson,PersonController.createPerso)
-	.get("/api/v1/person", ValidarPerson, PersonController.listPerson)
-	.get("/api/v1/person/:id", ValidarPerson, PersonController.listById)
-	.put("/api/v1/person/:id", ValidarPerson, PersonController.updatePerson)
+	.post("/api/v1/person", ValidPerson,PersonController.createPerso)
+	.get("/api/v1/person", ValidPerson, PersonController.listPerson)
+	.get("/api/v1/person/:id", ValidPerson, PersonController.listById)
+	.put("/api/v1/person/:id", ValidPerson, PersonController.updatePerson)
 	.delete("/api/v1/person/:id", PersonController.deletePerson);
 
 
