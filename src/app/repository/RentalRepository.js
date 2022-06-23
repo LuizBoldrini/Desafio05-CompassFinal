@@ -4,7 +4,7 @@ const RentalSchema = require("../models/Rental");
 
 
 class RentalRepository {
-	static async create(payload) {
+	async create(payload) {
 		for (let dado = 0; dado < payload.address.length; dado++) {
 			const { logradouro, bairro, localidade, uf } = (await axios.get(`https://viacep.com.br/ws/${payload.address[dado].zipCode}/json`)).data;
 			payload.address[dado].street = logradouro;
@@ -15,7 +15,7 @@ class RentalRepository {
 		return RentalSchema.create(payload);
 	}
 
-	static async list(payload) {
+	async list(payload) {
 		const costumizePaginate = {totalDocs: "total", docs: "rental", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
 		const {limit = 100, offset = 0, ...query} = payload;  
@@ -27,19 +27,19 @@ class RentalRepository {
 		return RentalSchema.paginate(query, options);
 	}
 
-	static async listById(payload) {
+	async listById(payload) {
 		return RentalSchema.findById(payload);
 	}
 
-	static async update(payload, reqBody) {
+	async update(payload, reqBody) {
 		return RentalSchema.findByIdAndUpdate(payload, reqBody);
 	}
 
-	static async delete(payload) {
+	async delete(payload) {
 		return RentalSchema.findByIdAndDelete(payload);
 	}
 
 }
 
 
-module.exports = RentalRepository;
+module.exports = new RentalRepository;

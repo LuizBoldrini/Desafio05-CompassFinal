@@ -2,11 +2,11 @@
 const CarSchema = require("../models/Car");
 
 class CarRepository {
-	static async create(payload) {
+	async create(payload) {
 		return CarSchema.create(payload);
 	}
 
-	static async list(payload) {
+	async list(payload) {
 		const costumizePaginate = {totalDocs: "total", docs: "car", page: "offset", nextPage: false, prevPage: false, totalPages: "offsets", pagingCounter: false, meta: false, hasPrevPage: false, hasNextPage: false
 		};
 		const {limit = 100, offset = 0, ...query} = payload;  
@@ -18,19 +18,19 @@ class CarRepository {
 		return CarSchema.paginate(query, options);
 	}
 
-	static async listById(payload) {
+	async listById(payload) {
 		return CarSchema.findById(payload);
 	}
 
-	static async update(payload, reqBody) {
+	async update(payload, reqBody) {
 		return CarSchema.findByIdAndUpdate(payload, reqBody);
 	}
 
-	static async delete(payload) {
+	async delete(payload) {
 		return CarSchema.findByIdAndDelete(payload);
 	}
 
-	static  async updateDesc(idAcess, attDesc) {
+	async updateDesc(idAcess, attDesc) {
 		const result = await CarSchema.findOneAndUpdate(
 			{ "accessories._id": idAcess },
 			{
@@ -45,4 +45,4 @@ class CarRepository {
 	}
 }
 
-module.exports = CarRepository;
+module.exports = new CarRepository;
