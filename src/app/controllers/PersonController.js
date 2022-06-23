@@ -3,50 +3,50 @@ const UniqueError = require("../erros/UniqueError");
 const PersonService = require("../services/PersonService");
 
 class PersonController {
-	static async createPerso(req, res) {
+	async createPerso(req, res) {
 		try{
 			const reqBody = req.body;
-			const personCreate = await PersonService.create({...reqBody});
-			res.status(201).json(personCreate);
+			const personCreate = await PersonService.create(reqBody);
+			return res.status(201).json(personCreate);
 
 		} catch(error) {
 			if(error.name === "MongoServerError") {
 				return res.status(400).json(new UniqueError("cpf or email"));
 			}
-			res.status(error.status || 400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
-	static async listPerson(req, res) {
+	async listPerson(req, res) {
 		try{
 			const reqQuery = req.query;
 			const personList = await PersonService.list(reqQuery);
-			res.status(200).json(personList);
+			return res.status(200).json(personList);
 
 		} catch(error) {
-			res.status(400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
-	static async listById(req, res) {
-		const id = req.params.id;
+	async listById(req, res) {
+		const {id} = req.params;
 		try {
 			const listPersonById = await PersonService.listById(id);
-			res.status(200).json(listPersonById);
+			return res.status(200).json(listPersonById);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));
 			}
-			res.status(error.status || 400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
-	static async updatePerson(req, res) {
+	async updatePerson(req, res) {
 		try{
-			const id = req.params.id;
+			const {id} = req.params;
 			const reqBody = req.body;
 			const newPerson = await PersonService.update(id, {$set: reqBody});
-			res.status(201).json(newPerson);
+			return res.status(201).json(newPerson);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));
@@ -54,13 +54,14 @@ class PersonController {
 			if(error.name === "MongoServerError") {
 				return res.status(400).json(new UniqueError("cpf or email"));
 			}
-			res.status(error.status || 400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
-	static async deletePerson(req, res) {
+	async deletePerson(req, res) {
 		try {
-			const DeletePerson = await PersonService.delete(req.params.id);
+			const {id} = req.params;
+			const DeletePerson = await PersonService.delete(id);
 			return res.status(204).json(DeletePerson);
 		} catch (error) {
 			if(error.name === "CastError") {
@@ -71,4 +72,4 @@ class PersonController {
 	}
 }
 
-module.exports = PersonController;
+module.exports = new PersonController;

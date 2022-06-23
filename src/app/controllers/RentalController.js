@@ -2,54 +2,54 @@ const NotFound = require("../erros/NotFound");
 const RentalService = require("../services/RentalService");
 
 class RentalController {
-	static async createRental(req, res) {
+	async createRental(req, res) {
 		try{
 			const reqBody = req.body;
-			const rentalCreate = await RentalService.create({...reqBody});
-			res.status(201).json(rentalCreate);
+			const rentalCreate = await RentalService.create(reqBody);
+			return res.status(201).json(rentalCreate);
 		} catch (error) {
-			res.status(400).json({ dname: error.name, description: error.description });
+			return res.status(400).json({ dname: error.name, description: error.description });
 		}
 	}
 
-	static async listRental(req, res) {
+	async listRental(req, res) {
 		try{
 			const reqQuery = req.query;
 			const RentalList = await RentalService.list(reqQuery);
-			res.status(200).json(RentalList);
+			return res.status(200).json(RentalList);
 
 		} catch(error) {
-			res.status(400).json({ name: error.name, description: error.description });
+			return res.status(400).json({ name: error.name, description: error.description });
 		}
 	}
 
-	static async listById(req, res) {
+	async listById(req, res) {
 		try {
-			const id = req.params.id;
+			const {id} = req.params;
 			const rentalListById = await RentalService.listById(id);
 			if(rentalListById == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			res.status(200).json(rentalListById);
+			return res.status(200).json(rentalListById);
 		} catch(error) {
-			res.status(error.status || 400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}	
 	}
 
-	static async updateRental(req, res) {
+	async updateRental(req, res) {
 		try{
-			const id = req.params.id;
+			const {id} = req.params;
 			const reqBody = req.body;
 			const newRental = await RentalService.update(id, {$set: reqBody});
-			res.status(204).json(newRental);
+			return res.status(204).json(newRental);
 		} catch(error) {
-			res.status(error.status || 400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
-	static async delete(req, res) {
+	async delete(req, res) {
 		try {
-			const id = req.params.id;
+			const {id} = req.params;
 			const deleteRental = await RentalService.delete(id);
 			return res.status(204).json(deleteRental);
 		} catch (error) {
@@ -58,4 +58,4 @@ class RentalController {
 	}
 }
 
-module.exports = RentalController;
+module.exports = new RentalController;
