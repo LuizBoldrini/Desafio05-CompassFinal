@@ -51,4 +51,4 @@ class FleetService {
 
 }
 
-module.exports = FleetService;
+module.exports = new FleetService;
