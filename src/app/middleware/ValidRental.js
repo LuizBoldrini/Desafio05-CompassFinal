@@ -1,13 +1,14 @@
 const joi = require("joi");
 const isFilial = require("../utils/IsFilial");
+const { cnpj, zipCode } = require("../utils/Regex");
 
 const rentalPost = joi.object({
 	name: joi.string().min(2).required(),
-	cnpj: joi.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/).required(),
+	cnpj: joi.string().regex(cnpj).required(),
 	activities: joi.string().min(5).required(),
 	address: joi.array().min(1).items(
 		{
-			zipCode: joi.string().regex(/^\d{5}-\d{3}$/).required(),
+			zipCode: joi.string().regex(zipCode).required(),
 			street: joi.string().min(2),
 			complement: joi.string(),
 			number: joi.number().min(1).required(),
@@ -20,11 +21,11 @@ const rentalPost = joi.object({
 
 const rentalPut = joi.object({
 	name: joi.string().min(2),
-	cnpj: joi.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/),
+	cnpj: joi.string().regex(cnpj),
 	activities: joi.string().min(5),
 	address: joi.array().min(1).items(
 		{
-			zipCode: joi.string().regex(/^\d{5}-\d{3}$/),
+			zipCode: joi.string().regex(zipCode),
 			street: joi.string().min(2),
 			complement: joi.string(),
 			number: joi.number().min(1),
