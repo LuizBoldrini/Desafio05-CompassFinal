@@ -12,7 +12,7 @@ const PersonSchema = new mongoose.Schema({
 		unique: true
 	},
 	birthDay: {
-		type: String,
+		type: Date,
 		required: true
 	},
 	email: {
