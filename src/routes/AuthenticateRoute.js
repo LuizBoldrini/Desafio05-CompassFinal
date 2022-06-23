@@ -1,11 +1,11 @@
 const express = require("express");
 const AuthenticateController = require("../app/controllers/AuthenticateController");
-const ValidarAut = require("../app/middleware/ValidarAut");
+const ValidAut = require("../app/middleware/ValidAut");
 
 const router = express.Router();
 
 router
-	.post("/api/v1/authenticate",ValidarAut ,AuthenticateController.criateAut );
+	.post("/api/v1/authenticate",ValidAut ,AuthenticateController.criateAut );
 
 
 module.exports = router;

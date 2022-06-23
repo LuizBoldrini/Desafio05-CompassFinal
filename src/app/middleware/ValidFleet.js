@@ -26,20 +26,19 @@ const fleetGet = joi.object({
 
 
 module.exports =async (req, res, next) => {
-	const reqBody = req.body;
-    
 	try {
-		if(req.method == "POST") {
+		const reqBody = req.body;
+		if(req.method === "POST") {
 			await fleetPost.validateAsync({...reqBody });
 			next();
 		}
 
-		if(req.method == "PUT") {
+		if(req.method === "PUT") {
 			await fleetPut.validateAsync({...reqBody });
 			next();
 		}
 
-		if(req.method == "GET") {
+		if(req.method === "GET") {
 			await fleetGet.validateAsync({...reqBody });
 			next();
 		}
