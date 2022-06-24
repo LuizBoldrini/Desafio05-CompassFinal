@@ -45,11 +45,11 @@ class CarController {
 		try{
 			const {id} = req.params;
 			const reqBody = req.body;
-			const newCar = await CarService.update(id, {$set: reqBody});
+			const newCar = await CarService.update(id, {set: reqBody});
 			if(newCar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			return res.status(204).json(newCar);
+			return res.status(200).json(newCar);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));
