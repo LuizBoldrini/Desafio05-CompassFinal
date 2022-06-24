@@ -13,7 +13,7 @@ class FleetController {
     } catch (error) {
       if (error.name === 'CastError') {
         return res
-          .status(error.status || 400)
+          .status(error.status || 404)
           .json(new BadRequest('"id_rental or id_car" does not follow database standards'));
       }
       return res.status(error.status || 400).json({ name: error.name, description: error.description });
@@ -49,7 +49,7 @@ class FleetController {
       return res.status(200).json(newFleet);
     } catch (error) {
       if (error.name === 'ValidationError') {
-        return res.status(error.status || 400).json(new NotFound('id_car or id_rental'));
+        return res.status(error.status || 404).json(new NotFound('id_car or id_rental'));
       }
       return res.status(error.status || 400).json({ name: error.name, description: error.description });
     }
