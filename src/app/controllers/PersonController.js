@@ -46,7 +46,7 @@ class PersonController {
 			const {id} = req.params;
 			const reqBody = req.body;
 			const newPerson = await PersonService.update(id, {$set: reqBody});
-			return res.status(201).json(newPerson);
+			return res.status(200).json(newPerson);
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));

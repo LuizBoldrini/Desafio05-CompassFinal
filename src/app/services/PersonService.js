@@ -1,10 +1,17 @@
 const PersonRepository = require("../repository/PersonRepository");
 const CpfFormat = require("../utils/CpfFormat");
 const NotFound = require("../erros/NotFound");
+const BadRequest = require("../erros/BadRequest");
+const validaCpf = require("../utils/ValidaCpf");
 
 class PersonService {
 	async create(payload) {
 		const result = await PersonRepository.create(payload);
+		const {cpf} = payload;
+		if(!validaCpf(cpf)) {
+			throw new BadRequest("\"cpf\" It is not valid");
+		}
+		
 		CpfFormat(result);
 		return result;
 	}
