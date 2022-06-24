@@ -9,14 +9,15 @@ require('dotenv').config();
 
 class AuthenticateService {
   async acess(email, password) {
-    const user = await PersonRepository.findPeopleByEmail(email);
-
+    const user = await PersonRepository.acess(email);
     if (!user) {
       throw new NotFound('User');
     }
+
     const { canDrive } = user;
 
-    if (!(await bcrypt.compare(password, user.password))) {
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
       throw new BadRequest('"password" is incorrect');
     }
     user.password = undefined;

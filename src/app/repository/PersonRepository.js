@@ -21,12 +21,8 @@ class PersonRepository {
     return PersonSchema.findByIdAndDelete(payload);
   }
 
-  async acess(payload) {
-    return PersonSchema.findOne({ payload }).select('+password');
-  }
-
-  async findPeopleByEmail(email) {
-    return PersonRepository.acess({ email });
+  async acess(email) {
+    return PersonSchema.findOne({ email }).select('+password');
   }
 }
 
