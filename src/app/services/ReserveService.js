@@ -3,8 +3,8 @@ const NotFound = require("../erros/NotFound");
 const CalcFinalValue = require("../utils/CalcFinalValue");
 const FleetRepository = require("../repository/FleetRepository");
 const PersonRepository = require("../repository/PersonRepository");
-const CanDrive = require("../erros/CanDrive");
 const RentalRepository = require("../repository/RentalRepository");
+const BadRequest = require("../erros/BadRequest");
 
 class ReserveService {
 	async create(payload) {
@@ -15,7 +15,7 @@ class ReserveService {
 		const { id_user } = payload;
 		const user = await PersonRepository.listById(id_user);
 		if (user.canDrive !== "yes") {
-			throw new CanDrive;}
+			throw new BadRequest("This user cannot drive, please select an id of a user who can drive");}
 
 		const { id_car } = payload;
 		const fleet = await FleetRepository.listById(id_car);

@@ -2,9 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const PersonRepository = require("../repository/PersonRepository");
 const NotFound = require("../erros/NotFound");
-const PassIncorrect = require("../erros/PassIncorrect");
 const CpfFormat = require("../utils/CpfFormat");
 const authConfig = require("../config/authConfig.json");
+const BadRequest = require("../erros/BadRequest");
 require("dotenv").config();
 
 class AuthenticateService {
@@ -17,7 +17,7 @@ class AuthenticateService {
 		const { canDrive } = user;
 
 		if(!(await bcrypt.compare(password, user.password))) {
-			throw new PassIncorrect("password");
+			throw new BadRequest("\"password\" is incorrect");
 		}	
 		user.password = undefined;
 
