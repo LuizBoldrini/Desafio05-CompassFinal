@@ -4,7 +4,7 @@ const PostCar = require("../app/middleware/car/PostCar");
 const PutCar = require("../app/middleware/car/PutCar");
 const GetCar = require("../app/middleware/car/GetCar");
 const PatchCar = require("../app/middleware/car/PatchCar");
-const Auth = require("../app/middleware/Auth");
+const Auth = require("../app/middleware/authenticate/Auth");
 
 const router = express.Router();
 
