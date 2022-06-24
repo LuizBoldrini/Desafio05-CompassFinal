@@ -1,6 +1,6 @@
 const CarService = require("../services/CarService");
-const IdNonStandard = require("../erros/IdNonStandard");
 const NotFound = require("../erros/NotFound");
+const BadRequest = require("../erros/BadRequest");
 
 class CarController {
 	async createCar(req, res) {
@@ -35,7 +35,7 @@ class CarController {
 			return res.status(200).json(listCarById);
 		} catch(error) {
 			if(error.name === "CastError") {
-				return res.status(400).json(new IdNonStandard("id"));
+				return res.status(error.status || 400).json(new BadRequest("\"id\" does not follow database standards"));
 			}
 			return res.status(error.status|| 400).json({ name: error.name, description: error.description });
 		}	
@@ -52,7 +52,7 @@ class CarController {
 			return res.status(200).json(newCar);
 		} catch(error) {
 			if(error.name === "CastError") {
-				return res.status(400).json(new IdNonStandard("id"));
+				return res.status(error.status || 400).json(new BadRequest("\"id\" does not follow database standards"));
 			}
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
@@ -68,7 +68,7 @@ class CarController {
 			return res.status(204).json();
 		} catch (error) {
 			if(error.name === "CastError") {
-				return res.status(400).json(new IdNonStandard("id"));
+				return res.status(error.status || 400).json(new BadRequest("\"id\" does not follow database standards"));
 			}
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}

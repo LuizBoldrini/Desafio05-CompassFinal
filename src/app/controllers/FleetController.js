@@ -1,6 +1,6 @@
 const NotFound = require("../erros/NotFound");
 const FleetService = require("../services/FleetService");
-const IdNonStandard = require("../erros/IdNonStandard");
+const BadRequest = require("../erros/BadRequest");
 
 class FleetController {
 	async createFleet(req, res) {
@@ -12,7 +12,7 @@ class FleetController {
 			return res.status(201).json(fleetCreate);
 		} catch(error) {
 			if(error.name === "CastError") {
-				return res.status(400).json(new IdNonStandard("id_rental or id_car"));
+				return res.status(error.status || 400).json(new BadRequest("\"id_rental or id_car\" does not follow database standards"));
 			}
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
