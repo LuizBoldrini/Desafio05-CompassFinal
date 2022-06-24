@@ -45,7 +45,7 @@ class FleetController {
 			const {id} = req.params;
 			const reqBody = req.body;
 			const newFleet = await FleetService.update(id, {$set: reqBody});
-			return res.status(201).json(newFleet);
+			return res.status(200).json(newFleet);
 		} catch(error) {
 			if(error.name === "ValidationError") {
 				return res.status(400).json(new NotFound("id_car or id_rental"));
