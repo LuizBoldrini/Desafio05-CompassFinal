@@ -1,29 +1,29 @@
-const RentalRepository = require("../repository/RentalRepository");
-const isFilial = require("../utils/IsFilial");
+const RentalRepository = require('../repository/RentalRepository');
+const isFilial = require('../utils/IsFilial');
 
 class RentalService {
-	async create(payload) {
-		const { address } = payload;
-		isFilial(address);
-		
-		return RentalRepository.create(payload);
-	}
+  async create(payload) {
+    const { address } = payload;
+    isFilial(address);
 
-	async list(payload) {
-		return RentalRepository.list(payload);
-	}
+    return RentalRepository.create(payload);
+  }
 
-	async listById(payload) {
-		return RentalRepository.listById(payload);
-	}
+  async list(payload) {
+    return RentalRepository.list(payload);
+  }
 
-	async update(payload, reqBody) {
-		return RentalRepository.update(payload, reqBody);
-	}
+  async listById(payload) {
+    return RentalRepository.listById(payload);
+  }
 
-	async delete(payload) {
-		return RentalRepository.delete(payload);
-	}
+  async update(payload, reqBody) {
+    return RentalRepository.update(payload, reqBody);
+  }
+
+  async delete(payload) {
+    return RentalRepository.delete(payload);
+  }
 }
 
-module.exports = new RentalService;
+module.exports = new RentalService();
