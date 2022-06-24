@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 const axios = require("axios").default;
 const RentalSchema = require("../models/Rental");
 

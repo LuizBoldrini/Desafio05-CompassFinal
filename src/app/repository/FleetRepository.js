@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 const FleetSchema = require("../models/Fleet");
 
 class FleetRepository {
