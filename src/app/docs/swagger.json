@@ -1,1255 +1,1585 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "API locadora de carros",
-        "description": "Uma API que tem como objetivo criar e manipular carros, pessoas e faz autenticação delas",
-        "termsOfService": "http://localhost:3000/terms",
-        "contact": {
-            "email": "luizboldriniej@gmail.com"
-        },
-        "version": "1.0.0"
+      "title": "Car rental API",
+      "description": "An API that aims to create and manipulate cars, people and authenticate them.",
+      "contact": {
+        "name": "Luiz Emanuel J. Boldrini",
+        "url": "https://github.com/LuizBoldrini",
+        "email": "luizboldriniej@gmail.com"
+      },
+      "version": "1.0.0"
     },
     "servers": [
-        {
-            "url": "http://localhost:3000/api/v1",
-            "description": "API local"
-        }
+      {
+        "url": "http://localhost:3000/api/v1",
+        "description": "API local"
+      },
+      {
+        "url": "https://sprint5compass.herokuapp.com/",
+        "description": "API Heroku"
+      }
     ],
     "paths": {
-        "/authenticate": {
-            "post": {
-                "summary": "Faz a autenticação dos usuários",
-                "description": "Esta rota será responsável pela autenticação de usuários cadastrados",
-                "tags": ["Authenticate"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "example": "joazinho@email.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "example": "123456"
-                                    }
-                                }
-                            }
-                        }
+      "/authenticate": {
+        "post": {
+          "summary": "Authenticate users",
+          "description": "This route will be responsible for authenticating registered users",
+          "tags": [
+            "Authenticate"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                },
+                "examples": {
+                  "Person": {
+                    "value": {
+                      "email": "joao13@email.com",
+                      "password": "123456"
                     }
-                },
-                 "responses": {
-                    "201": {
-                        "description": "Authenticate",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "token": {
-                                            "type": "string"
-                                          },
-                                        "email": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
+                  }
                 }
+              }
             }
-        },
-        "/car": {
-            "post": {
-                "summary": "Cadrasto de carros",
-                "description": "Esta rota será responsável pelo cadrasto de carros",
-                "tags": ["Car"],
-                "security": [{"bearerAuth": []}] ,
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Car"
-                            },
-                            "examples": {
-                                "car": {
-                                    "value": {
-                                        "model": "Hilux",
-                                        "type": "SuV",
-                                        "brand": "GM",
-                                        "color": "Amarelo",
-                                        "year": 2001,
-                                        "accessories": [
-                                            {
-                                                "description": "Diesel"
-                                            },
-                                            {
-                                                "description": "Teto solar"
-                                            },
-                                            {
-                                                "description": "Automático"
-                                            }
-                                        ],
-                                        "passengersQtd": 4
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Car"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
-                }
-            },
-            "get": {
-                "summary": "Listagem de carros",
-                "description": "Está rota irá listar todos os carros por parâmetro",
-                "tags": ["Car"],
-                "security": [{"bearerAuth": []}] ,
-                "parameters": [{
-                    "name": "model",
-                    "in": "qurey",
-                    "description": "Model do carro para busca"
-                },
-                {
-                    "name": "type",
-                    "in": "qurey",
-                    "description": "Type do carro para busca"
-                },
-                {
-                    "name": "brand",
-                    "in": "qurey",
-                    "description": "Brand do carro para busca"
-                },
-                {
-                    "name": "color",
-                    "in": "qurey",
-                    "description": "Color do carro para busca"
-                },
-                {
-                    "name": "year",
-                    "in": "qurey",
-                    "description": "Year do carro para busca"
-                },
-                {
-                    "name": "passengersQtd",
-                    "in": "qurey",
-                    "description": "Quantidade de passageiros do carro para busca"
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Car"
-                                    }
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                } 
-            }
-            }
-        },
-        "/car/{id}": {
-            "get": {
-                "summary": "Listagem de carros pelo ID",
-                "description": "Está rota irá listar o carro pelo ID indicado",
-                "tags": ["Car"],
-                "security": [{"bearerAuth": []}] ,
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca um carro pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Car"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            },
-            "put": {
-                "summary": "Atualiza um carro pelo ID",
-                "description": "Está rota irá atualizar dados do carro pelo ID indicado",
-                "tags": ["Car"],
-                "security": [{"bearerAuth": []}] ,
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca um carro pelo ID",
-                    "required": true
-                }
-            ],
-            "requestBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Car"
-                        },
-                        "examples": {
-                            "car": {
-                                "value": {
-                                    "model": "S10 2.8",
-                                    "type": "SuV",
-                                    "brand": "GM",
-                                    "color": "Amarelo",
-                                    "year": 2001,
-                                    "accessories": [
-                                        {
-                                            "description": "Diesel"
-                                        },
-                                        {
-                                            "description": "Teto solar"
-                                        },
-                                        {
-                                            "description": "Automático"
-                                        }
-                                    ],
-                                    "passengersQtd": 4
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            } 
-            },
-            "delete": {
-                "summary": "Apaga um carro pelo ID",
-                "description": "Está rota irá apagar o carro pelo ID indicado",
-                "tags": ["Car"],
-                "security": [{"bearerAuth": []}] ,
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca um carro pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/person": {
-            "post": {
-                "summary": "Cadrasto de pessoas",
-                "description": "Esta rota será responsável pelo cadrasto das pessoas",
-                "tags": ["Person"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Person"
-                            },
-                            "examples": {
-                                "car": {
-                                    "value": {
-                                        "name": "Joãozinho Silva",
-                                        "cpf": "04126271244",
-                                        "birthDay": "10-02-2000",
-                                        "email": "joazinho@email.com",
-                                        "password": "123456",
-                                        "canDrive": "yes"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Person"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
-                }
-            },
-            "get": {
-                "summary": "Listagem de pessoas",
-                "description": "Está rota irá listar todas as pessoas por parâmetro",
-                "tags": ["Person"],
-                "parameters": [{
-                    "name": "name",
-                    "in": "qurey",
-                    "description": "Name do carro para busca"
-                },
-                {
-                    "name": "cpf",
-                    "in": "qurey",
-                    "description": "cpf do carro para busca"
-                },
-                {
-                    "name": "birthDay",
-                    "in": "qurey",
-                    "description": "birthDay do carro para busca"
-                },
-                {
-                    "name": "email",
-                    "in": "qurey",
-                    "description": "email do carro para busca"
-                },
-                {
-                    "name": "canDrive",
-                    "in": "qurey",
-                    "description": "canDrive do carro para busca"
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Person"
-                                    }
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                } 
-            }
-        }
-        },
-        "/person/{id}": {
-            "get": {
-                "summary": "Listagem de pessoas pelo ID",
-                "description": "Está rota irá listar uma pessoa pelo ID indicado",
-                "tags": ["Person"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma pessoa pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Person"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            },
-            "put": {
-                "summary": "Atualiza uma pessoa pelo ID",
-                "description": "Está rota irá atualizar dados de uma pessoa pelo ID indicado",
-                "tags": ["Person"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma pessoa pelo ID",
-                    "required": true
-                }
-            ],
-            "requestBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Person"
-                        },
-                        "examples": {
-                            "car": {
-                                "value": {
-                                    "name": "Joãozinho Silva",
-                                    "cpf": "04126271244",
-                                    "birthDay": "10-02-2000",
-                                    "email": "joazinho@emai.com",
-                                    "password": "123456",
-                                    "canDrive": "yes"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            } 
-            },
-            "delete": {
-                "summary": "Apaga uma pessoa pelo ID",
-                "description": "Está rota irá apagar uma pessoa pelo ID indicado",
-                "tags": ["Person"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma pessoa pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/rental": {
-            "post": {
-                "summary": "Cadrasto de uma locadora",
-                "description": "Esta rota será responsável pelo cadrasto de locadoras",
-                "tags": ["Rental"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Rental"
-                            },
-                            "examples": {
-                                "car": {
-                                    "value": {
-                                        "name": "Localiza Rent a Car",
-                                        "cnpj": "16.670.085/0001-17",
-                                        "activities": "Aluguel de Carros E Gestão de Frotas",
-                                        "address": [
-                                            {
-                                                "zipCode": "96200-200",
-                                                "number":"1234",
-                                                "isFilial": true
-                                            },
-                                            {
-                                                "zipCode": "76937-000",
-                                                "number":"1234",
-                                                "isFilial": false
-                                            }]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Rental"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
-                }
-            },
-            "get": {
-                "summary": "Listagem de locadoras",
-                "description": "Está rota irá listar todas as Locadoras por parâmetro",
-                "tags": ["Rental"],
-                "parameters": [{
-                    "name": "name",
-                    "in": "qurey",
-                    "description": "Name da locadora para busca"
-                },
-                {
-                    "name": "cnpj",
-                    "in": "qurey",
-                    "description": "Cnpj da locadora para busca"
-                },
-                {
-                    "name": "activities",
-                    "in": "qurey",
-                    "description": "Activities da locadora para busca"
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Person"
-                                    }
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                } 
-            }
-            }  
-        },
-        "/rental/{id}": {
-            "get": {
-                "summary": "Listagem de locadoras pelo ID",
-                "description": "Está rota irá listar uma locadora pelo ID indicado",
-                "tags": ["Rental"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Rental"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            },
-            "put": {
-                "summary": "Atualiza uma locadora pelo ID",
-                "description": "Está rota irá atualizar dados de uma locadora pelo ID indicado",
-                "tags": ["Rental"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-            "requestBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Rental"
-                        },
-                        "examples": {
-                            "car": {
-                                "value": {
-                                    "name": "Localiza Rent a Car LtdA.",
-                                        "cnpj": "16.670.085/0001-17",
-                                        "activities": "Aluguel de Carros E Gestão de Frotas",
-                                        "address": [
-                                            {
-                                                "zipCode": "96200-200",
-                                                "number":"1234",
-                                                "isFilial": true
-                                            },
-                                            {
-                                                "zipCode": "76937-000",
-                                                "number":"1234",
-                                                "isFilial": false
-                                            }]
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            } 
-            },
-            "delete": {
-                "summary": "Apaga uma locadora pelo ID",
-                "description": "Está rota irá apagar uma locadora pelo ID indicado",
-                "tags": ["Rental"],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/rental/{id_rental}/fleet": {
-            "post": {
-                "summary": "Cadrasto de frota de carros",
-                "description": "Esta rota será responsável pelo cadrasto de frotas",
-                "tags": ["Fleet"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Fleet"
-                            },
-                            "examples": {
-                                "fleet": {
-                                    "value": {
-                                        "id_car": "62b0e95531bf6ad0fe8e113e",
-                                        "status": "available",
-                                        "daily_value": 100.00,
-                                        "plate": "ABC1234"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Fleet"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
-                }
-            },
-            "get": {
-                "summary": "Listagem de frotas",
-                "description": "Está rota irá listar todas as frotas existentes",
-                "tags": ["Fleet"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Fleet"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/rental/{id_rental}/fleet/{id}": {
-            "get": {
-                "summary": "Listagem de frotas pelo ID",
-                "description": "Está rota irá listar uma frota pelo ID indicado",
-                "tags": ["Fleet"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma frota pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Fleet"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            },
-            "put": {
-                "summary": "Atualiza uma frota pelo ID",
-                "description": "Está rota irá atualizar dados de uma frota pelo ID indicado",
-                "tags": ["Fleet"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma frota pelo ID",
-                    "required": true
-                }
-            ],
-            "requestBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Fleet"
-                        },
-                        "examples": {
-                            "fleet": {
-                                "value": {
-                                    "id_car": "62b0e95531bf6ad0fe8e113e",
-                                    "status": "available",
-                                    "daily_value": 150.00,
-                                    "plate": "ABC1234"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            } 
-            },
-            "delete": {
-                "summary": "Apaga uma frota pelo ID",
-                "description": "Está rota irá apagar uma frota pelo ID indicado",
-                "tags": ["Fleet"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma frota pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/rental/{id_rental}/reserve": {
-            "post": {
-                "summary": "Cadrasto de reservas de carros",
-                "description": "Esta rota será responsável pelo cadrasto de reservar",
-                "tags": ["Reserve"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Reserve"
-                            },
-                            "examples": {
-                                "fleet": {
-                                    "value": {
-                                        "id_user": "62b0d2196320342b42707d83",
-                                        "data_start": "20/11/2021",
-                                        "data_end": "30/11/2021",
-                                        "id_car": "62accd642ba00b36243fb050",
-                                        "final_value": 100.00
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Fleet"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    }
-                }
-            },
-            "get": {
-                "summary": "Listagem de reservas",
-                "description": "Está rota irá listar todas as reservas existentes",
-                "tags": ["Reserve"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Reserve"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        },
-        "/rental/{id_rental}/reserve/{id}": {
-            "get": {
-                "summary": "Listagem de reservas pelo ID",
-                "description": "Está rota irá listar uma reserva pelo ID indicado",
-                "tags": ["Reserve"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma reserva pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Good Request",
-                        "content":{
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Reserve"
-                                }
-                            }
-                        }
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            },
-            "put": {
-                "summary": "Atualiza uma reserva pelo ID",
-                "description": "Está rota irá atualizar dados de uma reserva pelo ID indicado",
-                "tags": ["Reserve"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma Reserve pelo ID",
-                    "required": true
-                }
-            ],
-            "requestBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/Reserve"
-                        },
-                        "examples": {
-                            "fleet": {
-                                "value": {
-                                    "id_user": "62b0d2196320342b42707d83",
-                                    "data_start": "28/11/2021",
-                                    "data_end": "30/11/2021",
-                                    "id_car": "62accd642ba00b36243fb050",
-                                    "final_value": 100.00
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "201": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            } 
-            },
-            "delete": {
-                "summary": "Apaga uma reserva pelo ID",
-                "description": "Está rota irá apagar uma reserva pelo ID indicado",
-                "tags": ["Reserve"],
-                "parameters": [{
-                    "name": "id_rental",
-                    "in": "path",
-                    "description": "Busca uma locadora pelo ID",
-                    "required": true
-                },
-                {
-                    "name": "id",
-                    "in": "path",
-                    "description": "Busca uma reserva pelo ID",
-                    "required": true
-                }
-            ],
-            "responses": {
-                "204": {
-                    "description": "Good Request"
-                },
-                "400": {
-                    "description": "Bad Request"
-                },
-                "404": {
-                    "description": "Not found"
-                }
-            }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Car": {
-                "type": "object",
-                "properties": {
-                    "_id": {
+          },
+          "responses": {
+            "201": {
+              "description": "Authenticate",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "email:": {
                         "type": "string"
-                    },
+                      },
+                      "canDrive": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/car": {
+        "post": {
+          "summary": "Car This route will be responsible for the registration of cars",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "get": {
+          "summary": "Car listing",
+          "description": "This route will list all cars by parameter",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "query",
+              "description": "Search car model",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "type",
+              "in": "query",
+              "description": "Car type to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "brand",
+              "in": "query",
+              "description": "Search car brand",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "color",
+              "in": "query",
+              "description": "Search car color",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "year",
+              "in": "query",
+              "description": "Year of car to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "passengersQtd",
+              "in": "query",
+              "description": "Number of car passengers to search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/car/{id}": {
+        "get": {
+          "summary": "Car listing by ID",
+          "description": "This route will list the car by the given ID",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a car by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a car by ID",
+          "description": "This route will update data for a car by the given ID",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a car by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
                     "model": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "S10 2.8"
                     },
                     "type": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "SuV"
                     },
                     "brand": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "GM"
                     },
                     "color": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "Amarelo"
                     },
                     "year": {
-                        "type": "number"
-                    },
-                    "accessories": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "description": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                      "type": "string",
+                      "example": "2001"
                     },
                     "passengersQtd": {
-                        "type": "number"
+                      "type": "number",
+                      "example": 4
                     }
+                  }
                 }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Good Request"
             },
-            "Person": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
-                    },"cpf": {
-                        "type": "string"
-                    },"birthDay": {
-                        "type": "date"
-                    },"email": {
-                        "type": "string",
-                        "unique": true
-                    },"password": {
-                        "type": "string",
-                        "select": false
-                    },"canDrive": {
-                        "type": "string",
-                        "enum": {
-                            "values": ["yes", "no"]
-                        }
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a car by ID",
+          "description": "This route will erase the car by the given ID",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a car by ID and delete it",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Deleted car"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/car/{id}/accessories/{idAcess}": {
+        "patch": {
+          "summary": "Update a car accessory by id",
+          "description": "This route will select the accessory and update it",
+          "tags": [
+            "Car"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search by car id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "idAcess",
+              "in": "path",
+              "description": "Search by accessory id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                },
+                "examples": {
+                  "car": {
+                    "value": {
+                      "description": "Diesel"
                     }
+                  }
                 }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
             },
-            "Rental": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
-                    },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/person": {
+        "post": {
+          "summary": "Registration of people",
+          "description": "This route will be responsible for the registration of people",
+          "tags": [
+            "Person"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "get": {
+          "summary": "List of all people",
+          "description": "This route will list all people by parameter",
+          "tags": [
+            "Person"
+          ],
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "description": "Name of person to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "cpf",
+              "in": "query",
+              "description": "Cpf of the person to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "birthday",
+              "in": "query",
+              "description": "Person's birthday to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "email",
+              "in": "query",
+              "description": "Person's email to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "Person password to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "canDrive",
+              "in": "query",
+              "description": "Person's CanDrive to search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Person"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/person/{id}": {
+        "get": {
+          "summary": "Listing people by ID",
+          "description": "This route will list a person by the given ID",
+          "tags": [
+            "Person"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a person by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Person"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a person by ID",
+          "description": "This route will update a person's data by the given ID",
+          "tags": [
+            "Person"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a person by ID and update",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
                     "name": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "João da Silva"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": 21120038014
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "jsilva@email.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "123456"
+                    },
+                    "canDrive": {
+                      "type": "string",
+                      "example": "yes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Person"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a person by ID",
+          "description": "This route will delete a person by the given ID",
+          "tags": [
+            "Person"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a person by ID and delete",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Good Request"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/rental": {
+        "post": {
+          "summary": "Registration of a rental company",
+          "description": "This route will be responsible for registering rental companies",
+          "tags": [
+            "Rental"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Rental"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "get": {
+          "summary": "List of rental companies",
+          "description": "This route will list all Rental Companies by parameter",
+          "tags": [
+            "Rental"
+          ],
+          "parameters": [
+            {
+              "name": "zipCode",
+              "in": "query",
+              "description": "Rental zipCode for search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "number",
+              "in": "query",
+              "description": "rental number to search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "isFilial",
+              "in": "query",
+              "description": "rental isFilial for search",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "name": "complement",
+              "in": "query",
+              "description": "rental complement for search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "street",
+              "in": "query",
+              "description": "rental street for search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "district",
+              "in": "query",
+              "description": "rental district for search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "city",
+              "in": "query",
+              "description": "rental city for search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "state",
+              "in": "query",
+              "description": "rental state for search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Rental"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/rental/{id}": {
+        "get": {
+          "summary": "List of rental companies by ID",
+          "description": "This route will list a rental company by the given ID",
+          "tags": [
+            "Rental"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a rental by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Rental"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a rental company by ID",
+          "description": "This route will update data from a rental company by the given ID",
+          "tags": [
+            "Rental"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a rental company by ID and update",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "LocaFácil LtdA."
                     },
                     "cnpj": {
-                        "type": "string",
-                        "unique": true
+                      "type": "string",
+                      "example": "11.145.530/0001-44"
                     },
                     "activities": {
-                        "type": "string"
+                      "type": "string",
+                      "example": "Aluguel e venda de carros"
                     },
                     "address": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "zipCode": {
-                                    "type": "string"
-                                },
-                                "street": {
-                                    "type": "string"
-                                },
-                                "complement": {
-                                    "type": "string"
-                                },
-                                "district": {
-                                    "type": "string"
-                                },
-                                "number": {
-                                    "type": "number"
-                                },
-                                "city": {
-                                    "type": "string"
-                                },
-                                "state": {
-                                    "type": "string"
-                                },
-                                "isFilial": {
-                                    "type": "boolean"
-                                }
-                            }
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cep": {
+                            "type": "string",
+                            "example": "76937-000"
+                          },
+                          "number": {
+                            "type": "string",
+                            "example": "1234"
+                          },
+                          "isFilial": {
+                            "type": "boolean",
+                            "example": true
+                          }
                         }
+                      }
                     }
+                  }
                 }
-            },
-            "Fleet": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
-                    },
-                    "id_car": {
-                        "type": "string"
-                    },
-                    "id_rental": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": {
-                            "values": ["available", "unavailable", "rented"]
-                        }
-                    },
-                    "daily_value": {
-                        "type": "number"
-                    },
-                    "plate": {
-                        "type": "string"
-                    }
-                    
-                }
-            },
-            "Reserve": {
-                "type": "object",
-                "properties": {
-                    "_id": {
-                        "type": "string"
-                    },
-                    "id_user": {
-                        "type": "string"
-                    },
-                    "data_start": {
-                        "type": "string"
-                    },
-                    "data_end": {
-                        "type": "string"
-                    },
-                    "id_car": {
-                        "type": "string"
-                    },
-                    "id_rental": {
-                        "type": "string"
-                    },
-                    "final_value": {
-                        "type": "number"
-                    }
-                    
-                }
+              }
             }
+          },
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Rental"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
         },
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
+        "delete": {
+          "summary": "Delete a rental company by ID",
+          "description": "This route will delete a rental company by the given ID",
+          "tags": [
+            "Rental"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a rental company by ID to delete it",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
             }
+          ],
+          "responses": {
+            "200": {
+              "description": "No Content",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Rental"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
         }
+      },
+      "/rental/{id_rental}/fleet": {
+        "parameters": [
+          {
+            "name": "id_rental",
+            "in": "path",
+            "description": "Search for a rental company by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "post": {
+          "summary": "Car fleet registration",
+          "description": "This route will be responsible for the registration of fleets",
+          "tags": [
+            "Fleet"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fleet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Fleet"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "get": {
+          "summary": "Fleet listing",
+          "description": "This route will list all existing fleets",
+          "tags": [
+            "Fleet"
+          ],
+          "parameters": [
+            {
+              "name": "id_car",
+              "in": "query",
+              "description": "Search id_car",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "description": "Search status",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "available",
+                  "rented",
+                  "unavailable"
+                ]
+              }
+            },
+            {
+              "name": "daily_value",
+              "in": "query",
+              "description": "Search daily_value",
+              "schema": {
+                "type": "number"
+              }
+            },
+            {
+              "name": "plate",
+              "in": "query",
+              "description": "Search plate",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Rental"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/rental/{id_rental}/fleet/{id}": {
+        "parameters": [
+          {
+            "name": "id_rental",
+            "in": "path",
+            "description": "Search for a rental company by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Search a fleet by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "List of fleets by ID",
+          "description": "This route will list a fleet by the given ID",
+          "tags": [
+            "Fleet"
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Fleet"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a fleet by ID",
+          "description": "This route will update fleet data by the given ID",
+          "tags": [
+            "Fleet"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search a fleet by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fleet"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Fleet"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a fleet by ID",
+          "description": "This route will delete a fleet by the given ID",
+          "tags": [
+            "Fleet"
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Fleet"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      },
+      "/rental/{id_rental}/reserve": {
+        "parameters": [
+          {
+            "name": "id_rental",
+            "in": "path",
+            "description": "Search for a rental company by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "post": {
+          "summary": "Car booking registration",
+          "description": "This route will be responsible for booking",
+          "tags": [
+            "Reserve"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserve"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Reserve"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        },
+        "get": {
+          "summary": "Reservation listing",
+          "description": "This route will list all existing bookings",
+          "tags": [
+            "Reserve"
+          ],
+          "parameters": [
+            {
+              "name": "id_car",
+              "in": "query",
+              "description": "Search id_car",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "id_rental",
+              "in": "query",
+              "description": "Search id_rental",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "id_user",
+              "in": "query",
+              "description": "Search id_user",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "data_start",
+              "in": "query",
+              "description": "Search data_start",
+              "schema": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            {
+              "name": "data_end",
+              "in": "query",
+              "description": "Search data_end",
+              "schema": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            {
+              "name": "final_value",
+              "in": "query",
+              "description": "Search final_value",
+              "schema": {
+                "type": "number"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Rental"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/rental/{id_rental}/reserve/{id}": {
+        "parameters": [
+          {
+            "name": "id_rental",
+            "in": "path",
+            "description": "Search for a rental company by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Search for a reservation by ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Reservation listing by ID",
+          "description": "This route will list a booking by the given ID",
+          "tags": [
+            "Reserve"
+          ],
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Reserve"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a reservation by ID",
+          "description": "This route will update booking data by the given ID",
+          "tags": [
+            "Reserve"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Search for a Book by ID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserve"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Good Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Reserve"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a reservation by ID",
+          "description": "This route will delete a reservation by the given ID",
+          "tags": [
+            "Reserve"
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Reserve"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Car": {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string",
+              "example": "HILUX"
+            },
+            "type": {
+              "type": "string",
+              "example": "SUV"
+            },
+            "brand": {
+              "type": "string",
+              "example": "GM"
+            },
+            "color": {
+              "type": "string",
+              "example": "azul"
+            },
+            "year": {
+              "type": "string",
+              "example": "2000"
+            },
+            "accessories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "number",
+                    "example": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Person": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Joãozinho Silva"
+            },
+            "cpf": {
+              "type": "string",
+              "example": 19384723061
+            },
+            "birthday": {
+              "type": "string",
+              "format": "date",
+              "example": "10/01/2000"
+            },
+            "email": {
+              "type": "string",
+              "example": "joao13@email.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "123456"
+            },
+            "canDrive": {
+              "type": "string",
+              "enum": [
+                "yes",
+                "no"
+              ],
+              "example": "yes"
+            }
+          }
+        },
+        "Rental": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "LocalBr"
+            },
+            "cnpj": {
+              "type": "string",
+              "example": "16.670.085/0001-25"
+            },
+            "activities": {
+              "type": "string",
+              "example": "Aluguel de Carros E Gestão de Frotas"
+            },
+            "address": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cep": {
+                    "type": "string",
+                    "example": "96200-200"
+                  },
+                  "number": {
+                    "type": "string",
+                    "example": "1234"
+                  },
+                  "isFilial": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Fleet": {
+          "type": "object",
+          "properties": {
+            "id_car": {
+              "type": "string",
+              "example": "62b48b0a93894811322a60b0"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "available",
+                "rented",
+                "unavailable"
+              ],
+              "example": "available"
+            },
+            "daily_value": {
+              "type": "number",
+              "example": 200
+            },
+            "plate": {
+              "type": "string",
+              "example": "ABC1234"
+            }
+          }
+        },
+        "Reserve": {
+          "type": "object",
+          "properties": {
+            "id_user": {
+              "type": "string",
+              "example": "62b61cfe80c9d151e6634fd5"
+            },
+            "data_start": {
+              "type": "string",
+              "format": "date",
+              "example": "01/10/2022"
+            },
+            "data_end": {
+              "type": "string",
+              "format": "date",
+              "example": "15/10/2022"
+            },
+            "id_car": {
+              "type": "string",
+              "example": "62b48b0a93894811322a60b0"
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
     }
-}
+  }
