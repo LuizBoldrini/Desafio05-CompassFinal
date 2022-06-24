@@ -40,8 +40,8 @@ class RentalController {
 		try{
 			const {id} = req.params;
 			const reqBody = req.body;
-			const newRental = await RentalService.update(id, {$set: reqBody});
-			return res.status(204).json(newRental);
+			const newRental = await RentalService.update(id, {set: reqBody});
+			return res.status(200).json(newRental);
 		} catch(error) {
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
