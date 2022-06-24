@@ -1,9 +1,12 @@
 const RentalRepository = require("../repository/RentalRepository");
+const isFilial = require("../utils/IsFilial");
 
 class RentalService {
 	async create(payload) {
-		const result = await RentalRepository.create(payload);
-		return result;
+		const { address } = payload;
+		isFilial(address);
+		
+		return RentalRepository.create(payload);
 	}
 
 	async list(payload) {

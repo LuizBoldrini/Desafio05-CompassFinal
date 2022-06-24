@@ -1,7 +1,7 @@
 const BadRequest = require("../erros/BadRequest");
 
-function isFilial(reqBody) {
-	const { address } = reqBody;
+function isFilial(address) {
+	
 	let count = 0;
 
 	address.forEach((element) => {
