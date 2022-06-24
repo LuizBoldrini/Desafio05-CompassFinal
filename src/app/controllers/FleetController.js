@@ -3,7 +3,7 @@ const FleetService = require("../services/FleetService");
 const IdNonStandard = require("../erros/IdNonStandard");
 
 class FleetController {
-	async createReserve(req, res) {
+	async createFleet(req, res) {
 		try{
 			const {id_rental} = req.params;
 			const reqBody = req.body;
@@ -18,7 +18,7 @@ class FleetController {
 		}
 	}
 
-	async listReserve(req, res) {
+	async listFleet(req, res) {
 		try{
 			const {id_rental} = req.params;
 			const reqQuery = req.query;
@@ -40,11 +40,11 @@ class FleetController {
 		}	
 	}
 
-	async updateReserve(req, res) {
+	async updateFleet(req, res) {
 		try{
 			const {id} = req.params;
 			const reqBody = req.body;
-			const newFleet = await FleetService.update(id, {$set: reqBody});
+			const newFleet = await FleetService.update(id, {set: reqBody});
 			return res.status(200).json(newFleet);
 		} catch(error) {
 			if(error.name === "ValidationError") {
@@ -54,10 +54,11 @@ class FleetController {
 		}
 	}
 
-	async deleteReserve(req, res) {
+	async deleteFleet(req, res) {
 		try {
-			const deleteFleet = await FleetService.delete(req.params.id);
-			return res.status(204).json(deleteFleet);
+			const {id} = req.params;
+			await FleetService.delete(id);
+			return res.status(204).json();
 		} catch (error) {
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}

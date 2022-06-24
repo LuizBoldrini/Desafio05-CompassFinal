@@ -65,8 +65,7 @@ class CarController {
 			if(deleteCar == null) {
 				return res.status(404).json(new NotFound("id"));
 			}
-			
-			return res.status(204).json(deleteCar);
+			return res.status(204).json();
 		} catch (error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));

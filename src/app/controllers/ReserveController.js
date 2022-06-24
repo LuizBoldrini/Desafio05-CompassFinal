@@ -49,7 +49,7 @@ class ReserveController {
 		try{
 			const {id} = req.params;
 			const reqBody = req.body;
-			const newReserve = await ReserveService.update(id, {$set: reqBody});
+			const newReserve = await ReserveService.update(id, {set: reqBody});
 			return res.status(200).json(newReserve);
 		} catch(error) {
 			if(error.name === "TypeError") {
@@ -64,8 +64,9 @@ class ReserveController {
 
 	async deleteReserve(req, res) {
 		try {
-			const DeleteReserve = await ReserveService.delete(req.params.id);
-			return res.status(204).json(DeleteReserve);
+			const {id} = req.params;
+			await ReserveService.delete(id);
+			return res.status(200).json();
 		} catch(error) {
 			if(error.name === "CastError") {
 				return res.status(400).json(new IdNonStandard("id"));
