@@ -12,12 +12,12 @@ class ReserveController {
 
 		} catch(error) {
 			if(error.name === "TypeError") {
-				return res.status(400).json(new NotFound("id_user, id_car or id_rental"));
+				return res.status(error.status ||  400).json(new NotFound("id_user, id_car or id_rental"));
 			}
 			if(error.name === "CastError") {
-				return res.status(error.status || 400).json(new BadRequest("\"id_user or id_car\" does not follow database standards"));
+				return res.status(error.status || 404).json(new BadRequest("\"id_user or id_car\" does not follow database standards"));
 			}if(error.name === "ValidationError") {
-				return res.status(error.status || 400).json(new BadRequest("\"id_rental\" does not follow database standards"));
+				return res.status(error.status || 404).json(new BadRequest("\"id_rental\" does not follow database standards"));
 			}
 			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}

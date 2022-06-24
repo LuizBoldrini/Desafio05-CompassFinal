@@ -8,7 +8,7 @@ class RentalController {
 			const rentalCreate = await RentalService.create(reqBody);
 			return res.status(201).json(rentalCreate);
 		} catch (error) {
-			return res.status(400).json({ dname: error.name, description: error.description });
+			return res.status(error.status || 400).json({ dname: error.name, description: error.description });
 		}
 	}
 
@@ -19,7 +19,7 @@ class RentalController {
 			return res.status(200).json(RentalList);
 
 		} catch(error) {
-			return res.status(400).json({ name: error.name, description: error.description });
+			return res.status(error.status || 400).json({ name: error.name, description: error.description });
 		}
 	}
 
