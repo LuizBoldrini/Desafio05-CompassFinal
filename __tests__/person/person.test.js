@@ -126,7 +126,7 @@ describe('Person route test', () => {
     expect(people.status).toBe(400);
   });
 
-  it('Change some data of a person', async () => {
+  it('Updating a person', async () => {
     const person = await request(app).post('/api/v1/person').send({
       name: 'João da Silva',
       cpf: '88943098006',
@@ -140,7 +140,7 @@ describe('Person route test', () => {
     });
     expect(updatePerson.status).toBe(200);
   });
-  it('Change some data of a person with error', async () => {
+  it('Updating a person with error', async () => {
     const person = await request(app).post('/api/v1/person').send({
       name: 'João da Silva',
       cpf: '88943098006',
@@ -154,7 +154,7 @@ describe('Person route test', () => {
     });
     expect(updatePerson.status).toBe(400);
   });
-  it('Delete a person by id with non-standard id error', async () => {
+  it('Updating a person by id with non-standard id error', async () => {
     await request(app).post('/api/v1/person').send({
       name: 'João da Silva',
       cpf: '88943098006',
@@ -180,7 +180,7 @@ describe('Person route test', () => {
     const people = await request(app).delete(`/api/v1/person/${person.body._id}`).send();
     expect(people.status).toBe(200);
   });
-  it('Delete a person by idDelete a person by id with error of not found', async () => {
+  it('Delete a person by id with error of not found', async () => {
     await request(app).post('/api/v1/person').send({
       name: 'João da Silva',
       cpf: '88943098006',
