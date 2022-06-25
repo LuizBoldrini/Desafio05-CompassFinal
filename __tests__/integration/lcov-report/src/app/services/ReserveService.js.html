@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.83% </span>
+                <span class="strong">31.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/67</span>
+                <span class='fraction'>21/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.83% </span>
+                <span class="strong">31.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/67</span>
+                <span class='fraction'>21/67</span>
             </div>
         
             
@@ -129,7 +129,8 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -161,13 +162,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -194,81 +188,90 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const ReserveRepository = require("../repository/ReserveRepository");
-const NotFound = require("../erros/NotFound");
-const CalcFinalValue = require("../utils/CalcFinalValue");
-const FleetRepository = require("../repository/FleetRepository");
-const PersonRepository = require("../repository/PersonRepository");
-const CanDrive = require("../erros/CanDrive");
-// const moment = require("moment");
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const ReserveRepository = require('../repository/ReserveRepository');
+const NotFound = require('../erros/NotFound');
+const CalcFinalValue = require('../utils/CalcFinalValue');
+const FleetRepository = require('../repository/FleetRepository');
+const PersonRepository = require('../repository/PersonRepository');
+const RentalRepository = require('../repository/RentalRepository');
+const BadRequest = require('../erros/BadRequest');
 &nbsp;
 class ReserveService {
-	static async create<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const { id_user } = payload;</span>
-<span class="cstat-no" title="statement not covered" >		const user = await PersonRepository.listById(id_user);</span>
-<span class="cstat-no" title="statement not covered" >		if (user.canDrive !== "yes") {</span>
-<span class="cstat-no" title="statement not covered" >			throw new CanDrive;}</span>
+  async create<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >    const { id_rental } = payload;</span>
+<span class="cstat-no" title="statement not covered" >    const rental = await RentalRepository.listById(id_rental);</span>
+<span class="cstat-no" title="statement not covered" >    if (!rental) throw new NotFound('Rental');</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		const { id_car } = payload;</span>
-<span class="cstat-no" title="statement not covered" >		const fleet = await FleetRepository.listById(id_car);</span>
-<span class="cstat-no" title="statement not covered" >		if (!fleet){</span>
-<span class="cstat-no" title="statement not covered" >			throw new NotFound("Fleet");</span>
-<span class="cstat-no" title="statement not covered" >		} </span>
-<span class="cstat-no" title="statement not covered" >		const { data_start, data_end } = payload;</span>
-<span class="cstat-no" title="statement not covered" >		const { daily_value } = fleet;</span>
+<span class="cstat-no" title="statement not covered" >    const { id_user } = payload;</span>
+<span class="cstat-no" title="statement not covered" >    const user = await PersonRepository.listById(id_user);</span>
+<span class="cstat-no" title="statement not covered" >    if (user.canDrive !== 'yes') {</span>
+<span class="cstat-no" title="statement not covered" >      throw new BadRequest('This user cannot drive, please select an id of a user who can drive');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		// if (!moment.isAfter(moment(data_end, "DD/MM/YYYY")) &amp;&amp; !moment.isBefore(moment(data_start, "DD/MM/YYYY"))</span>
-<span class="cstat-no" title="statement not covered" >		// ) {</span>
-<span class="cstat-no" title="statement not covered" >		// 	throw new Error(`This car is rented from ${data_start} until ${data_end}`);</span>
-<span class="cstat-no" title="statement not covered" >		// }</span>
+<span class="cstat-no" title="statement not covered" >    const { id_car } = payload;</span>
+<span class="cstat-no" title="statement not covered" >    const fleet = await FleetRepository.listById(id_car);</span>
+<span class="cstat-no" title="statement not covered" >    if (!fleet) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound('Fleet');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		</span>
-<span class="cstat-no" title="statement not covered" >		payload.final_value = CalcFinalValue(data_start, data_end, daily_value);</span>
+<span class="cstat-no" title="statement not covered" >    const { data_start, data_end } = payload;</span>
+<span class="cstat-no" title="statement not covered" >    const { daily_value } = fleet;</span>
+<span class="cstat-no" title="statement not covered" >    payload.final_value = CalcFinalValue(data_start, data_end, daily_value);</span>
 <span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return ReserveRepository.create(payload);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+&nbsp;
+  async list<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >    const { id_rental } = payload;</span>
+<span class="cstat-no" title="statement not covered" >    const rental = await RentalRepository.listById(id_rental);</span>
+<span class="cstat-no" title="statement not covered" >    if (!rental) throw new NotFound('Rental');</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		return ReserveRepository.create(payload);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+<span class="cstat-no" title="statement not covered" >    return ReserveRepository.list(payload);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-	static async list<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await ReserveRepository.list(payload);</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+  async listById<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >    const result = await ReserveRepository.listById(payload);</span>
+<span class="cstat-no" title="statement not covered" >    if (!result) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound('id');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    return result;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-	static async listById<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await ReserveRepository.listById(payload);</span>
-<span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
-<span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
+  async update<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
+<span class="cstat-no" title="statement not covered" >    const result = await ReserveRepository.update(payload, reqBody);</span>
+<span class="cstat-no" title="statement not covered" >    if (!result) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound('id');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    return result;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-	static async update<span class="fstat-no" title="function not covered" >(payload, reqBody) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await ReserveRepository.update(payload, reqBody);</span>
-<span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
-<span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
-&nbsp;
-	static async delete<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >		const resultado = await ReserveRepository.delete(payload);</span>
-<span class="cstat-no" title="statement not covered" >		if(!resultado) {</span>
-<span class="cstat-no" title="statement not covered" >			throw new NotFound("id");</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >		return resultado;</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
-&nbsp;
+  async delete<span class="fstat-no" title="function not covered" >(payload) {</span>
+<span class="cstat-no" title="statement not covered" >    const result = await ReserveRepository.delete(payload);</span>
+<span class="cstat-no" title="statement not covered" >    if (!result) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound('id');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    return result;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
-module.exports = ReserveService;</pre></td></tr></table></pre>
+module.exports = new ReserveService();
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 20 2022 13:49:05 GMT-0300 (Horário Padrão de Brasília)
+                at Sat Jun 25 2022 20:35:15 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.78% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/33</span>
+                <span class='fraction'>32/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.78% </span>
+                <span class="strong">94.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/33</span>
+                <span class='fraction'>32/34</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,7 +95,9 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -108,14 +110,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -123,50 +117,62 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const PersonRepository = require("../repository/PersonRepository");
-const NotFound = require("../erros/NotFound");
-const PassIncorrect = require("../erros/PassIncorrect");
-const formataCpf = require("../utils/FormataCpf");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const authConfig = require("../config/authConfig.json");
-require("dotenv").config();
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const PersonRepository = require('../repository/PersonRepository');
+const NotFound = require('../erros/NotFound');
+const CpfFormat = require('../utils/CpfFormat');
+const authConfig = require('../config/authConfig.json');
+const BadRequest = require('../erros/BadRequest');
+require('dotenv').config();
 &nbsp;
 class AuthenticateService {
-	static async acess(email, password) {
-		const user = await PersonRepository.findPeopleByEmail(email);
-		
-		if(!user) {
-			throw new NotFound("User");
-		}
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >		const { canDrive } = user;</span></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		if(!(await bcrypt.compare(password, user.password))) {</span>
-<span class="cstat-no" title="statement not covered" >			new PassIncorrect("password");</span>
-<span class="cstat-no" title="statement not covered" >		}	</span>
-<span class="cstat-no" title="statement not covered" >		user.password = undefined;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-		const token = jwt.sign({ id: user.id}, authConfig.secret || process.env.JWT_SECRET, {
-			expiresIn: 86400
-		});
-		
-		formataCpf(user);
-		return {canDrive, token};
-	}
+  async acess(email, password) {
+    const user = await PersonRepository.acess(email);
+    if (!user) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound('User');</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    const { canDrive } = user;
+&nbsp;
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      throw new BadRequest('"password" is incorrect');
+    }
+    user.password = undefined;
+&nbsp;
+    const token = jwt.sign({ id: user.id }, <span class="branch-0 cbranch-no" title="branch not covered" >authConfig.secret || process.env.JWT_SECRET, {</span>
+      expiresIn: 86400
+    });
+&nbsp;
+    CpfFormat(user);
+    return { canDrive, email, token };
+  }
 }
 &nbsp;
-module.exports = AuthenticateService;</pre></td></tr></table></pre>
+module.exports = new AuthenticateService();
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 20 2022 13:49:05 GMT-0300 (Horário Padrão de Brasília)
+                at Sat Jun 25 2022 20:35:15 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
