@@ -13,7 +13,7 @@ class FleetController {
     } catch (error) {
       if (error.name === 'CastError') {
         return res
-          .status(error.status || 404)
+          .status(error.status || 400)
           .json(new BadRequest('"id_rental or id_car" does not follow database standards'));
       }
       return res.status(error.status || 400).json({ name: error.name, description: error.description });

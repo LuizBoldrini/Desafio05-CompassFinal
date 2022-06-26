@@ -21,7 +21,6 @@ class CarController {
       if (listCar.length === 0) {
         return res.status(204).send();
       }
-
       return res.status(200).json(listCar);
     } catch (error) {
       return res.status(error.status || 400).json({ name: error.name, description: error.description });
