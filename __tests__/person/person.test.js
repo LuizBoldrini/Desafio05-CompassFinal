@@ -87,7 +87,7 @@ describe('Person route test', () => {
 
   it('Returns all person', async () => {
     const personGet = await request(app).get('/api/v1/person').send();
-    expect(personGet.status).toBe(200);
+    expect(personGet.status).toBe(204);
   });
   it('Returns all people with with error', async () => {
     const personGet = await request(app).get('/api/v1/person').send({
