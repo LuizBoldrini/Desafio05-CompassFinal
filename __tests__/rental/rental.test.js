@@ -201,7 +201,7 @@ describe('Person route test', () => {
     const rentalGet = await request(app).delete(`/api/v1/rental/${rental.body._id}`).send();
     expect(rentalGet.status).toBe(200);
   });
-  it('Delete a person by id with error', async () => {
+  it('Delete a rental by id with error', async () => {
     await request(app).post('/api/v1/rental').send({
       name: 'João da Silva',
       cpf: '88943098006',

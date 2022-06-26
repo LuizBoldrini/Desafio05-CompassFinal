@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const request = require('supertest');
 const app = require('../../src/app');
 const Person = require('../../src/app/models/Person');
