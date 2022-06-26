@@ -18,6 +18,9 @@ class CarController {
     try {
       const reqQuery = req.query;
       const listCar = await CarService.list(reqQuery);
+      if (listCar.length === 0) {
+        return res.status(204).send();
+      }
 
       return res.status(200).json(listCar);
     } catch (error) {

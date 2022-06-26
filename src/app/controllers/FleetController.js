@@ -25,6 +25,9 @@ class FleetController {
       const { id_rental } = req.params;
       const reqQuery = req.query;
       const fleetList = await FleetService.list({ reqQuery, id_rental: String(id_rental) });
+      if (fleetList.length === 0) {
+        return res.status(204).send();
+      }
       return res.status(200).json(fleetList);
     } catch (error) {
       return res.status(error.status || 400).json({ name: error.name, description: error.description });

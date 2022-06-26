@@ -19,6 +19,9 @@ class PersonController {
     try {
       const reqQuery = req.query;
       const personList = await PersonService.list(reqQuery);
+      if (personList.length === 0) {
+        return res.status(204).send();
+      }
       return res.status(200).json(personList);
     } catch (error) {
       return res.status(error.status || 400).json({ name: error.name, description: error.description });

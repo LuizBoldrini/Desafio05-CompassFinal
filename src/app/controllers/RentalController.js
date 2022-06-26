@@ -16,6 +16,9 @@ class RentalController {
     try {
       const reqQuery = req.query;
       const RentalList = await RentalService.list(reqQuery);
+      if (RentalList.length === 0) {
+        return res.status(204).send();
+      }
       return res.status(200).json(RentalList);
     } catch (error) {
       return res.status(error.status || 400).json({ name: error.name, description: error.description });

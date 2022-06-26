@@ -30,6 +30,9 @@ class ReserveController {
       const { id_rental } = req.params;
       const reqQuery = req.query;
       const reserveList = await ReserveService.list({ ...reqQuery, id_rental: String(id_rental) });
+      if (reserveList.length === 0) {
+        return res.status(204).send();
+      }
       return res.status(200).json(reserveList);
     } catch (error) {
       return res.status(error.status || 400).json({ name: error.name, description: error.description });
